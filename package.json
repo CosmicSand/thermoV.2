@@ -11,5 +11,9 @@
   "devDependencies": {
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "modern-normalize": "^3.0.1",
+    "mqtt": "^5.10.4"
   }
 }

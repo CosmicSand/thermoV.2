@@ -1,0 +1,8 @@
+@import "node_modules/modern-normalize/modern-normalize.css";
+@import "./src/css/reset.css";
+@import "./src/css/container.css";
+@import "./src/css/variables.css";
+/* @import "./src/css/login.css";
+@import "./src/css/info.css";
+@import "./src/css/sensor.css";
+@import "./src/css/utils.css"; */
