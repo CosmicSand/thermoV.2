@@ -35,6 +35,27 @@
   }
 }
 
+/* ==== Alarm - Overheated ==== */
+
+.over-heated-alarm {
+  box-shadow: 0 0 1em 1em var(--alarm-color),
+    inset 0 -0.2em 0.6em 0.6em var(--alarm-color);
+  animation: alarm 1s ease-in 0.1s infinite normal forwards;
+}
+@keyframes alarm {
+  0% {
+  }
+
+  40% {
+    box-shadow: 0 0 5em 3em var(--alarm-color),
+      inset 0 -0.2em 1em 1em var(--alarm-color);
+  }
+  100% {
+  }
+}
+
+/* ==== Media ==== */
+
 @media screen and (min-width: 768px) {
   .tau {
     font-size: 1.8rem;
