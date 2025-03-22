@@ -1,0 +1,44 @@
+/* ==== Time alarm button ==== */
+
+.tau {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  width: 1.7em;
+  height: 1.7em;
+  top: -17%;
+  left: -17%;
+  color: var(--border-color);
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 0 0.25em 0.125em hsl(0, 97%, 42%),
+    inset 0 0 0.5em 0.1em hsl(0, 97%, 42%);
+  animation: alarm-time 1s ease-in 0.1s infinite normal forwards;
+  z-index: 2;
+}
+@keyframes alarm-time {
+  0% {
+  }
+
+  40% {
+    box-shadow: 0 0 0.75em 0.375em hsl(0, 97%, 42%),
+      inset 0 -0.05em 0.5em 0.05em hsl(0, 97%, 42%);
+  }
+  100% {
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tau {
+    font-size: 1.8rem;
+    width: 1.7em;
+    height: 1.7em;
+  }
+}

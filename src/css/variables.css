@@ -1,7 +1,5 @@
 :root {
-  font-family: Montserrat, Arial, sans-serif;
-  color: hsla(53, 100%, 50%, 0.767);
-  background-color: #242424;
+  --text-color: hsla(53, 100%, 50%, 0.767);
   --logo-btn-bg-color: hsl(50, 100%, 50%);
   --border-color: hsl(47, 89%, 78%);
   --border-color-hov: hsl(44, 54%, 93%);

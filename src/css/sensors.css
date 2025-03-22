@@ -1,0 +1,231 @@
+/* ==== Wrappers ==== */
+
+.control-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 3rem;
+}
+
+.for-boilers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5em;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.for-sensors {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* ==== Sensor ==== */
+
+.sensor {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 7rem;
+  height: 7rem;
+  /* filter: contrast(1.2); */
+  border-radius: 100%;
+  /* z-index: 2; */
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    hsla(129, 93%, 41%, 0.71) 70% 100%
+  );
+  cursor: pointer;
+  /* Halo */
+
+  /* box-shadow: 0 0 2em 0.8em hsla(129, 93%, 41%, 0.71),
+    0 0 0.2em 0.1em hsla(129, 70%, 91%, 0.71); */
+
+  /* box-shadow: 0 0 0.4em 0.8em hsl(129, 97%, 41%),
+    inset 0 -0.2em 0.5em 0.5em hsl(129, 93%, 41%); */
+  /* box-shadow: 0.1em 0.1em 1em 0.05em hsl(0, 0%, 100%); */
+}
+
+.parameter {
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: hsl(64, 77%, 76%);
+  cursor: pointer;
+}
+
+.sensor-name {
+  max-width: 70%;
+  font-size: 0.7em;
+  line-height: 1.15;
+  padding-top: 0.2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.2em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  border-radius: 1em;
+  text-align: center;
+  color: var(--border-color);
+  outline: none;
+  background-color: hsla(0, 0%, 0%, 0.835);
+  transition: border 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+/* ==== Battery ==== */
+
+.battery {
+  display: flex;
+  position: absolute;
+  top: 92%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.1em;
+  padding: 0.1em;
+  width: fit-content;
+  background-color: hsl(0, 0%, 0%);
+  border: 0.2em solid hsl(0, 0%, 0%);
+  border-radius: 0.2em;
+}
+.low-level {
+  width: 0.25rem;
+  height: 0.5rem;
+  background-color: hsl(0, 97%, 42%);
+}
+.medium-level {
+  width: 0.25em;
+  height: 0.5em;
+  background-color: hsl(57, 97%, 50%);
+}
+.full-level {
+  width: 0.25em;
+  height: 0.5em;
+  background-color: hsl(134, 97%, 50%);
+}
+.is-full {
+  background-color: hsl(134, 97%, 50%);
+}
+.battery:hover::before {
+  content: attr(data-battery) "%";
+  position: absolute;
+  font-size: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.2em;
+  padding: 0.1em 0.2em;
+  color: var(--border-color);
+  background-color: hsl(0, 0%, 0%);
+}
+.drained {
+  background-color: transparent;
+  border: 0.05em solid hsla(0, 0%, 100%, 0.596);
+}
+
+/* ==== Time alarm button ==== */
+
+@media screen and (min-width: 768px) {
+  .for-boilers {
+    display: flex;
+    flex-direction: row;
+  }
+  .boiler::before {
+    content: attr(data-in);
+    font-size: 3em;
+    font-weight: 600;
+    color: hsl(64, 77%, 76%);
+    position: absolute;
+    width: 2.4em;
+    height: 1.2em;
+    background-color: transparent;
+    border-bottom: 10px solid hsla(186, 100%, 51%, 0.605);
+    top: 35%;
+    left: -31%;
+  }
+
+  .boiler::after {
+    content: attr(data-out);
+    font-size: 3em;
+    font-weight: 600;
+    color: hsl(64, 77%, 76%);
+    position: absolute;
+    width: 2.4em;
+    height: 1.2em;
+    background-color: transparent;
+    border-bottom: 10px solid hsla(0, 97%, 42%, 0.581);
+    top: 35%;
+    left: 131%;
+  }
+  .padding {
+    padding-left: 4.6em;
+    padding-right: 4.6em;
+  }
+  .sensor {
+    width: 10em;
+    height: 10em;
+  }
+  .sensor.boiler {
+    width: 12em;
+    height: 12em;
+  }
+  .parameter {
+    font-size: 3em;
+  }
+  .sensor-name {
+    max-width: 70%;
+    font-size: 1em;
+  }
+
+  .battery:hover::before {
+    font-size: 0.7em;
+  }
+  .low-level {
+    width: 0.5em;
+    height: 1em;
+  }
+  .medium-level {
+    width: 0.5em;
+    height: 1em;
+  }
+  .full-level {
+    width: 0.5em;
+    height: 1em;
+  }
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}

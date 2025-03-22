@@ -1,0 +1,13 @@
+body {
+  font-family: Montserrat, Arial, sans-serif;
+  background-image: radial-gradient(rgb(8, 1, 80) 0%, rgb(0, 0, 0) 100%);
+  color: var(--text-color);
+  height: 100vh;
+}
+main {
+  margin-top: 1em;
+  padding: 1em;
+}
+.hidden {
+  display: none;
+}

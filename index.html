@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ThermoV2</title>
-    <link rel="stylesheet" href="./src/css/index.css" />
+    <link rel="stylesheet" href="./src/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,7 +31,7 @@
             maxlength="10"
             required
           />
-          <label class="password-label" for="password"> Password</label>
+
           <input
             name="password"
             id="password"
@@ -85,12 +85,7 @@
         <div class="control-area">
           <div class="sensor">
             <p class="parameter">45.3</p>
-            <input
-              class="sensor-name"
-              type="text"
-              name="sensor-name"
-              placeholder="Room"
-            />
+            <p class="sensor-name">Bathroom</p>
 
             <div class="battery">
               <div class="low-level"></div>
@@ -101,14 +96,14 @@
               <span> &#x1D70F;</span>
             </button>
 
-            <button
+            <!-- <button
               type="button"
               class="open-settings-btn"
               aria-label="Settings"
             >
               <span>&#9881;</span>
-            </button>
-            <div class="settings">
+            </button> -->
+            <div class="settings hidden">
               <button type="button" class="close-settings-btn">&#10005;</button>
               <form class="settings-form" method="post">
                 <label for="sensorsname">Sensor's name</label>
@@ -140,12 +135,7 @@
           </div>
           <div class="sensor" data-in="" data-out="">
             <p class="parameter">85.3</p>
-            <input
-              class="sensor-name"
-              type="text"
-              name="sensor-name"
-              placeholder="Dining room"
-            />
+            <p class="sensor-name">Room</p>
 
             <div class="battery">
               <div class="low-level medium-level"></div>
@@ -155,12 +145,7 @@
           </div>
           <div class="sensor over-heated">
             <p class="parameter">85.3</p>
-            <input
-              class="sensor-name"
-              type="text"
-              name="sensor-name"
-              placeholder="Kitchen"
-            />
+            <p class="sensor-name">Kitchen</p>
 
             <div class="battery">
               <div class="low-level is-full"></div>
