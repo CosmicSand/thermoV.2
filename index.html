@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thermo</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Log in -->
+      <div class="login hidden">
+        <div class="baloon"><h1 class="title">Hi</h1></div>
+        <p class="greet-text">Let's roll</p>
+        <form name="login" class="login-form" method="post">
+          <label class="name-label" for="username">Username </label>
+          <input
+            name="name"
+            id="username"
+            class="username"
+            type="text"
+            placeholder="Username"
+            minlength="3"
+            maxlength="10"
+            required
+          />
+          <label class="password-label" for="password"> Password</label>
+          <input
+            name="password"
+            id="password"
+            class="password"
+            type="password"
+            placeholder="Password"
+            minlength="3"
+            maxlength="10"
+            required
+          />
+          <button class="login-btn" type="submit">Log in</button>
+        </form>
+      </div>
+      <!-- Greetings -->
+      <div class="greetings hidden">
+        <h2 class="greetings-title">You're almost there</h2>
+        <p class="greetings-text">
+          Here is some useful information that will help you to get astonishing
+          experience of using this app. Let's get sart it!
+        </p>
+        <p class="greetings-text">This is a sensor</p>
+        <div class="sensor-info">
+          <div class="info-block"><p>Temperature in Celsius degrees</p></div>
+          <div class="info-block"><p>Control point's name</p></div>
+          <div class="arrow-temp"></div>
+          <div class="arrow-name"></div>
+        </div>
+
+        <div class="sensor example">
+          <p class="parameter">85.3</p>
+          <input
+            class="sensor-name"
+            type="text"
+            name="sensor-name"
+            placeholder="Dining room"
+          />
+
+          <div class="battery">
+            <div class="low-level is-full"></div>
+            <div class="medium-level is-full"></div>
+            <div class="full-level is-full"></div>
+          </div>
+        </div>
+        <div class="info-block"><p class="battery-life">Battery life</p></div>
+        <button class="next-btn" type="button">Next</button>
+      </div>
+
+      <!-- Temperature monitor -->
+
+      <div class="monitor">
+        <div class="control-area">
+          <div class="sensor">
+            <p class="parameter">45.3</p>
+            <input
+              class="sensor-name"
+              type="text"
+              name="sensor-name"
+              placeholder="Room"
+            />
+
+            <div class="battery">
+              <div class="low-level"></div>
+              <div class="medium-level drained"></div>
+              <div class="full-level drained"></div>
+            </div>
+            <button class="tau">
+              <span> &#x1D70F;</span>
+            </button>
+
+            <button
+              type="button"
+              class="open-settings-btn"
+              aria-label="Settings"
+            >
+              <span>&#9881;</span>
+            </button>
+            <div class="settings">
+              <button type="button" class="close-settings-btn">&#10005;</button>
+              <form class="settings-form" method="post">
+                <label for="sensorsname">Sensor's name</label>
+                <input id="sensorsname" type="text" class="sensorsname" />
+                <h3 class="limits-title">Limits</h3>
+                <div class="limits-inputs">
+                  <label for="high-temp" class="high-temp-lbl"
+                    >Up
+                    <input id="high-temp" class="high-temp-limit" type="number"
+                  /></label>
+
+                  <label for="low-temp" class="low-temp-lbl"
+                    >Down<input
+                      id="low-temp"
+                      class="low-temp-limit"
+                      type="number"
+                  /></label>
+
+                  <label for="time" class="time-lbl"
+                    >Time<input id="time" class="time-limit" type="number"
+                  /></label>
+                </div>
+                <div class="settings-btn-container">
+                  <button type="submit" class="apply-btn">Apply</button>
+                  <button type="button" class="reset-btn">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="sensor" data-in="" data-out="">
+            <p class="parameter">85.3</p>
+            <input
+              class="sensor-name"
+              type="text"
+              name="sensor-name"
+              placeholder="Dining room"
+            />
+
+            <div class="battery">
+              <div class="low-level medium-level"></div>
+              <div class="medium-level"></div>
+              <div class="full-level drained"></div>
+            </div>
+          </div>
+          <div class="sensor over-heated">
+            <p class="parameter">85.3</p>
+            <input
+              class="sensor-name"
+              type="text"
+              name="sensor-name"
+              placeholder="Kitchen"
+            />
+
+            <div class="battery">
+              <div class="low-level is-full"></div>
+              <div class="medium-level is-full"></div>
+              <div class="full-level is-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
