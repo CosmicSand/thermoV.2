@@ -2,9 +2,9 @@
 @import "./css/reset.css";
 @import "./css/container.css";
 @import "./css/variables.css";
+@import "./css/utils.css";
 @import "./css/sensors.css";
 @import "./css/alarm.css";
 /* @import "./src/css/login.css";
 @import "./src/css/info.css";
 @import "./src/css/sensor.css"; */
-@import "./css/utils.css";
