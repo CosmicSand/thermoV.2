@@ -1,0 +1,122 @@
+/* Information page */
+
+.greetings {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.5em;
+  color: var(--border-color);
+  opacity: 0;
+  animation: appear 0.2s ease-in 0.2s 1 forwards running;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.example {
+  background-color: hsl(0, 0%, 0%);
+}
+.sensor-info {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-block {
+  margin-top: 0.5em;
+  width: 30%;
+}
+.arrow-temp {
+  position: absolute;
+  top: 100%;
+  left: 23%;
+  width: 30px;
+  height: 80px;
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-radius: 0 40px 0 0;
+  transform: rotate(180deg);
+  z-index: 3;
+}
+.arrow-name {
+  position: absolute;
+  top: 100%;
+  left: 70%;
+  width: 40px;
+  height: 130px;
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-radius: 0 40px 0 0;
+  transform: scaleY(-1);
+  z-index: 3;
+}
+/* .arrow-battery {
+  position: absolute;
+  top: 91%;
+  left: 50%;
+  width: 1px;
+  height: 20px;
+  border-right: 1px solid var(--border-color);
+  transform: rotate(180deg);
+  z-index: 1;
+} */
+.battery-life {
+  position: relative;
+}
+.battery-life::before {
+  content: "";
+  position: absolute;
+  top: -110%;
+  left: 50%;
+  width: 1px;
+  height: 20px;
+  border-right: 1px solid var(--border-color);
+  transform: rotate(180deg);
+  z-index: 1;
+}
+.next-btn {
+  font-size: 1.5em;
+  font-weight: 200;
+  margin-bottom: 1em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-top: 1em;
+  border: 1px solid var(--logo-btn-bg-color);
+  border-radius: 1em;
+  background-color: hsla(0, 0%, 0%, 0.835);
+  color: var(--logo-btn-bg-color);
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+.next-btn:hover,
+.next-btn:focus {
+  border-color: var(--border-color-hov);
+  color: var(--border-color-hov);
+  /* box-shadow: 0 0 0.2em 0.05em var(--logo-btn-bg-color); */
+}
+@media screen and (min-width: 378px) {
+  .arrow {
+    width: 40px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .arrow-temp {
+    width: 60px;
+  }
+  .arrow-name {
+    left: 65%;
+    width: 60px;
+    height: 130px;
+  }
+}
