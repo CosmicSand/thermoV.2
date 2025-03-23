@@ -12,6 +12,10 @@
   animation: appear 0.2s ease-in 0.2s 1 forwards running;
 }
 
+.greetings.hidden {
+  display: none;
+}
+
 @keyframes appear {
   0% {
     opacity: 0;
