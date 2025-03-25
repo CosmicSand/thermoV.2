@@ -5,10 +5,6 @@ import SensorsResponse from "./login.types";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 
-const infoSection = document.querySelector<HTMLDivElement>(".greetings");
-
-const loginArea = document.querySelector<HTMLDivElement>(".login");
-
 function fetch(username: string, password: string) {
   {
     const client = mqtt.connect("mqtt://sgh.com.ua", {
@@ -32,30 +28,31 @@ function fetch(username: string, password: string) {
       console.log("Підключено");
       client.subscribe("rcit/#");
     });
-    loginArea?.classList.add("hidden");
-    infoSection?.classList.remove("hidden");
+
     client.on("message", (_, message) => {
-      const messageStr = message.toString();
-      // console.log(messageStr);
+      const messageStr = message.toString().slice(0, -1);
       if (messageStr) {
-        currentTemperatures(messageStr);
+        addToAndRefreshObject(messageStr);
         // cardCreation(sensorsResponses);
       }
     });
   }
 }
 
-// Функція, яка створює об'єкт користувачів та точок контролю для кожного окремо
+// Функція, яка додає до об'єкту користувачів та точки контролю для кожного окремо, а також оновлює дані кожної з точок при надходженні нових значень
 
-function currentTemperatures(messageStr: string) {
+function addToAndRefreshObject(messageStr: string) {
   if (messageStr.includes(":")) return;
+
+  // Трансформація повідомлення в зручну форму. Відокремлення власника та сенсора
+
   const currentResponse = messageStr.split(";");
   const ownerId = currentResponse[0];
   const sensorId = ownerId + "_" + currentResponse[1];
-  const sensorData = currentResponse
-    .toSpliced(currentResponse.length - 1, 1)
-    .slice(2);
+  const sensorData = currentResponse.slice(2);
   sensorData.push(uuidv4());
+
+  // Додавання та оновлення даних (у разі наявних)
 
   const keysOfSensorsResponses = Object.keys(sensorsResponses);
 
