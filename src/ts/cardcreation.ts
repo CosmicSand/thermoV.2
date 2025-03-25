@@ -404,6 +404,9 @@ function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
     }
   }
 }
+
+// Функція сигналізації по температурі (збільшення/зменшення відносно допустимої)
+
 function temperatureAlarm(sensorsResponses: SensorsResponse): void {
   const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
