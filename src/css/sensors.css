@@ -179,6 +179,37 @@
   border: 0.05em solid hsla(0, 0%, 100%, 0.596);
 }
 
+/* Boiler */
+
+.boiler {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  width: 8em;
+  height: 8em;
+  border-left: 0.15em solid hsla(186, 100%, 51%, 0.792);
+  border-right: 0.15em solid hsla(0, 97%, 42%, 0.745);
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    hsla(129, 93%, 41%, 0.71) 70% 100%
+  );
+}
+
+[data-active="true"] {
+  box-shadow: 0.1em 0.1em 1.5em 0.1em hsl(0, 0%, 100%);
+  /* background-image: radial-gradient(
+    transparent 0% 50%,
+    hsla(129, 93%, 41%, 0.71) 70% 100%
+  );
+  box-shadow: 0 0 2em 0.8em hsla(0, 0%, 99%, 0.71),
+    0 0 0.2em 0.1em hsla(129, 70%, 91%, 0.71); */
+}
+
 /* ==== Time alarm button ==== */
 
 @media screen and (min-width: 768px) {

@@ -1,7 +1,7 @@
 import mqtt from "mqtt";
 import { v4 as uuidv4 } from "uuid";
 import SensorsResponse from "./login.types";
-// import { cardCreation } from "./cardcreation";
+import { cardCreation } from "./cardcreation";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 
@@ -33,7 +33,7 @@ function fetch(username: string, password: string) {
       const messageStr = message.toString().slice(0, -1);
       if (messageStr) {
         addToAndRefreshObject(messageStr);
-        // cardCreation(sensorsResponses);
+        cardCreation(sensorsResponses);
       }
     });
   }

@@ -35,6 +35,16 @@
   }
 }
 
+.sensor-time-alarm.sensor {
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    hsla(0, 0%, 100%, 0.346) 70% 100%
+  );
+}
+.sensor-time-alarm.sensor > p {
+  color: hsla(47, 89%, 78%, 0.566);
+}
+
 /* ==== Alarm - Overheated ==== */
 
 .sensor.over-heated {
