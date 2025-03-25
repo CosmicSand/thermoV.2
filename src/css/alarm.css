@@ -71,6 +71,12 @@
   }
 }
 
+/* ==== Alarm - Low battery ==== */
+.empty {
+  background-color: var(--alarm-color);
+  animation: alarm-time 1s ease-in 0.1s infinite normal forwards;
+}
+
 /* ==== Media ==== */
 
 @media screen and (min-width: 768px) {

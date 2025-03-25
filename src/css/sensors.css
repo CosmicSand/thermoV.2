@@ -46,13 +46,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* flex-wrap: nowrap; */
-  /* row-gap: 0.7em; */
   padding: 0.5em;
-  /* width: 8em;
-  height: 8em; */
-  border-radius: 100%;
-  border: 1px solid var(--border-color);
 }
 
 .gateway-element {
@@ -62,8 +56,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  row-gap: 0.7em;
-  padding: 1em;
+  row-gap: 0.2rem;
+  padding: 0.2rem;
   width: 8em;
   height: 8em;
   border-radius: 100%;
@@ -101,7 +95,7 @@
 
 .parameter {
   font-size: 2rem;
-  line-height: 1.5;
+  /* line-height: 1.5; */
   font-weight: 600;
   color: hsl(64, 77%, 76%);
   cursor: pointer;
@@ -142,10 +136,11 @@
   border: 0.2em solid hsl(0, 0%, 0%);
   border-radius: 0.2em;
 }
+
 .low-level {
   width: 0.25rem;
   height: 0.5rem;
-  background-color: hsl(0, 97%, 42%);
+  background-color: var(--alarm-color);
 }
 .medium-level {
   width: 0.25em;

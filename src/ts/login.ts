@@ -4,6 +4,7 @@ import SensorsResponse from "./login.types";
 import { cardCreation } from "./cardcreation";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
+const userTopic = import.meta.env.VITE_USER;
 
 function fetch(username: string, password: string) {
   {
@@ -26,11 +27,13 @@ function fetch(username: string, password: string) {
 
     client.on("connect", () => {
       console.log("Підключено");
-      client.subscribe("rcit/#");
+      client.subscribe(`rcit/${userTopic}/`);
     });
 
     client.on("message", (_, message) => {
       const messageStr = message.toString().slice(0, -1);
+      // console.log(messageStr);
+
       if (messageStr) {
         addToAndRefreshObject(messageStr);
         cardCreation(sensorsResponses);

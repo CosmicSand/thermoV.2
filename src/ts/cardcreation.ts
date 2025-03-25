@@ -9,16 +9,16 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
   const allKeysArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
   );
-  const indexOfMethodAdd = allKeysArray.indexOf("add");
-  const ownersNamesArray = allKeysArray.toSpliced(indexOfMethodAdd, 1);
+
+  const ownersNamesArray = allKeysArray;
 
   // Створюємо контейнери для сенсорів
 
   for (let ownerName of ownersNamesArray) {
     const divIdExistence = document.getElementById(ownerName);
 
-    if (!divIdExistence && monitor) {
-      monitor.insertAdjacentHTML(
+    if (!divIdExistence) {
+      monitor?.insertAdjacentHTML(
         "afterbegin",
         `<div class='control-area' id=${ownerName}><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
       );
@@ -26,21 +26,20 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 
     // Малюємо сенсори
 
-    const sensorsAndMethodsArray = Object.keys(sensorsResponses[ownerName]);
-
-    const sensorsArray = sensorsAndMethodsArray;
+    const sensorsArray = Object.keys(sensorsResponses[ownerName]);
 
     for (let sensor of sensorsArray) {
       const ownersControlArea = document.getElementById(
         ownerName
       ) as HTMLDivElement;
       const idCheckEl = document.getElementById(sensor);
-      const sensorsIdNumber = sensor.indexOf("_") - sensor.length + 1;
+      const sensorsNumberPosition = sensor.indexOf("_") - sensor.length + 1;
+      const sensorsIdNumber = sensor.slice(sensorsNumberPosition);
 
       const isBoiler =
-        Number(sensor.slice(sensorsIdNumber)) % 10 === 0 &&
-        Number(sensor.slice(sensorsIdNumber)) % 100 !== 0;
-      const isGateway = Number(sensor.slice(sensorsIdNumber)) % 100 === 0;
+        Number(sensorsIdNumber) % 10 === 0 &&
+        Number(sensorsIdNumber) % 100 !== 0;
+      const isGateway = Number(sensorsIdNumber) % 100 === 0;
 
       if (!ownersControlArea.contains(idCheckEl) && !isBoiler && !isGateway) {
         const ownersControlAreaForSensors = document.querySelector(
@@ -53,9 +52,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 
         const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="25" data-low="0">
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
-            <p class="sensor-name" data-name='${sensor}'>${sensor.slice(
-          sensorsIdNumber
-        )}</p>
+            <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
             <div class="battery" data-id='${sensor}' data-battery=${batteryLevel(
           sensorParameters
@@ -251,23 +248,17 @@ function currentTemperaturesShow(sensorsResponses: SensorsResponse) {
 }
 
 function currentBatteryLevelShow(sensorsResponses: SensorsResponse) {
-  const allKeysArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+  // Зроблено для перегляду всіх користувачів. Працює і для одного. Якщо суто для одного робити - то масив ти цикл зайві
+
+  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
   );
-  const indexOfMethodAdd = allKeysArray.indexOf("add");
-  const ownersNamesArray = allKeysArray.toSpliced(indexOfMethodAdd, 1);
 
   for (let ownerName of ownersNamesArray) {
     // const ownersSensors = sensorsResponses[ownerName];
-    const sensorsAndMethodsArray = Object.keys(
-      sensorsResponses[ownerName]
-    ).toSorted((a, b) => a.localeCompare(b));
-    const indexOfMethodSubAdd = sensorsAndMethodsArray.indexOf("subAdd");
-    const sensorsArray = sensorsAndMethodsArray.toSpliced(
-      indexOfMethodSubAdd,
-      1
+    const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
+      (a, b) => a.localeCompare(b)
     );
-
     for (let sensor of sensorsArray) {
       //   const sens = ownersSensors[sensor] as string[];
       const battery = document.querySelector<HTMLDivElement>(
@@ -290,6 +281,7 @@ function currentBatteryLevelShow(sensorsResponses: SensorsResponse) {
         redLevel?.classList.add("drained");
         yellowLevel?.classList.add("drained");
         greenLevel?.classList.add("drained");
+        battery?.classList.add("empty");
       } else if (battery !== null && Number(battery?.dataset.battery) <= 20) {
         redLevel?.classList.remove("drained");
         yellowLevel?.classList.add("drained");
