@@ -28,7 +28,8 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: 2rem;
+  row-gap: 4rem;
+  column-gap: 2rem;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -185,10 +186,10 @@
   flex-wrap: nowrap;
   padding-left: 2.5em;
   padding-right: 2.5em;
-  width: 8em;
-  height: 8em;
-  border-left: 0.15em solid hsla(186, 100%, 51%, 0.792);
-  border-right: 0.15em solid hsla(0, 97%, 42%, 0.745);
+  width: 8rem;
+  height: 8rem;
+  border-left: 0.15rem solid hsla(186, 100%, 51%, 0.792);
+  border-right: 0.15rem solid hsla(0, 97%, 42%, 0.745);
   background-image: radial-gradient(
     transparent 0% 50%,
     hsla(129, 93%, 41%, 0.71) 70% 100%
@@ -214,30 +215,33 @@
   }
   .boiler::before {
     content: attr(data-in);
-    font-size: 3em;
+    font-size: 3rem;
     font-weight: 600;
     color: hsl(64, 77%, 76%);
     position: absolute;
-    width: 2.4em;
-    height: 1.2em;
+    width: 8rem;
+    height: 4rem;
     background-color: transparent;
-    border-bottom: 10px solid hsla(186, 100%, 51%, 0.605);
+    border-bottom: 1rem solid hsla(186, 100%, 51%, 0.605);
+    transform: translate(-50%, -50%);
     top: 35%;
-    left: -31%;
+    left: -4rem;
   }
 
   .boiler::after {
     content: attr(data-out);
-    font-size: 3em;
+    font-size: 3rem;
     font-weight: 600;
     color: hsl(64, 77%, 76%);
     position: absolute;
-    width: 2.4em;
-    height: 1.2em;
+    width: 8rem;
+    height: 4rem;
     background-color: transparent;
-    border-bottom: 10px solid hsla(0, 97%, 42%, 0.581);
-    top: 35%;
-    left: 131%;
+    border-bottom: 1rem solid hsla(0, 97%, 42%, 0.581);
+    transform: translate(-50%, -50%);
+    top: 4.5rem;
+    left: 15.8rem;
+    z-index: -1;
   }
   .padding {
     padding-left: 4.6em;
