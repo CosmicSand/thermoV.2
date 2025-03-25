@@ -16,8 +16,8 @@ function fetch(username: string, password: string) {
       port: import.meta.env.VITE_PORT, // Порт MQTT брокера
       protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
       path: "/ws", // Шлях до MQTT брокера
-      username: username, // Ім'я користувача
-      password: password, // Пароль користувача
+      username, // Ім'я користувача
+      password, // Пароль користувача
       clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
       keepalive: 60, // Час утримання з'єднання (60 секунд)
       reconnectPeriod: 5000, // Період перепідключення (5 секунд)
@@ -50,8 +50,8 @@ function fetch(username: string, password: string) {
 function currentTemperatures(messageStr: string) {
   if (messageStr.includes(":")) return;
   const currentResponse = messageStr.split(";");
-  const ownerID = currentResponse[0];
-  const sensorId = ownerID + "_" + currentResponse[1];
+  const ownerId = currentResponse[0];
+  const sensorId = ownerId + "_" + currentResponse[1];
   const sensorData = currentResponse
     .toSpliced(currentResponse.length - 1, 1)
     .slice(2);
@@ -59,14 +59,14 @@ function currentTemperatures(messageStr: string) {
 
   const keysOfSensorsResponses = Object.keys(sensorsResponses);
 
-  if (!keysOfSensorsResponses.includes(ownerID)) {
-    sensorsResponses[ownerID] = {
+  if (!keysOfSensorsResponses.includes(ownerId)) {
+    sensorsResponses[ownerId] = {
       [sensorId]: sensorData,
     };
   } else {
     keysOfSensorsResponses.forEach((key) => {
-      if (key === ownerID) {
-        sensorsResponses[ownerID][sensorId] = sensorData;
+      if (key === ownerId) {
+        sensorsResponses[ownerId][sensorId] = sensorData;
       }
     });
   }
