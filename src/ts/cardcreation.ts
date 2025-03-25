@@ -51,7 +51,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="60" data-low="15">
+        const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="3" data-high="60" data-low="15">
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
             <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
@@ -431,8 +431,10 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
       }
       if (alarmLow >= currentTempreature) {
         currentSensor?.classList.add("freezing-cold-alarm");
+        currentSensor?.classList.add("blink-freezing-cold-alarm");
       } else {
         currentSensor?.classList.remove("freezing-cold-alarm");
+        currentSensor?.classList.remove("blink-freezing-cold-alarm");
       }
     }
   }
