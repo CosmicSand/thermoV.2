@@ -53,7 +53,7 @@ function addToAndRefreshObject(messageStr: string) {
   const ownerId = currentResponse[0];
   const sensorId = ownerId + "_" + currentResponse[1];
   const sensorData = currentResponse.slice(2);
-  sensorData.push(uuidv4());
+  sensorData.push(Date.now().toString());
 
   // Додавання та оновлення даних (у разі наявних)
 

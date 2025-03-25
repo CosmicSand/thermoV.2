@@ -212,11 +212,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 }
 
 function currentTemperaturesShow(sensorsResponses: SensorsResponse) {
-  const allKeysArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
   );
-  const indexOfMethodAdd = allKeysArray.indexOf("add");
-  const ownersNamesArray = allKeysArray.toSpliced(indexOfMethodAdd, 1);
 
   for (let ownerName of ownersNamesArray) {
     const ownersSensors = sensorsResponses[ownerName];
@@ -342,33 +340,26 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
 // Розрахунок часу, що минув після останнього оновлення параметрів
 
 function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
-  const allKeysArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
   );
-  const indexOfMethodAdd = allKeysArray.indexOf("add");
-  const ownersNamesArray = allKeysArray.toSpliced(indexOfMethodAdd, 1);
 
   for (let ownerName of ownersNamesArray) {
     const ownersSensors = sensorsResponses[ownerName];
-    const sensorsAndMethodsArray = Object.keys(
-      sensorsResponses[ownerName]
-    ).toSorted((a, b) => a.localeCompare(b));
-    const indexOfMethodSubAdd = sensorsAndMethodsArray.indexOf("subAdd");
-    const sensorsArray = sensorsAndMethodsArray.toSpliced(
-      indexOfMethodSubAdd,
-      1
+    const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
+      (a, b) => a.localeCompare(b)
     );
 
     for (let sensor of sensorsArray) {
       const sensorsParams = ownersSensors[sensor] as string[];
-      const updateTime = Number(sensorsParams[8]);
+      const updateTime = Number(sensorsParams[7]);
       const currentSensor = document.getElementById(sensor);
       const currentTauBtn = document.querySelector(`#${sensor} .tau`);
       //   const battery = document.querySelector(`.battery[data-id="${sensor}"]`);
       const currentSensorsTimeParagraph =
         document.querySelector<HTMLParagraphElement>(`[data-time='${sensor}']`);
       const alarm = currentSensor?.dataset.alarmtime;
-      if (sensorsParams.length !== 9) {
+      if (sensorsParams.length !== 8) {
         sensorsParams.push(Date.now().toString());
       }
 
