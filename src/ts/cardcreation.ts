@@ -40,6 +40,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         Number(sensorsIdNumber) % 10 === 0 &&
         Number(sensorsIdNumber) % 100 !== 0;
       const isGateway = Number(sensorsIdNumber) % 100 === 0;
+      const isSensor = !isBoiler && !isGateway;
 
       if (!ownersControlArea.contains(idCheckEl) && !isBoiler && !isGateway) {
         const ownersControlAreaForSensors = document.querySelector(
@@ -50,7 +51,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="25" data-low="0">
+        const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="60" data-low="15">
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
             <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
@@ -125,7 +126,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         } data-active=${boilerIsActive(
           inTemperature,
           outTemperature
-        )} data-alarmtime="180">
+        )} data-alarmtime="180" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                         <p class="parameter" data-time='${sensor}'>0</p>
             <p class="sensor-name">
@@ -207,6 +208,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
     }
   }
   currentTemperaturesShow(sensorsResponses);
+  temperatureAlarm(sensorsResponses);
   currentBatteryLevelShow(sensorsResponses);
   timeSinceLastUpd(sensorsResponses);
 }
@@ -352,14 +354,14 @@ function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
 
     for (let sensor of sensorsArray) {
       const sensorsParams = ownersSensors[sensor] as string[];
-      const updateTime = Number(sensorsParams[7]);
+      const updateTime = Number(sensorsParams[8]);
       const currentSensor = document.getElementById(sensor);
       const currentTauBtn = document.querySelector(`#${sensor} .tau`);
       //   const battery = document.querySelector(`.battery[data-id="${sensor}"]`);
       const currentSensorsTimeParagraph =
         document.querySelector<HTMLParagraphElement>(`[data-time='${sensor}']`);
       const alarm = currentSensor?.dataset.alarmtime;
-      if (sensorsParams.length !== 8) {
+      if (sensorsParams.length !== 9) {
         sensorsParams.push(Date.now().toString());
       }
 
@@ -399,6 +401,39 @@ function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
       intObj[sensor] = int;
 
       //   console.log(intObj);
+    }
+  }
+}
+function temperatureAlarm(sensorsResponses: SensorsResponse): void {
+  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+    a.localeCompare(b)
+  );
+  for (let ownerName of ownersNamesArray) {
+    const ownersSensors = sensorsResponses[ownerName];
+    const sensorsArray = Object.keys(ownersSensors).toSorted((a, b) =>
+      a.localeCompare(b)
+    );
+    for (let sensor of sensorsArray) {
+      const sensorsData = sensorsResponses[ownerName][sensor];
+
+      if (sensorsData.includes("isGateway")) continue;
+
+      const currentSensor = document.getElementById(sensor);
+      const alarmHigh = Number(currentSensor?.dataset.high);
+      const alarmLow = Number(currentSensor?.dataset.low);
+      const currentTempreature = Number(sensorsData[1]);
+      if (alarmHigh <= currentTempreature) {
+        currentSensor?.classList.add("over-heated-alarm");
+        currentSensor?.classList.add("blink-over-heated-alarm");
+      } else {
+        currentSensor?.classList.remove("over-heated-alarm");
+        currentSensor?.classList.remove("blink-over-heated-alarm");
+      }
+      if (alarmLow >= currentTempreature) {
+        currentSensor?.classList.add("freezing-cold-alarm");
+      } else {
+        currentSensor?.classList.remove("freezing-cold-alarm");
+      }
     }
   }
 }

@@ -47,16 +47,23 @@
 
 /* ==== Alarm - Overheated ==== */
 
-.sensor.over-heated {
+/* .sensor.over-heated {
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    var(--alarm-color) 70% 100%
+  );
+} */
+
+.sensor.over-heated-alarm {
+  box-shadow: 0 0 1em 1em var(--alarm-color),
+    inset 0 -0.2em 0.6em 0.6em var(--alarm-color);
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-color) 70% 100%
   );
 }
 
-.over-heated-alarm {
-  box-shadow: 0 0 1em 1em var(--alarm-color),
-    inset 0 -0.2em 0.6em 0.6em var(--alarm-color);
+.blink-over-heated-alarm {
   animation: alarm 1s ease-in 0.1s infinite normal forwards;
 }
 @keyframes alarm {
@@ -69,6 +76,35 @@
   }
   100% {
   }
+}
+
+.sensor.freezing-cold-alarm {
+  box-shadow: 0 0 1em 1em var(--alarm-freezing-color),
+    inset 0 -0.2em 0.6em 0.6em var(--alarm-freezing-color);
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    var(--alarm-freezing-color) 70% 100%
+  );
+}
+
+.blink-freezing-cold-alarm {
+  animation: alarm-freezing-cold 1s ease-in 0.1s infinite normal forwards;
+}
+
+@keyframes alarm-freezing-cold {
+  0% {
+  }
+
+  40% {
+    box-shadow: 0 0 5em 3em var(--alarm-freezing-color),
+      inset 0 -0.2em 1em 1em var(--alarm-freezing-color);
+  }
+  100% {
+  }
+}
+
+.boiler.over-heated-alarm {
+  border-left: 0.15rem solid var(--alarm-color);
 }
 
 /* ==== Alarm - Low battery ==== */

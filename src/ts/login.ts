@@ -51,8 +51,18 @@ function addToAndRefreshObject(messageStr: string) {
 
   const currentResponse = messageStr.split(";");
   const ownerId = currentResponse[0];
-  const sensorId = ownerId + "_" + currentResponse[1];
+  const sensorNumber: number = Number(currentResponse[1]);
+
+  const sensorId = ownerId + "_" + sensorNumber;
+
   const sensorData = currentResponse.slice(2);
+  if (sensorNumber % 10 === 0 && sensorNumber % 100 !== 0) {
+    sensorData.push("isBoiler");
+  } else if (sensorNumber % 100 === 0) {
+    sensorData.push("isGateway");
+  } else {
+    sensorData.push("isSensor");
+  }
   sensorData.push(Date.now().toString());
 
   // Додавання та оновлення даних (у разі наявних)
