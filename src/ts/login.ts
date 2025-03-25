@@ -1,5 +1,4 @@
 import mqtt from "mqtt";
-import { v4 as uuidv4 } from "uuid";
 import SensorsResponse from "./login.types";
 import { cardCreation } from "./cardcreation";
 
