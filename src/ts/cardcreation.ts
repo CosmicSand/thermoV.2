@@ -431,51 +431,17 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
           if (currentSensor.dataset.stopped === "true") continue;
           currentSensor.classList.add("over-heated-alarm");
           currentSensor.dataset.blink = "true";
-          console.log("over");
         } else if (alarmLow >= currentTempreature) {
           if (currentSensor.dataset.stopped === "true") continue;
           currentSensor?.classList.add("freezing-cold-alarm");
           currentSensor.dataset.blink = "true";
-          console.log("cold");
         } else {
           currentSensor.dataset.stopped = "false";
           currentSensor.dataset.blink = "false";
           currentSensor?.classList.remove("freezing-cold-alarm");
           currentSensor?.classList.remove("over-heated-alarm");
-          console.log("norm");
         }
       }
-
-      // if (currentSensor) {
-      //   if (alarmHigh <= currentTempreature && alarmLow < currentTempreature) {
-      //     if (currentSensor.dataset.stopped === "true") return;
-      //     currentSensor.dataset.blink = "true";
-      //     // currentSensor.dataset.alarmOverheated = "true";
-      //     currentSensor.classList.add("over-heated-alarm");
-      //     // currentSensor.classList.add("blink-over-heated-alarm");
-      //     return;
-      //   } else {
-      //     currentSensor.dataset.stopped = "false";
-      //     currentSensor.dataset.blink = "false";
-      //     // currentSensor.dataset.alarmOverheated = "false";
-      //     currentSensor?.classList.remove("over-heated-alarm");
-      //     // currentSensor?.classList.remove("blink-over-heated-alarm");
-      //   }
-      //   if (alarmLow >= currentTempreature) {
-      //     if (currentSensor.dataset.stopped === "true") return;
-      //     currentSensor.dataset.blink = "true";
-      //     // currentSensor.dataset.alarmFrozen = "true";
-      //     currentSensor?.classList.add("freezing-cold-alarm");
-      //     // currentSensor?.classList.add("blink-freezing-cold-alarm");
-      //     return;
-      //   } else {
-      //     currentSensor.dataset.stopped = "false";
-      //     currentSensor.dataset.blink = "false";
-      //     // currentSensor.dataset.alarmFrozen = "false";
-      //     currentSensor?.classList.remove("freezing-cold-alarm");
-      //     // currentSensor?.classList.remove("blink-freezing-cold-alarm");
-      //   }
-      // }
     }
   }
 }
