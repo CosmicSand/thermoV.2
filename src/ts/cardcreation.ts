@@ -20,7 +20,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
     if (!divIdExistence) {
       monitor?.insertAdjacentHTML(
         "afterbegin",
-        `<div class='control-area' id=${ownerName}><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
+        `<div class='control-area' id=${ownerName}><button class="stop-alarm-btn">&#9728;</button><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
       );
     }
 
@@ -425,20 +425,57 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
       const alarmHigh = Number(currentSensor?.dataset.high);
       const alarmLow = Number(currentSensor?.dataset.low);
       const currentTempreature = Number(sensorsData[1]);
-      if (alarmHigh <= currentTempreature) {
-        currentSensor?.classList.add("over-heated-alarm");
-        currentSensor?.classList.add("blink-over-heated-alarm");
-      } else {
-        currentSensor?.classList.remove("over-heated-alarm");
-        currentSensor?.classList.remove("blink-over-heated-alarm");
+
+      if (currentSensor) {
+        if (alarmHigh <= currentTempreature) {
+          if (currentSensor.dataset.stopped === "true") continue;
+          currentSensor.classList.add("over-heated-alarm");
+          currentSensor.dataset.blink = "true";
+          console.log("over");
+        } else if (alarmLow >= currentTempreature) {
+          if (currentSensor.dataset.stopped === "true") continue;
+          currentSensor?.classList.add("freezing-cold-alarm");
+          currentSensor.dataset.blink = "true";
+          console.log("cold");
+        } else {
+          currentSensor.dataset.stopped = "false";
+          currentSensor.dataset.blink = "false";
+          currentSensor?.classList.remove("freezing-cold-alarm");
+          currentSensor?.classList.remove("over-heated-alarm");
+          console.log("norm");
+        }
       }
-      if (alarmLow >= currentTempreature) {
-        currentSensor?.classList.add("freezing-cold-alarm");
-        currentSensor?.classList.add("blink-freezing-cold-alarm");
-      } else {
-        currentSensor?.classList.remove("freezing-cold-alarm");
-        currentSensor?.classList.remove("blink-freezing-cold-alarm");
-      }
+
+      // if (currentSensor) {
+      //   if (alarmHigh <= currentTempreature && alarmLow < currentTempreature) {
+      //     if (currentSensor.dataset.stopped === "true") return;
+      //     currentSensor.dataset.blink = "true";
+      //     // currentSensor.dataset.alarmOverheated = "true";
+      //     currentSensor.classList.add("over-heated-alarm");
+      //     // currentSensor.classList.add("blink-over-heated-alarm");
+      //     return;
+      //   } else {
+      //     currentSensor.dataset.stopped = "false";
+      //     currentSensor.dataset.blink = "false";
+      //     // currentSensor.dataset.alarmOverheated = "false";
+      //     currentSensor?.classList.remove("over-heated-alarm");
+      //     // currentSensor?.classList.remove("blink-over-heated-alarm");
+      //   }
+      //   if (alarmLow >= currentTempreature) {
+      //     if (currentSensor.dataset.stopped === "true") return;
+      //     currentSensor.dataset.blink = "true";
+      //     // currentSensor.dataset.alarmFrozen = "true";
+      //     currentSensor?.classList.add("freezing-cold-alarm");
+      //     // currentSensor?.classList.add("blink-freezing-cold-alarm");
+      //     return;
+      //   } else {
+      //     currentSensor.dataset.stopped = "false";
+      //     currentSensor.dataset.blink = "false";
+      //     // currentSensor.dataset.alarmFrozen = "false";
+      //     currentSensor?.classList.remove("freezing-cold-alarm");
+      //     // currentSensor?.classList.remove("blink-freezing-cold-alarm");
+      //   }
+      // }
     }
   }
 }

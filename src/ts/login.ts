@@ -31,7 +31,7 @@ function fetch(username: string, password: string) {
 
     client.on("message", (_, message) => {
       const messageStr = message.toString().slice(0, -1);
-      // console.log(messageStr);
+      console.log(messageStr);
 
       if (messageStr) {
         addToAndRefreshObject(messageStr);

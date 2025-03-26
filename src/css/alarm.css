@@ -1,3 +1,18 @@
+/* ==== Stop alarm button ==== */
+
+.stop-alarm-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  color: hsl(64, 77%, 76%);
+  font-size: 4rem;
+  width: 2.5em;
+  height: 2.5em;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
 /* ==== Time (tau) alarm button ==== */
 
 .tau {
@@ -40,6 +55,7 @@
     transparent 0% 50%,
     hsla(0, 0%, 100%, 0.346) 70% 100%
   );
+  box-shadow: none;
 }
 .sensor-time-alarm.sensor > p {
   color: hsla(47, 89%, 78%, 0.566);
@@ -55,15 +71,19 @@
 } */
 
 .sensor.over-heated-alarm {
-  box-shadow: 0 0 1em 1em var(--alarm-color),
+  /* box-shadow: 0 0 1em 1em var(--alarm-color),
     inset 0 -0.2em 0.6em 0.6em var(--alarm-color);
+  background-image: radial-gradient(
+    transparent 0% 50%,
+    var(--alarm-color) 70% 100%
+  ); */
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-color) 70% 100%
   );
 }
 
-.blink-over-heated-alarm {
+.over-heated-alarm[data-blink="true"] {
   animation: alarm 1s ease-in 0.1s infinite normal forwards;
 }
 @keyframes alarm {
@@ -79,15 +99,19 @@
 }
 
 .sensor.freezing-cold-alarm {
-  box-shadow: 0 0 1em 1em var(--alarm-freezing-color),
-    inset 0 -0.2em 0.6em 0.6em var(--alarm-freezing-color);
+  /* box-shadow: 0 0 1em 1em var(--alarm-freezing-color),
+    inset 0 -0.2em 0.6em 0.6em var(--alarm-freezing-color); */
+  /* background-image: radial-gradient(
+    transparent 0% 50%,
+    var(--alarm-freezing-color) 70% 100%
+  ); */
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-freezing-color) 70% 100%
   );
 }
 
-.blink-freezing-cold-alarm {
+.freezing-cold-alarm[data-blink="true"] {
   animation: alarm-freezing-cold 1s ease-in 0.1s infinite normal forwards;
 }
 
