@@ -20,7 +20,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
     if (!divIdExistence) {
       monitor?.insertAdjacentHTML(
         "afterbegin",
-        `<div class='control-area' id=${ownerName}><button class="stop-alarm-btn">&#9728;</button><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
+        `<div class='control-area' id=${ownerName}><button class="stop-alarm-btn" data-stop-alarm="stopAlarm">&#9728;</button><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
       );
     }
 
@@ -65,11 +65,8 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <button class="tau visually-hidden" data-tau="">
                &#120533;
             </button>
-             <button type="button" class="open-settings-btn visually-hidden"data-name='${sensor}' aria-label="Settings">
-              &#9881;
-            </button>
-            <div class="settings visually-hidden">
-             <button type="button" class="close-settings-btn" data-name='${sensor}'>&#10005;</button>
+                        <div class="settings hidden">
+             <button type="button" class="close-settings-btn" data-close=${sensor}>&#10005;</button>
               <form class="settings-form" method="post">
                 <label for="sensorsname">Sensor's name</label>
                 <input id="sensorsname" type="text" class="sensorsname" />
@@ -446,4 +443,15 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
   }
 }
 
-// ==== Функція сортування
+// ==== Функція отримання масиву сенсорів для кожного користувача
+
+// function recieveArrayOfSensor(sensorsResponses: SensorsResponse) {
+//   const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+//     a.localeCompare(b)
+//   );
+//   for (let ownerName of ownersNamesArray) {
+//     const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
+//       (a, b) => a.localeCompare(b)
+//     );
+//   }
+// }

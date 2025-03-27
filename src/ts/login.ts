@@ -1,10 +1,12 @@
 import mqtt from "mqtt";
 import SensorsResponse from "./login.types";
+import StatesForSorting from "./sorting.types";
 import { cardCreation } from "./cardcreation";
 import sorting from "./sorting";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 const userTopic = import.meta.env.VITE_USER;
+const statesForSorting = {} as StatesForSorting;
 
 function fetch(username: string, password: string) {
   {
@@ -27,17 +29,18 @@ function fetch(username: string, password: string) {
 
     client.on("connect", () => {
       console.log("Підключено");
-      client.subscribe(`rcit/${userTopic}/`);
+      client.subscribe(`rcit/#`);
     });
 
     client.on("message", (_, message) => {
       const messageStr = message.toString().slice(0, -1);
-      console.log(messageStr);
+      // console.log(messageStr);
 
       if (messageStr) {
         addToAndRefreshObject(messageStr);
+        gm(sensorsResponses);
         cardCreation(sensorsResponses);
-        sorting();
+        sorting(sensorsResponses, statesForSorting);
       }
     });
   }
@@ -81,12 +84,40 @@ function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  console.log(sensorsResponses);
+  // console.log(sensorsResponses);
 
   return sensorsResponses;
 }
 
 export default fetch;
+
+function gm(sensorsResponses: SensorsResponse) {
+  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
+    a.localeCompare(b)
+  );
+  for (let ownerName of ownersNamesArray) {
+    const arrayOfAllSensors = Object.keys(sensorsResponses[ownerName]).toSorted(
+      (a, b) => a.localeCompare(b)
+    );
+    //   Array of all sensors excluding boilers and gateways
+    let arrayOfSensors: string[] = [];
+    for (let sensor of arrayOfAllSensors) {
+      const numberStartPoint = sensor.indexOf("_") + 1;
+      const number = sensor.slice(numberStartPoint);
+      if (!number.includes("0")) {
+        arrayOfSensors.push(number);
+      }
+    }
+    const allSensors: NodeListOf<Element> = document.querySelectorAll(
+      `[data-sensor=${ownerName}] > [data-sensor='true']`
+    );
+    if (arrayOfSensors.length !== allSensors.length) {
+      statesForSorting[ownerName] = true;
+    } else {
+      statesForSorting[ownerName] = false;
+    }
+  }
+}
 
 // ==== LogIn ===
 

@@ -21,36 +21,24 @@ fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 
 // Callback function of EventListeners for settings window
 
-async function settingsHandleClick(event: Event) {
+function settingsHandleClick(event: Event) {
   console.log(event.target);
-  const sensor = (event.target as HTMLElement)?.dataset.name;
-  const openSettingsBtn = document.querySelector(
-    `.open-settings-btn[data-name=${sensor}]`
-  );
-  const closeSettingsBtn = document.querySelector(
-    `#${sensor} .close-settings-btn`
-  );
+  const sensor =
+    (event.target as HTMLElement)?.dataset.name ||
+    (event.target as HTMLElement)?.dataset.close;
   const settingsWindow = document.querySelector(`#${sensor} .settings`);
-  const stopAlarmBtn = document.querySelector(".stop-alarm-btn");
-  //   console.log(openSettingsBtn);
 
-  if (
-    (event.target as HTMLElement)?.dataset.name == sensor &&
-    (event.target as HTMLElement) !== openSettingsBtn &&
-    (event.target as HTMLElement) !== closeSettingsBtn &&
-    (event.target as HTMLElement) !== stopAlarmBtn
-  ) {
-    settingsWindow?.classList.remove("visually-hidden");
-
+  if ((event.target as HTMLElement)?.dataset.name === sensor && sensor) {
+    settingsWindow?.classList.remove("hidden");
     //  Відкриття вікна налаштувань
-  } else if ((event.target as HTMLElement) == closeSettingsBtn) {
-    settingsWindow?.classList.add("visually-hidden");
-
-    return;
-  } else if ((event.target as HTMLElement) == stopAlarmBtn) {
-    console.log((event.target as HTMLElement) == stopAlarmBtn);
+  } else if (
+    (event.target as HTMLElement)?.dataset.close === sensor &&
+    sensor
+  ) {
+    settingsWindow?.classList.add("hidden");
+  } else if ((event.target as HTMLElement)?.dataset.stopAlarm === "stopAlarm") {
     stopAlarm();
-    sorting();
+    // sorting();
   } else {
     console.log("ddd");
   }
@@ -60,6 +48,8 @@ function stopAlarm(): void {
   const alarmElements = document.querySelectorAll('[data-blink="true"]');
   console.log(alarmElements);
   alarmElements.forEach((el) => {
+    console.log(el);
+
     (el as HTMLElement).dataset.stopped = "true";
     (el as HTMLElement).dataset.blink = "false";
   });
