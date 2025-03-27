@@ -4,6 +4,7 @@
 // loginForm?.addEventListener("submit", loginToMqtt);
 
 import fetch from "./ts/login";
+import openAndCloseIndividualSettings from "./ts/settings";
 import sensorsResponses from "./ts/login";
 import SensorsResponse from "./ts/login.types";
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
@@ -22,34 +23,17 @@ fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 // Callback function of EventListeners for settings window
 
 function settingsHandleClick(event: Event) {
-  console.log(event.target);
-  const sensor =
-    (event.target as HTMLElement)?.dataset.name ||
-    (event.target as HTMLElement)?.dataset.close;
-  const settingsWindow = document.querySelector(`#${sensor} .settings`);
-
-  if ((event.target as HTMLElement)?.dataset.name === sensor && sensor) {
-    settingsWindow?.classList.remove("hidden");
-    //  Відкриття вікна налаштувань
-  } else if (
-    (event.target as HTMLElement)?.dataset.close === sensor &&
-    sensor
-  ) {
-    settingsWindow?.classList.add("hidden");
-  } else if ((event.target as HTMLElement)?.dataset.stopAlarm === "stopAlarm") {
-    stopAlarm();
-    // sorting();
-  } else {
-    console.log("ddd");
-  }
+  openAndCloseIndividualSettings(event);
+  stopAlarm(event);
 }
 
-function stopAlarm(): void {
-  const alarmElements = document.querySelectorAll('[data-blink="true"]');
-  console.log(alarmElements);
-  alarmElements.forEach((el) => {
-    console.log(el);
+// ==== Функція зйомну блимання сигналізації
 
+function stopAlarm(event: Event): void {
+  if (!(event.target as HTMLElement)?.dataset.stopAlarm) return;
+
+  const alarmElements = document.querySelectorAll('[data-blink="true"]');
+  alarmElements.forEach((el) => {
     (el as HTMLElement).dataset.stopped = "true";
     (el as HTMLElement).dataset.blink = "false";
   });

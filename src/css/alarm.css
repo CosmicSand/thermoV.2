@@ -37,6 +37,7 @@
 }
 
 .over-heated-alarm[data-blink="true"] {
+  box-shadow: none;
   animation: alarm 1s ease-in 0.1s infinite normal forwards;
 }
 @keyframes alarm {

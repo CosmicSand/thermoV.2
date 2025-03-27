@@ -65,7 +65,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <button class="tau visually-hidden" data-tau="">
                &#120533;
             </button>
-                        <div class="settings hidden">
+                        <div class="settings hidden" data-settings-window=${sensor}>
              <button type="button" class="close-settings-btn" data-close=${sensor}>&#10005;</button>
               <form class="settings-form" method="post">
                 <label for="sensorsname">Sensor's name</label>
