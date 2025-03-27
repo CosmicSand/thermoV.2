@@ -1,6 +1,7 @@
 import mqtt from "mqtt";
 import SensorsResponse from "./login.types";
 import { cardCreation } from "./cardcreation";
+import sorting from "./sorting";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 const userTopic = import.meta.env.VITE_USER;
@@ -36,6 +37,7 @@ function fetch(username: string, password: string) {
       if (messageStr) {
         addToAndRefreshObject(messageStr);
         cardCreation(sensorsResponses);
+        sorting();
       }
     });
   }
@@ -80,6 +82,7 @@ function addToAndRefreshObject(messageStr: string) {
     });
   }
   console.log(sensorsResponses);
+
   return sensorsResponses;
 }
 

@@ -4,7 +4,8 @@
 // loginForm?.addEventListener("submit", loginToMqtt);
 
 import fetch from "./ts/login";
-
+import sensorsResponses from "./ts/login";
+import SensorsResponse from "./ts/login.types";
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
 
 const loginArea = document.querySelector<HTMLDivElement>(".login");
@@ -49,6 +50,7 @@ async function settingsHandleClick(event: Event) {
   } else if ((event.target as HTMLElement) == stopAlarmBtn) {
     console.log((event.target as HTMLElement) == stopAlarmBtn);
     stopAlarm();
+    sorting();
   } else {
     console.log("ddd");
   }
@@ -60,5 +62,26 @@ function stopAlarm(): void {
   alarmElements.forEach((el) => {
     (el as HTMLElement).dataset.stopped = "true";
     (el as HTMLElement).dataset.blink = "false";
+  });
+}
+// ==== Функція сортування
+function sorting() {
+  const allSensors: NodeListOf<Element> = document.querySelectorAll(
+    "[data-sensor='true']"
+  );
+  const arrayOfAllSensors = [...allSensors].toSorted((a, b) =>
+    a.id.localeCompare(b.id)
+  );
+  const ownersControlAreaForSensors = document.querySelector(
+    `[data-sensor=${import.meta.env.VITE_USER}]`
+  ) as HTMLDivElement;
+
+  // Clear the container before appending new elements
+  ownersControlAreaForSensors.innerHTML = "";
+
+  // Append each sensor element to the container
+  arrayOfAllSensors.forEach((el) => {
+    const element = el as HTMLDivElement;
+    ownersControlAreaForSensors.appendChild(element);
   });
 }

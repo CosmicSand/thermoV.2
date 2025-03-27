@@ -2,12 +2,9 @@ body {
   font-family: Montserrat, Arial, sans-serif;
   background-image: radial-gradient(var(--body-bg-color) 0%, rgb(0, 0, 0) 100%);
   color: var(--text-color);
-  height: 100vh;
+  /* height: 100vh; */
 }
-main {
-  margin-top: 1rem;
-  padding: 1rem;
-}
+
 .hidden {
   display: none;
 }

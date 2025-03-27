@@ -51,7 +51,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-name='${sensor}'  id='${sensor}'  data-alarmtime="3" data-high="60" data-low="15">
+        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="60" data-low="15">
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
             <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
@@ -119,7 +119,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="padding"><div class="sensor boiler" id='${sensor}' data-in=${
+        const sensorBoilerElement = `<div class="sensor boiler" id='${sensor}' data-in=${
           inTemperature > 0 ? inTemperature : "-"
         } data-out=${
           outTemperature > 0 ? outTemperature : "-"
@@ -142,7 +142,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <div class="full-level drained" data-green=${sensor}></div>
             </div>
           </div>
-          <div class="settings visually-hidden">
+          <div class="settings hidden">
               <form class="settings-form" method="post">
                 <label for="sensorsname">Sensor's name</label>
                 <input id="sensorsname" type="text" class="sensorsname" />
@@ -169,7 +169,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
                 <button type="button" class="reset-btn">Reset</button>
               </form>
             </div>
-          </div>`;
+          `;
         ownersControlAreaForBoilers.insertAdjacentHTML(
           "beforeend",
           sensorBoilerElement
@@ -184,7 +184,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const accuLevel = Number(Number(sensorParameters[0]).toFixed(1));
         const isGrid = Number(Number(sensorParameters[1]) > 4);
 
-        const sensorGatewayElement = `<div class="padding"><div class=" gateway-element" id='${sensor}' data-accu=${accuLevel} data-grid=${isGrid}>
+        const sensorGatewayElement = `<div class="padding"><div class="gateway-element" id='${sensor}' data-accu=${accuLevel} data-grid=${isGrid}>
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
@@ -445,3 +445,5 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
     }
   }
 }
+
+// ==== Функція сортування

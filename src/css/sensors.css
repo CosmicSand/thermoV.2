@@ -196,6 +196,37 @@
   );
 }
 
+.boiler::before {
+  content: attr(data-in);
+  font-size: 3rem;
+  font-weight: 600;
+  color: hsl(64, 77%, 76%);
+  position: absolute;
+  width: 8rem;
+  height: 4rem;
+  background-color: transparent;
+  border-bottom: 1rem solid hsla(186, 100%, 51%, 0.605);
+  transform: translate(-50%, -50%);
+  top: 35%;
+  left: -4rem;
+}
+
+.boiler::after {
+  content: attr(data-out);
+  font-size: 3rem;
+  font-weight: 600;
+  color: hsl(64, 77%, 76%);
+  position: absolute;
+  width: 8rem;
+  height: 4rem;
+  background-color: transparent;
+  border-bottom: 1rem solid hsla(0, 97%, 42%, 0.581);
+  transform: translate(-50%, -50%);
+  top: 4.5rem;
+  left: 15.8rem;
+  z-index: -1;
+}
+
 [data-active="true"] {
   box-shadow: 0.1em 0.1em 1.5em 0.1em hsl(0, 0%, 100%);
   /* background-image: radial-gradient(
