@@ -40,7 +40,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         Number(sensorsIdNumber) % 10 === 0 &&
         Number(sensorsIdNumber) % 100 !== 0;
       const isGateway = Number(sensorsIdNumber) % 100 === 0;
-      const isSensor = !isBoiler && !isGateway;
+      // const isSensor = !isBoiler && !isGateway;
 
       if (!ownersControlArea.contains(idCheckEl) && !isBoiler && !isGateway) {
         const ownersControlAreaForSensors = document.querySelector(
@@ -116,7 +116,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id='${sensor}' data-in=${
+        const sensorBoilerElement = `<div class="sensor boiler" id=${sensor} data-boiler=${sensor} data-in=${
           inTemperature > 0 ? inTemperature : "-"
         } data-out=${
           outTemperature > 0 ? outTemperature : "-"
