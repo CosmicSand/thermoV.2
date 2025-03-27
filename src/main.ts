@@ -5,8 +5,7 @@
 
 import fetch from "./ts/login";
 import openAndCloseIndividualSettings from "./ts/settings";
-import sensorsResponses from "./ts/login";
-import SensorsResponse from "./ts/login.types";
+
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
 
 const loginArea = document.querySelector<HTMLDivElement>(".login");

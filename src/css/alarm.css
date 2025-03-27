@@ -138,6 +138,9 @@
 .sensor-time-alarm.sensor > p {
   color: hsla(47, 89%, 78%, 0.566);
 }
+.tau.hidden {
+  display: none;
+}
 
 /* ==== Media ==== */
 

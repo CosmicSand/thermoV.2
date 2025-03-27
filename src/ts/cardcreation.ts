@@ -62,7 +62,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <div class="medium-level drained" data-yellow=${sensor}></div>
               <div class="full-level drained" data-green=${sensor}></div>
             </div>
-              <button class="tau visually-hidden" data-tau="">
+              <button class="tau hidden" data-tau="">
                &#120533;
             </button>
                         <div class="settings hidden" data-settings-window=${sensor}>
@@ -358,9 +358,9 @@ function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
       const currentSensorsTimeParagraph =
         document.querySelector<HTMLParagraphElement>(`[data-time='${sensor}']`);
       const alarm = currentSensor?.dataset.alarmtime;
-      if (sensorsParams.length !== 9) {
-        sensorsParams.push(Date.now().toString());
-      }
+      // if (sensorsParams.length !== 9) {
+      //   sensorsParams.push(Date.now().toString());
+      // }
 
       //   const intObj: { [key: string]: number } = {};
       //   console.log(intObj[sensor]);
@@ -387,10 +387,10 @@ function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
           (currentTauBtn as HTMLElement).dataset.tau = (timeLeft - 0.5).toFixed(
             1
           );
-          currentTauBtn?.classList.remove("visually-hidden");
+          currentTauBtn?.classList.remove("hidden");
           currentSensor.classList.add("sensor-time-alarm");
         } else {
-          currentTauBtn?.classList.add("visually-hidden");
+          currentTauBtn?.classList.add("hidden");
           currentSensor?.classList.remove("sensor-time-alarm");
         }
       }, 1000);
