@@ -86,9 +86,13 @@
 }
 
 /* ==== Alarm - Low battery ==== */
-.empty {
-  background-color: var(--alarm-color);
-  animation: alarm-time 1s ease-in 0.1s infinite normal forwards;
+.battery.empty {
+  border-color: var(--alarm-color);
+  box-shadow: 0 0 0.75em 0.375em var(--alarm-color),
+    inset 0 -0.05em 0.5em 0.05em var(--alarm-color);
+  /* background-color: var(--alarm-color); */
+
+  /* animation: alarm-time 1s ease-in 0.1s infinite normal forwards; */
 }
 
 /* ==== Time (tau) alarm button ==== */
