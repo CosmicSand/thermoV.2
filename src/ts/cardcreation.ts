@@ -65,35 +65,6 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <button class="tau hidden" data-tau="">
                &#120533;
             </button>
-                        <div class="settings hidden" data-settings-window=${sensor}>
-             <button type="button" class="close-settings-btn" data-close=${sensor}>&#10005;</button>
-              <form class="settings-form" method="post">
-                <label for="sensorsname">Sensor's name</label>
-                <input id="sensorsname" type="text" class="sensorsname" />
-                <h3 class="limits-title">Limits</h3>
-                <div class="limits-inputs">
-                  <label for="high-temp" class="high-temp-lbl"
-                    >Up
-                    <input id="high-temp" class="high-temp-limit" type="number"
-                  /></label>
-
-                  <label for="low-temp" class="low-temp-lbl"
-                    >Down<input
-                      id="low-temp"
-                      class="low-temp-limit"
-                      type="number"
-                  /></label>
-
-                  <label for="time" class="time-lbl"
-                    >Time<input id="time" class="time-limit" type="number"
-                  /></label>
-                </div>
- <div class="settings-btn-container">
-                  <button type="submit" class="apply-btn">Apply</button>
-                  <button type="button" class="reset-btn">Reset</button>
-                </div>
-              </form>
-            </div>
           </div>`;
         ownersControlAreaForSensors.insertAdjacentHTML(
           "beforeend",
