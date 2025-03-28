@@ -6,7 +6,7 @@ function openAndCloseIndividualSettings(event: Event): void {
   if (!sensorNumber) return;
 
   const modalWindow = document.querySelector(
-    ".modal"
+    "[data-modal]"
   ) as HTMLDialogElement | null;
   if (!modalWindow) return;
   const nameSettingsInput = document.querySelector("[data-current-name]");
@@ -18,7 +18,7 @@ function openAndCloseIndividualSettings(event: Event): void {
   (nameSettingsInput as HTMLInputElement).value =
     (event.target as HTMLElement)?.dataset.name || "";
   (highSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.high || "dd";
+    (event.target as HTMLElement)?.dataset.high || "";
   (lowSettingsInput as HTMLInputElement).value =
     (event.target as HTMLElement)?.dataset.low || "";
   (timeSettingsInput as HTMLInputElement).value =
