@@ -30,6 +30,7 @@
             placeholder="Username"
             minlength="3"
             maxlength="10"
+            autocomplete="off"
             required
           />
 
@@ -41,6 +42,7 @@
             placeholder="Password"
             minlength="3"
             maxlength="10"
+            autocomplete="off"
             required
           />
           <button class="login-btn" type="submit">Log in</button>
@@ -159,7 +161,7 @@
               type="text"
               class="sensorsname"
               data-current-name
-              placeholder=""
+              autocomplete="off"
             />
             <h3 class="limits-title">Limits</h3>
             <div class="limits-inputs">
@@ -170,25 +172,25 @@
                   class="high-temp-limit"
                   type="number"
                   data-current-high
-                  placeholder=""
+                  autocomplete="off"
               /></label>
 
-              <label for="lcurrent-ow-temp" class="low-temp-lbl"
+              <label for="current-low-temp" class="low-temp-lbl"
                 >Down<input
                   id="current-low-temp"
                   class="low-temp-limit"
                   type="number"
                   data-current-low
-                  placeholder=""
+                  autocomplete="off"
               /></label>
 
               <label for="current-time" class="time-lbl"
                 >Time<input
-                  id="time"
+                  id="current-time"
                   class="time-limit"
                   type="number"
                   data-current-time
-                  placeholder=""
+                  autocomplete="off"
               /></label>
             </div>
             <div class="settings-btn-container">
@@ -200,7 +202,7 @@
                 type="button"
                 class="close-btn"
                 formmethod="dialog"
-                data-close-btn
+                data-close-btn="true"
               >
                 Close
               </button>

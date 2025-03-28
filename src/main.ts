@@ -4,7 +4,7 @@
 // loginForm?.addEventListener("submit", loginToMqtt);
 
 import fetch from "./ts/login";
-import openAndCloseIndividualSettings from "./ts/settings";
+import { closeModal, openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
 import { simpleSorting } from "./ts/sorting";
@@ -28,6 +28,7 @@ fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 function settingsHandleClick(event: Event) {
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
+  closeModal(event);
 }
 
 function handleSubmit(event: Event) {

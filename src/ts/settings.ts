@@ -6,15 +6,14 @@ const nameSettingsInput = document.querySelector("[data-current-name]");
 const highSettingsInput = document.querySelector("[data-current-high]");
 const lowSettingsInput = document.querySelector("[data-current-low]");
 const timeSettingsInput = document.querySelector("[data-current-time]");
+const modalWindow = document.querySelector("[data-modal]") as HTMLDialogElement;
 
-function openAndCloseIndividualSettings(event: Event): void {
+export function openAndCloseIndividualSettings(event: Event): void {
   const sensorNumber = (event.target as HTMLElement)?.dataset.id;
   const currentName = (event.target as HTMLElement)?.dataset.name;
   if (!sensorNumber) return;
-  const modalWindow = document.querySelector(
-    "[data-modal]"
-  ) as HTMLDialogElement;
-  if (!modalWindow) return;
+
+  // if (!modalWindow) return;
   const settingsForm = document.querySelector(
     "[data-settings-form]"
   ) as HTMLElement;
@@ -60,6 +59,12 @@ export function applySettings(event: Event) {
   modalWindow?.close();
 }
 
+export function closeModal(event: Event): void {
+  const closeButton = (event.target as HTMLElement)?.dataset.closeBtn;
+  if (!closeButton) return;
+  modalWindow.close();
+}
+
 // function openAndCloseIndividualSettings(event: Event): void {
 //   const sensorNumber =
 //     (event.target as HTMLElement)?.dataset.name ||
@@ -72,5 +77,3 @@ export function applySettings(event: Event) {
 //   );
 //   settingsWindow?.classList.toggle("hidden");
 // }
-
-export default openAndCloseIndividualSettings;
