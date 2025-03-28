@@ -20,7 +20,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
     if (!divIdExistence) {
       monitor?.insertAdjacentHTML(
         "afterbegin",
-        `<div class='control-area' id=${ownerName}><button class="stop-alarm-btn" data-stop-alarm="stopAlarm">&#9728;</button><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
+        `<div class='control-area' id=${ownerName}><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
       );
     }
 
@@ -51,7 +51,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1" data-high="60" data-low="15">
+        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}' data-set-name  id='${sensor}'  data-alarmtime="1" data-set-alarmtime data-high="60" data-set-high data-set-low data-low="15" data-current=${temperature}>
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
             <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
@@ -421,7 +421,7 @@ function temperatureAlarm(sensorsResponses: SensorsResponse): void {
       const currentSensor = document.getElementById(sensor);
       const alarmHigh = Number(currentSensor?.dataset.high);
       const alarmLow = Number(currentSensor?.dataset.low);
-      const currentTempreature = Number(sensorsData[1]);
+      const currentTempreature = Number(currentSensor?.dataset.current);
 
       if (currentSensor) {
         if (alarmHigh <= currentTempreature) {

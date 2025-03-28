@@ -78,6 +78,9 @@
       <!-- Temperature monitor -->
 
       <div class="monitor">
+        <button class="stop-alarm-btn" data-stop-alarm="stopAlarm">
+          &#9728;
+        </button>
         <div class="control-area">
           <!-- <div class="sensor">
             <p class="parameter">45.3</p>
@@ -144,6 +147,59 @@
           </div> -->
         </div>
       </div>
+
+      <!-- ==== Modal -->
+      <dialog class="modal">
+        <div class="settings-container">
+          <form class="settings-form" method="post">
+            <label for="current-sensorsname">Sensor's name</label>
+            <input
+              id="current-sensorsname"
+              type="text"
+              class="sensorsname"
+              data-current-name
+              placeholder=""
+            />
+            <h3 class="limits-title">Limits</h3>
+            <div class="limits-inputs">
+              <label for="current-high-temp" class="high-temp-lbl"
+                >Up
+                <input
+                  id="current-high-temp"
+                  class="high-temp-limit"
+                  type="number"
+                  data-current-high
+                  placeholder=""
+              /></label>
+
+              <label for="lcurrent-ow-temp" class="low-temp-lbl"
+                >Down<input
+                  id="current-low-temp"
+                  class="low-temp-limit"
+                  type="number"
+                  data-current-low
+                  placeholder=""
+              /></label>
+
+              <label for="current-time" class="time-lbl"
+                >Time<input
+                  id="time"
+                  class="time-limit"
+                  type="number"
+                  data-current-time
+                  placeholder=""
+              /></label>
+            </div>
+            <div class="settings-btn-container">
+              <button type="submit" class="apply-btn">Apply</button>
+              <button type="button" class="reset-btn">Reset</button>
+              <button type="button" class="reset-btn" formmethod="dialog">
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

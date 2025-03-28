@@ -29,6 +29,12 @@ function settingsHandleClick(event: Event) {
 // ==== Функція зйомну блимання сигналізації
 
 function stopAlarm(event: Event): void {
+  //   const modalWindow = document.querySelector(
+  //     ".modal"
+  //   ) as HTMLDialogElement | null;
+  //   if (!modalWindow) return;
+  //   modalWindow.dataset.target = (event.target as HTMLElement)?.dataset.stopAlarm;
+  //   (modalWindow as HTMLDialogElement)?.showModal();
   if (!(event.target as HTMLElement)?.dataset.stopAlarm) return;
 
   const alarmElements = document.querySelectorAll('[data-blink="true"]');

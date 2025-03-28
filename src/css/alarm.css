@@ -139,8 +139,12 @@
   );
   box-shadow: none;
 }
+.sensor-time-alarm.sensor .battery {
+  filter: grayscale(0.8);
+}
 .sensor-time-alarm.sensor > p {
   color: hsla(47, 89%, 78%, 0.566);
+  filter: grayscale(0.8);
 }
 .tau.hidden {
   display: none;
