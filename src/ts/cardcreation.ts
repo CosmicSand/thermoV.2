@@ -1,8 +1,11 @@
 // import { NodeArray } from "typescript";
 // import { sensorsResponses } from "./mqtt";
 import SensorsResponse from "./login.types";
+import { temperatureAlarm } from "./alarm";
+import { timeSinceLastUpd } from "./time";
+import { currentBatteryLevelShow, batteryLevel } from "./battery";
 
-const intObj: { [key: string]: NodeJS.Timeout } = {};
+// const intObj: { [key: string]: NodeJS.Timeout } = {};
 const monitor = document.querySelector<HTMLDivElement>(".monitor");
 
 export function cardCreation(sensorsResponses: SensorsResponse) {
@@ -51,7 +54,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}' data-set-name  id='${sensor}'  data-alarmtime="1" data-set-alarmtime data-high="60" data-set-high data-set-low data-low="15" data-current=${temperature}>
+        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
             <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
             <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
 
@@ -215,88 +218,6 @@ function currentTemperaturesShow(sensorsResponses: SensorsResponse) {
   }
 }
 
-function currentBatteryLevelShow(sensorsResponses: SensorsResponse) {
-  // Зроблено для перегляду всіх користувачів. Працює і для одного. Якщо суто для одного робити - то масив ти цикл зайві
-
-  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-
-  for (let ownerName of ownersNamesArray) {
-    // const ownersSensors = sensorsResponses[ownerName];
-    const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
-      (a, b) => a.localeCompare(b)
-    );
-    for (let sensor of sensorsArray) {
-      //   const sens = ownersSensors[sensor] as string[];
-      const battery = document.querySelector<HTMLDivElement>(
-        `.battery[data-id=${sensor}]`
-      );
-
-      const redLevel = document.querySelector<HTMLDivElement>(
-        `[data-red='${sensor}']`
-      );
-
-      const yellowLevel = document.querySelector<HTMLDivElement>(
-        `[data-yellow='${sensor}']`
-      );
-      const greenLevel = document.querySelector<HTMLDivElement>(
-        `[data-green='${sensor}']`
-      );
-      document.querySelector<HTMLDivElement>(".medium-level");
-
-      if (battery !== null && Number(battery?.dataset.battery) === 0) {
-        redLevel?.classList.add("drained");
-        yellowLevel?.classList.add("drained");
-        greenLevel?.classList.add("drained");
-        battery?.classList.add("empty");
-      } else if (battery !== null && Number(battery?.dataset.battery) <= 20) {
-        redLevel?.classList.remove("drained");
-        yellowLevel?.classList.add("drained");
-        greenLevel?.classList.add("drained");
-      } else if (
-        battery !== null &&
-        Number(battery?.dataset.battery) >= 20 &&
-        Number(battery?.dataset.battery) <= 70
-      ) {
-        redLevel?.classList.remove("drained");
-        redLevel?.classList.add("medium-level");
-        yellowLevel?.classList.remove("drained");
-        greenLevel?.classList.add("drained");
-      } else if (battery !== null && Number(battery?.dataset.battery) > 70) {
-        redLevel?.classList.remove("drained");
-        redLevel?.classList.add("is-full");
-        yellowLevel?.classList.remove("drained");
-        yellowLevel?.classList.add("is-full");
-        greenLevel?.classList.remove("drained");
-      } else {
-        console.log("dfdfdfdf");
-      }
-    }
-  }
-}
-
-//   Функція конвертації напруги батареї у відсотки. За замовчанням в якості аргументів передаються значення  fullBattery = 4.5, emptyBattery= 3.2  - що справедливо для всіх сенсорів окрім gateway, для якого потрібно передавати під час виклику значення fullBattery = 4.2, emptyBattery= 3.6
-
-function batteryLevel(
-  sensorParameters: string[],
-  fullBattery: number = 4.5,
-  emptyBattery: number = 3.2
-) {
-  const currentBatteryLevel = (
-    100 -
-    ((fullBattery - Number(sensorParameters[0])) * 100) /
-      (fullBattery - emptyBattery)
-  ).toFixed(0);
-  if (!currentBatteryLevel.includes("-")) {
-    return Number(currentBatteryLevel) > 100
-      ? 100
-      : Number(currentBatteryLevel);
-  } else {
-    return 0;
-  }
-}
-
 // Застосування класу isActive для котла, який знаходиться в роботі
 
 function boilerIsActive(inTemperature: number, outTemperature: number) {
@@ -306,123 +227,3 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
     return false;
   }
 }
-
-// Розрахунок часу, що минув після останнього оновлення параметрів
-
-function timeSinceLastUpd(sensorsResponses: SensorsResponse) {
-  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-
-  for (let ownerName of ownersNamesArray) {
-    const ownersSensors = sensorsResponses[ownerName];
-    const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
-      (a, b) => a.localeCompare(b)
-    );
-
-    for (let sensor of sensorsArray) {
-      const sensorsParams = ownersSensors[sensor] as string[];
-      const updateTime = Number(sensorsParams[8]);
-      const currentSensor = document.getElementById(sensor);
-      const currentTauBtn = document.querySelector(`#${sensor} .tau`);
-      //   const battery = document.querySelector(`.battery[data-id="${sensor}"]`);
-      const currentSensorsTimeParagraph =
-        document.querySelector<HTMLParagraphElement>(`[data-time='${sensor}']`);
-      const alarm = currentSensor?.dataset.alarmtime;
-      // if (sensorsParams.length !== 9) {
-      //   sensorsParams.push(Date.now().toString());
-      // }
-
-      //   const intObj: { [key: string]: number } = {};
-      //   console.log(intObj[sensor]);
-
-      if (intObj[sensor]) {
-        clearInterval(intObj[sensor]);
-      }
-
-      const int = setInterval(() => {
-        // console.log(sensor);
-
-        const timeLeft = (Date.now() - updateTime) / (1000 * 60);
-        //   currentSensorsTimeParagraph.innerText = timeLeft.toFixed();
-        // if (currentTauBtn) {
-        //   (currentTauBtn as HTMLElement).innerText =
-        //     Math.floor(timeLeft).toString();
-        //   (currentTauBtn as HTMLElement).dataset.tau = timeLeft.toFixed(1);
-        // }
-
-        if (alarm && timeLeft > Number(alarm)) {
-          (currentTauBtn as HTMLElement).innerText = (timeLeft - 0.5).toFixed(
-            0
-          );
-          (currentTauBtn as HTMLElement).dataset.tau = (timeLeft - 0.5).toFixed(
-            1
-          );
-          currentTauBtn?.classList.remove("hidden");
-          currentSensor.classList.add("sensor-time-alarm");
-        } else {
-          currentTauBtn?.classList.add("hidden");
-          currentSensor?.classList.remove("sensor-time-alarm");
-        }
-      }, 1000);
-
-      intObj[sensor] = int;
-
-      //   console.log(intObj);
-    }
-  }
-}
-
-// Функція сигналізації по температурі (збільшення/зменшення відносно допустимої)
-
-function temperatureAlarm(sensorsResponses: SensorsResponse): void {
-  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-  for (let ownerName of ownersNamesArray) {
-    const ownersSensors = sensorsResponses[ownerName];
-    const sensorsArray = Object.keys(ownersSensors).toSorted((a, b) =>
-      a.localeCompare(b)
-    );
-    for (let sensor of sensorsArray) {
-      const sensorsData = sensorsResponses[ownerName][sensor];
-
-      if (sensorsData.includes("isGateway")) continue;
-
-      const currentSensor = document.getElementById(sensor);
-      const alarmHigh = Number(currentSensor?.dataset.high);
-      const alarmLow = Number(currentSensor?.dataset.low);
-      const currentTempreature = Number(currentSensor?.dataset.current);
-
-      if (currentSensor) {
-        if (alarmHigh <= currentTempreature) {
-          if (currentSensor.dataset.stopped === "true") continue;
-          currentSensor.classList.add("over-heated-alarm");
-          currentSensor.dataset.blink = "true";
-        } else if (alarmLow >= currentTempreature) {
-          if (currentSensor.dataset.stopped === "true") continue;
-          currentSensor?.classList.add("freezing-cold-alarm");
-          currentSensor.dataset.blink = "true";
-        } else {
-          currentSensor.dataset.stopped = "false";
-          currentSensor.dataset.blink = "false";
-          currentSensor?.classList.remove("freezing-cold-alarm");
-          currentSensor?.classList.remove("over-heated-alarm");
-        }
-      }
-    }
-  }
-}
-
-// ==== Функція отримання масиву сенсорів для кожного користувача
-
-// function recieveArrayOfSensor(sensorsResponses: SensorsResponse) {
-//   const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-//     a.localeCompare(b)
-//   );
-//   for (let ownerName of ownersNamesArray) {
-//     const sensorsArray = Object.keys(sensorsResponses[ownerName]).toSorted(
-//       (a, b) => a.localeCompare(b)
-//     );
-//   }
-// }

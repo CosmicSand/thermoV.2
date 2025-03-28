@@ -16,21 +16,13 @@ function openAndCloseIndividualSettings(event: Event): void {
 
   modalWindow.dataset.target = sensorNumber;
   (nameSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.setName ||
-    (event.target as HTMLElement)?.dataset.name ||
-    "";
+    (event.target as HTMLElement)?.dataset.name || "";
   (highSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.setHigh ||
-    (event.target as HTMLElement)?.dataset.high ||
-    "dd";
+    (event.target as HTMLElement)?.dataset.high || "dd";
   (lowSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.setLow ||
-    (event.target as HTMLElement)?.dataset.low ||
-    "";
+    (event.target as HTMLElement)?.dataset.low || "";
   (timeSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.setAlarmtime ||
-    (event.target as HTMLElement)?.dataset.alarmtime ||
-    "";
+    (event.target as HTMLElement)?.dataset.alarmtime || "";
 
   (modalWindow as HTMLDialogElement)?.showModal();
 }
