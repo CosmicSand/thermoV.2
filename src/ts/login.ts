@@ -2,7 +2,7 @@ import mqtt from "mqtt";
 import SensorsResponse from "./login.types";
 import StatesForSorting from "./sorting.types";
 import { cardCreation } from "./cardcreation";
-import sorting from "./sorting";
+import { sorting } from "./sorting";
 
 export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 const userTopic = import.meta.env.VITE_USER;

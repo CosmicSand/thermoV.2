@@ -152,7 +152,7 @@
       <dialog class="modal" data-modal>
         <div class="settings-container">
           <div class="baloon"><b class="title">Hi</b></div>
-          <form class="settings-form" method="post">
+          <form class="settings-form" method="post" data-settings-form>
             <label for="current-sensorsname">Sensor's name</label>
             <input
               id="current-sensorsname"
@@ -192,9 +192,16 @@
               /></label>
             </div>
             <div class="settings-btn-container">
-              <button type="submit" class="apply-btn">Apply</button>
+              <button type="submit" class="apply-btn" data-apply-btn>
+                Apply
+              </button>
 
-              <button type="button" class="close-btn" formmethod="dialog">
+              <button
+                type="button"
+                class="close-btn"
+                formmethod="dialog"
+                data-close-btn
+              >
                 Close
               </button>
             </div>

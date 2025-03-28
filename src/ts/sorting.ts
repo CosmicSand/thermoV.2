@@ -1,7 +1,7 @@
 import SensorsResponse from "./login.types";
 import StatesForSorting from "./sorting.types";
 
-function sorting(
+export function sorting(
   sensorsResponses: SensorsResponse,
   statesForSorting: StatesForSorting
 ) {
@@ -35,5 +35,30 @@ function sorting(
     });
   }
 }
+export function simpleSorting(ownerName: string): void {
+  const allSensors: NodeListOf<Element> = document.querySelectorAll(
+    `[data-sensor=${ownerName}] > [data-sensor="true"]`
+  );
+  console.log(allSensors);
 
-export default sorting;
+  // True array of sensors from NodeElements array
+  const trueArrayOfAllSensors = [...allSensors].toSorted(
+    (a, b) =>
+      (a as HTMLElement).dataset?.name?.localeCompare(
+        (b as HTMLElement).dataset?.name || ""
+      ) || 0
+  );
+  const ownersControlAreaForSensors = document.querySelector(
+    `[data-sensor=${ownerName}]`
+  ) as HTMLDivElement;
+
+  // Clear the container before appending new elements
+
+  ownersControlAreaForSensors.innerHTML = "";
+
+  // Append each sensor element to the container
+  trueArrayOfAllSensors.forEach((el) => {
+    const element = el as HTMLDivElement;
+    ownersControlAreaForSensors.appendChild(element);
+  });
+}

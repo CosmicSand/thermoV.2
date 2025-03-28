@@ -54,9 +54,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         ] as string[];
         const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-name='${sensor}'  id='${sensor}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
-            <p class="parameter" data-name='${sensor}' data-temp='${sensor}'>${temperature}</p>
-            <p class="sensor-name" data-name='${sensor}'>${sensorsIdNumber}</p>
+        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensor}' data-name=${sensorsIdNumber} id='${sensor}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
+            <p class="parameter"  data-temp='${sensor}'>${temperature}</p>
+            <p class="sensor-name" data-sensor-name>${sensorsIdNumber}</p>
 
             <div class="battery" data-id='${sensor}' data-battery=${batteryLevel(
           sensorParameters

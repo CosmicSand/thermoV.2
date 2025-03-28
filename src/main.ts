@@ -6,6 +6,8 @@
 import fetch from "./ts/login";
 import openAndCloseIndividualSettings from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
+import { applySettings } from "./ts/settings";
+import { simpleSorting } from "./ts/sorting";
 
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
 
@@ -17,6 +19,7 @@ infoSection?.classList.add("hidden");
 // ==== Додавання події по кліку
 
 document.addEventListener("click", settingsHandleClick);
+document.addEventListener("submit", handleSubmit);
 
 fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 
@@ -25,6 +28,14 @@ fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 function settingsHandleClick(event: Event) {
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
+}
+
+function handleSubmit(event: Event) {
+  event.preventDefault();
+  applySettings(event);
+  const sensorNumber = (event.target as HTMLElement)?.dataset.target;
+  const ownerName = sensorNumber?.split("_")[0] || "";
+  simpleSorting(ownerName);
 }
 
 // ==== Функція сортування

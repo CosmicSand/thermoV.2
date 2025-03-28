@@ -42,7 +42,7 @@
   border-radius: 0.5em;
   margin-bottom: 0.1em;
   margin-top: 0.2em;
-  padding-left: 0.3em;
+  padding-left: 0.5em;
   padding-right: 0.3em;
   transition: border 0.3s ease-in-out;
 }
@@ -60,7 +60,7 @@
   border-radius: 0.5em;
   margin-bottom: 0.1em;
   margin-top: 0.1em;
-  padding-left: 0.4em;
+  padding-left: 0.5em;
   transition: border 0.3s ease-in-out;
 }
 .sensorsname:hover,
