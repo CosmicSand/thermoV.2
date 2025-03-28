@@ -25,10 +25,10 @@ export function temperatureAlarm(sensorsResponses: SensorsResponse): void {
         } else {
           currentSensor?.classList.remove("damaged");
         }
-        if (alarmHigh <= currentTempreature) {
+        if (alarmHigh < currentTempreature) {
           currentSensor.classList.add("over-heated-alarm");
           currentSensor.dataset.blink = "true";
-        } else if (alarmLow >= currentTempreature) {
+        } else if (alarmLow > currentTempreature) {
           currentSensor?.classList.add("freezing-cold-alarm");
           currentSensor.dataset.blink = "true";
         } else {
