@@ -155,7 +155,7 @@
 }
 
 .modal {
-  width: 40em;
+  width: 30em;
   height: 25em;
   /* font-size: 0.8em; */
   background-image: radial-gradient(var(--body-bg-color) 0%, rgb(0, 0, 0) 100%);
