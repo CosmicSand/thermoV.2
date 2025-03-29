@@ -1,7 +1,7 @@
 // import { NodeArray } from "typescript";
 // import { sensorsResponses } from "./mqtt";
 import SensorsResponse from "./login.types";
-import { temperaturesUpdate } from "./temperature";
+import { temperatureUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
 import { currentBatteryLevelShow, batteryLevel } from "./battery";
@@ -171,13 +171,12 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           sensorGatewayElement
         );
       }
-      temperaturesUpdate(sensorId, temperature);
+      temperatureUpdate(sensorId, temperature);
+      temperatureAlarm(sensorId, arrayOfParameters);
+      currentBatteryLevelShow(sensorId);
+      timeSinceLastUpd(sensorId, arrayOfParameters);
     }
   }
-
-  temperatureAlarm(sensorsResponses);
-  currentBatteryLevelShow(sensorsResponses);
-  timeSinceLastUpd(sensorsResponses);
 }
 
 // Застосування класу isActive для котла, який знаходиться в роботі

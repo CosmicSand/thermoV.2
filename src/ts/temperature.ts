@@ -27,7 +27,7 @@ import SensorsResponse from "./login.types";
 //   }
 // }
 
-export function temperaturesUpdate(sensorId: string, temperature: string) {
+export function temperatureUpdate(sensorId: string, temperature: string) {
   const currentTemperatureParagraph = document.querySelector(
     `[data-temp='${sensorId}']`
   ) as HTMLParagraphElement;
