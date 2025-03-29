@@ -38,7 +38,7 @@ function fetch(username: string, password: string) {
 
       if (messageStr) {
         addToAndRefreshObject(messageStr);
-        gm(sensorsResponses);
+        isNeedsAutoSorting(sensorsResponses);
         cardCreation(sensorsResponses);
         sorting(sensorsResponses, statesForSorting);
       }
@@ -84,14 +84,14 @@ function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  // console.log(sensorsResponses);
+  console.log(sensorsResponses);
 
   return sensorsResponses;
 }
 
 export default fetch;
 
-function gm(sensorsResponses: SensorsResponse) {
+function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
   const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
     a.localeCompare(b)
   );

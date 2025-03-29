@@ -35,7 +35,7 @@ export function openAndCloseIndividualSettings(event: Event): void {
 
 // Застосування налаштувань
 
-export function applySettings(event: Event) {
+export function applySettings(event: Event): void {
   // Застосування введенних налаштувань
   const modalWindow = document.querySelector(
     "[data-modal]"

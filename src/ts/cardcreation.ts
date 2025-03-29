@@ -1,6 +1,7 @@
 // import { NodeArray } from "typescript";
 // import { sensorsResponses } from "./mqtt";
 import SensorsResponse from "./login.types";
+import { temperaturesUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
 import { currentBatteryLevelShow, batteryLevel } from "./battery";
@@ -9,61 +10,57 @@ import { currentBatteryLevelShow, batteryLevel } from "./battery";
 const monitor = document.querySelector<HTMLDivElement>(".monitor");
 
 export function cardCreation(sensorsResponses: SensorsResponse) {
-  const allKeysArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-
-  const ownersNamesArray = allKeysArray;
+  const ownersIdArray = Object.keys(sensorsResponses);
 
   // Створюємо контейнери для сенсорів
 
-  for (let ownerName of ownersNamesArray) {
-    const divIdExistence = document.getElementById(ownerName);
+  for (let ownerId of ownersIdArray) {
+    const divIdExistence = document.getElementById(ownerId);
 
     if (!divIdExistence) {
       monitor?.insertAdjacentHTML(
         "afterbegin",
-        `<div class='control-area' id=${ownerName}><h2>${ownerName}</h2><div class="gateway" data-gateway=${ownerName}></div><div class="for-boilers" data-boiler=${ownerName}></div><div class="for-sensors" data-sensor=${ownerName}></div></div></div>`
+        `<div class='control-area' id=${ownerId}><h2>${ownerId}</h2><div class="gateway" data-gateway=${ownerId}></div><div class="for-boilers" data-boiler=${ownerId}></div><div class="for-sensors" data-sensor=${ownerId}></div></div></div>`
       );
     }
 
     // Малюємо сенсори
 
-    const sensorsArray = Object.keys(sensorsResponses[ownerName]);
+    const sensorsIdArray = Object.keys(sensorsResponses[ownerId]);
 
-    for (let sensor of sensorsArray) {
+    for (let sensorId of sensorsIdArray) {
       const ownersControlArea = document.getElementById(
-        ownerName
+        ownerId
       ) as HTMLDivElement;
-      const idCheckEl = document.getElementById(sensor);
-      const sensorsNumberPosition = sensor.indexOf("_") - sensor.length + 1;
-      const sensorsIdNumber = sensor.slice(sensorsNumberPosition);
+      const idCheckEl = document.getElementById(sensorId);
+      const idNumber = sensorId.split("_")[1];
+      const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
 
-      const isBoiler =
-        Number(sensorsIdNumber) % 10 === 0 &&
-        Number(sensorsIdNumber) % 100 !== 0;
-      const isGateway = Number(sensorsIdNumber) % 100 === 0;
+      // Під індексом 7 - тип облабнання: isBoiler тощо
+
+      const typeOfEquipment = arrayOfParameters[7];
+      const temperature = Number(arrayOfParameters[1]).toFixed(1);
+      const isSensor = typeOfEquipment === "isSensor";
+      const isBoiler = typeOfEquipment === "isBoiler";
+      const isGateway = typeOfEquipment === "isGateway";
+
       // const isSensor = !isBoiler && !isGateway;
 
-      if (!ownersControlArea.contains(idCheckEl) && !isBoiler && !isGateway) {
+      if (!ownersControlArea.contains(idCheckEl) && isSensor) {
         const ownersControlAreaForSensors = document.querySelector(
-          `[data-sensor=${ownerName}]`
+          `[data-sensor=${ownerId}]`
         ) as HTMLDivElement;
-        const sensorParameters = sensorsResponses[ownerName][
-          sensor
-        ] as string[];
-        const temperature = Number(Number(sensorParameters[1]).toFixed(1));
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensor}' data-name=${sensorsIdNumber} id='${sensor}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
-            <p class="parameter"  data-temp='${sensor}'>${temperature}</p>
-            <p class="sensor-name" data-sensor-name>${sensorsIdNumber}</p>
+        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${idNumber} id='${sensorId}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
+            <p class="parameter"  data-temp='${sensorId}'>${temperature}</p>
+            <p class="sensor-name" data-sensor-name>${idNumber}</p>
 
-            <div class="battery" data-id='${sensor}' data-battery=${batteryLevel(
-          sensorParameters
+            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
+          arrayOfParameters
         )}>
-             <div class="low-level" data-red=${sensor}></div>
-              <div class="medium-level drained" data-yellow=${sensor}></div>
-              <div class="full-level drained" data-green=${sensor}></div>
+             <div class="low-level" data-red=${sensorId}></div>
+              <div class="medium-level drained" data-yellow=${sensorId}></div>
+              <div class="full-level drained" data-green=${sensorId}></div>
             </div>
               <button class="tau hidden" data-tau="">
                &#120533;
@@ -75,22 +72,20 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         );
       } else if (!ownersControlArea.contains(idCheckEl) && isBoiler) {
         const ownersControlAreaForBoilers = document.querySelector(
-          `[data-boiler=${ownerName}]`
+          `[data-boiler=${ownerId}]`
         ) as HTMLDivElement;
-        const sensorParameters = sensorsResponses[ownerName][
-          sensor
-        ] as string[];
-        const outTemperature = Number(Number(sensorParameters[1]).toFixed(1));
-        const inTemperature = Number(Number(sensorParameters[2]).toFixed(1));
+
+        const outTemperature = Number(Number(arrayOfParameters[1]).toFixed(1));
+        const inTemperature = Number(Number(arrayOfParameters[2]).toFixed(1));
         // !outTemperature.toString().includes("-")
-        let delta: number | string;
+        let delta: string;
         if (outTemperature > 0 && inTemperature > 0) {
-          delta = (outTemperature - inTemperature).toFixed(1);
+          delta = `${(outTemperature - inTemperature).toFixed(1)}`;
         } else {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id=${sensor} data-boiler=${sensor} data-in=${
+        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-boiler=${sensorId} data-in=${
           inTemperature > 0 ? inTemperature : "-"
         } data-out=${
           outTemperature > 0 ? outTemperature : "-"
@@ -99,18 +94,18 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           outTemperature
         )} data-alarmtime="180" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
-                        <p class="parameter" data-time='${sensor}'>0</p>
+                        <p class="parameter" data-time='${sensorId}'>0</p>
             <p class="sensor-name">
               
               Boiler
             </p>
 
-            <div class="battery" data-id='${sensor}' data-battery=${batteryLevel(
-          sensorParameters
+            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
+          arrayOfParameters
         )}>
-              <div class="low-level" data-red=${sensor}></div>
-              <div class="medium-level drained" data-yellow=${sensor}></div>
-              <div class="full-level drained" data-green=${sensor}></div>
+              <div class="low-level" data-red=${sensorId}></div>
+              <div class="medium-level drained" data-yellow=${sensorId}></div>
+              <div class="full-level drained" data-green=${sensorId}></div>
             </div>
           </div>
           <div class="settings hidden">
@@ -147,27 +142,27 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         );
       } else if (!ownersControlArea.contains(idCheckEl) && isGateway) {
         const ownersControlAreaForGateway = document.querySelector(
-          `[data-gateway=${ownerName}]`
+          `[data-gateway=${ownerId}]`
         ) as HTMLDivElement;
-        const sensorParameters = sensorsResponses[ownerName][
-          sensor
+        const sensorParameters = sensorsResponses[ownerId][
+          sensorId
         ] as string[];
         const accuLevel = Number(Number(sensorParameters[0]).toFixed(1));
         const isGrid = Number(Number(sensorParameters[1]) > 4);
 
-        const sensorGatewayElement = `<div class="padding"><div class="gateway-element" id='${sensor}' data-accu=${accuLevel} data-grid=${isGrid}>
+        const sensorGatewayElement = `<div class="padding"><div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid}>
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
 
-            <div class="battery" data-id='${sensor}' data-battery=${batteryLevel(
+            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
           sensorParameters,
           4.2,
           3.6
         )}>
-              <div class="low-level" data-red=${sensor}></div>
-              <div class="medium-level drained" data-yellow=${sensor}></div>
-              <div class="full-level drained" data-green=${sensor}></div>
+              <div class="low-level" data-red=${sensorId}></div>
+              <div class="medium-level drained" data-yellow=${sensorId}></div>
+              <div class="full-level drained" data-green=${sensorId}></div>
             </div>
           </div>
           </div>`;
@@ -176,46 +171,13 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           sensorGatewayElement
         );
       }
+      temperaturesUpdate(sensorId, temperature);
     }
   }
-  currentTemperaturesShow(sensorsResponses);
+
   temperatureAlarm(sensorsResponses);
   currentBatteryLevelShow(sensorsResponses);
   timeSinceLastUpd(sensorsResponses);
-}
-
-function currentTemperaturesShow(sensorsResponses: SensorsResponse) {
-  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-
-  for (let ownerName of ownersNamesArray) {
-    const ownersSensors = sensorsResponses[ownerName];
-    const sensorsAndMethodsArray = Object.keys(
-      sensorsResponses[ownerName]
-    ).toSorted((a, b) => a.localeCompare(b));
-    const indexOfMethodSubAdd = sensorsAndMethodsArray.indexOf("subAdd");
-    const sensorsArray = sensorsAndMethodsArray.toSpliced(
-      indexOfMethodSubAdd,
-      1
-    );
-
-    for (let sensor of sensorsArray) {
-      const sens = ownersSensors[sensor] as string[];
-      const currentTemperature = sens[1];
-      const currentSensor = document.querySelector<HTMLParagraphElement>(
-        `[data-temp='${sensor}']`
-      );
-
-      if (
-        currentSensor !== null &&
-        currentSensor.innerText &&
-        currentSensor.innerText !== Number(currentTemperature).toFixed(1)
-      ) {
-        currentSensor.innerText = Number(currentTemperature).toFixed(1);
-      }
-    }
-  }
 }
 
 // Застосування класу isActive для котла, який знаходиться в роботі
