@@ -74,7 +74,7 @@ export function temperatureAlarm(
   }
 }
 
-// ==== Функція зйомну блимання сигналізації
+// ==== Функція припинення блимання сигналізації
 
 export function stopAlarm(event: Event): void {
   if (!(event.target as HTMLElement)?.dataset.stopAlarm) return;
