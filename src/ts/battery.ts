@@ -1,8 +1,6 @@
-import SensorsResponse from "./login.types";
-
 //  Функція для індикації заряду батареї
 
-export function currentBatteryLevelShow(sensorId: string) {
+export function batteryLevelShow(sensorId: string) {
   // Зроблено для перегляду всіх користувачів. Працює і для одного. Якщо суто для одного робити - то масив ти цикл зайві
 
   const battery = document.querySelector(

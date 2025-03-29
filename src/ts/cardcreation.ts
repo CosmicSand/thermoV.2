@@ -4,7 +4,7 @@ import SensorsResponse from "./login.types";
 import { temperatureUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
-import { currentBatteryLevelShow, batteryLevel } from "./battery";
+import { batteryLevelShow, batteryLevel } from "./battery";
 
 // const intObj: { [key: string]: NodeJS.Timeout } = {};
 const monitor = document.querySelector<HTMLDivElement>(".monitor");
@@ -173,7 +173,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       }
       temperatureUpdate(sensorId, temperature);
       temperatureAlarm(sensorId, arrayOfParameters);
-      currentBatteryLevelShow(sensorId);
+      batteryLevelShow(sensorId);
       timeSinceLastUpd(sensorId, arrayOfParameters);
     }
   }

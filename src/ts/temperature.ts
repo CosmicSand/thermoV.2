@@ -1,5 +1,3 @@
-import SensorsResponse from "./login.types";
-
 // Функція, яка оновлює значення температури датчиків
 
 // export function currentTemperaturesUpdate(sensorsResponses: SensorsResponse) {

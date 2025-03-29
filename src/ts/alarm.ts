@@ -1,5 +1,3 @@
-import SensorsResponse from "./login.types";
-
 // Функція сигналізації по температурі (збільшення/зменшення відносно допустимої, а також обрив)
 
 // export function temperatureAlarm(sensorsResponses: SensorsResponse): void {
