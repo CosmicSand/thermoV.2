@@ -160,7 +160,7 @@
 .battery:hover::before {
   content: attr(data-battery) "%";
   position: absolute;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -342,7 +342,7 @@
   }
 
   .battery:hover::before {
-    font-size: 0.7em;
+    font-size: 0.8rem;
   }
   .low-level {
     width: 0.5em;

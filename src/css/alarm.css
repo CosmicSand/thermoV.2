@@ -136,6 +136,11 @@
   border-color: rgb(0, 0, 0);
   filter: grayscale(0.8);
 }
+.sensor-time-alarm.sensor .signal {
+  box-shadow: none;
+  border-color: rgb(0, 0, 0);
+  filter: grayscale(0.8);
+}
 .sensor-time-alarm.sensor > p {
   color: hsla(47, 89%, 78%, 0.566);
   filter: grayscale(0.8);

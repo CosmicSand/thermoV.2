@@ -61,9 +61,7 @@ export function batteryLevel(
     ((fullBattery - Number(chargingLevel)) * 100) / (fullBattery - emptyBattery)
   ).toFixed(0);
   if (!currentBatteryLevel.includes("-")) {
-    return Number(currentBatteryLevel) > 100
-      ? 100
-      : Number(currentBatteryLevel);
+    return Number(currentBatteryLevel) > 100 ? 100 : currentBatteryLevel;
   } else {
     return 0;
   }
@@ -80,5 +78,5 @@ export function signalLevel(
     100 -
     ((highSignal - Number(chargingLevel)) * 100) / (highSignal - poorSignal)
   ).toFixed(0);
-  return Number(currentBatteryLevel);
+  return currentBatteryLevel;
 }
