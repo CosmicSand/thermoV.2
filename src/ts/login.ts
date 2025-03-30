@@ -1,6 +1,6 @@
 import mqtt from "mqtt";
-import SensorsResponse from "./login.types";
-import StatesForSorting from "./sorting.types";
+import { SensorsResponse } from "./login.types";
+import { StatesForSorting } from "./sorting.types";
 import { cardCreation } from "./cardcreation";
 import { sorting } from "./sorting";
 
@@ -55,17 +55,32 @@ function addToAndRefreshObject(messageStr: string) {
 
   const currentResponse = messageStr.split(";");
   const ownerId = currentResponse[0];
-  const sensorNumber: number = Number(currentResponse[1]);
+  // const sensorNumber: number = Number(currentResponse[1]);
+  // const sensorId = ownerId + "_" + sensorNumber;
+  // const sensorData = currentResponse.slice(2);
+  const sensorData = currentResponse
+    .slice(1)
+    .map((sensor, i) => {
+      if (i === 0 || sensor.includes("-")) {
+        return parseInt(sensor).toString();
+      } else {
+        return Number(parseFloat(sensor).toFixed(1))
+          ? parseFloat(sensor).toFixed(1)
+          : sensor;
+      }
+    })
+    .toSpliced(4, 2);
 
+  const sensorNumber: number = Number(sensorData[0]);
   const sensorId = ownerId + "_" + sensorNumber;
+  console.log(sensorData);
 
-  const sensorData = currentResponse.slice(2);
   if (sensorNumber % 10 === 0 && sensorNumber % 100 !== 0) {
-    sensorData.push("isBoiler");
+    sensorData.push("boiler");
   } else if (sensorNumber % 100 === 0) {
-    sensorData.push("isGateway");
+    sensorData.push("gateway");
   } else {
-    sensorData.push("isSensor");
+    sensorData.push("sensor");
   }
   sensorData.push(Date.now().toString());
 
@@ -92,29 +107,24 @@ function addToAndRefreshObject(messageStr: string) {
 export default fetch;
 
 function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
-  const ownersNamesArray = Object.keys(sensorsResponses).toSorted((a, b) =>
-    a.localeCompare(b)
-  );
-  for (let ownerName of ownersNamesArray) {
-    const arrayOfAllSensors = Object.keys(sensorsResponses[ownerName]).toSorted(
-      (a, b) => a.localeCompare(b)
-    );
+  const ownersIdArray = Object.keys(sensorsResponses);
+  for (let ownerId of ownersIdArray) {
+    const sensorsIdArray = Object.keys(sensorsResponses[ownerId]);
     //   Array of all sensors excluding boilers and gateways
     let arrayOfSensors: string[] = [];
-    for (let sensor of arrayOfAllSensors) {
-      const numberStartPoint = sensor.indexOf("_") + 1;
-      const number = sensor.slice(numberStartPoint);
+    for (let sensorId of sensorsIdArray) {
+      const number = sensorsResponses[ownerId][sensorId][0];
       if (!number.includes("0")) {
         arrayOfSensors.push(number);
       }
     }
     const allSensors: NodeListOf<Element> = document.querySelectorAll(
-      `[data-sensor=${ownerName}] > [data-sensor='true']`
+      `[data-sensor=${ownerId}] > [data-sensor='true']`
     );
     if (arrayOfSensors.length !== allSensors.length) {
-      statesForSorting[ownerName] = true;
+      statesForSorting[ownerId] = true;
     } else {
-      statesForSorting[ownerName] = false;
+      statesForSorting[ownerId] = false;
     }
   }
 }

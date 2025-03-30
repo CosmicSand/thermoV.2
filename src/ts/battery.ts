@@ -52,14 +52,13 @@ export function batteryLevelShow(sensorId: string) {
 //   Функція конвертації напруги батареї у відсотки. За замовчанням в якості аргументів передаються значення  fullBattery = 4.5, emptyBattery= 3.2  - що справедливо для всіх сенсорів окрім gateway, для якого потрібно передавати під час виклику значення fullBattery = 4.2, emptyBattery= 3.6
 
 export function batteryLevel(
-  sensorParameters: string[],
+  chargingLevel: string,
   fullBattery: number = 4.5,
   emptyBattery: number = 3.2
 ) {
   const currentBatteryLevel = (
     100 -
-    ((fullBattery - Number(sensorParameters[0])) * 100) /
-      (fullBattery - emptyBattery)
+    ((fullBattery - Number(chargingLevel)) * 100) / (fullBattery - emptyBattery)
   ).toFixed(0);
   if (!currentBatteryLevel.includes("-")) {
     return Number(currentBatteryLevel) > 100

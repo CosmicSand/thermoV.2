@@ -29,9 +29,6 @@ function settingsHandleClick(event: Event) {
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
   closeModal(event);
-  if ((event.target as HTMLElement)?.dataset.sort === "sort") {
-    // simpleSorting();
-  }
 }
 
 function handleSubmit(event: Event) {
@@ -39,7 +36,7 @@ function handleSubmit(event: Event) {
   applySettings(event);
   const sensorNumber = (event.target as HTMLElement)?.dataset.target;
   const ownerName = sensorNumber?.split("_")[0] || "";
-  //   simpleSorting(ownerName);
+  simpleSorting(ownerName);
 }
 
 // ==== Функція сортування

@@ -42,14 +42,15 @@
 
 export function temperatureAlarm(
   sensorId: string,
-  arrayOfParameters: string[]
+  temperatureOut: string,
+  typeOfSensor: string
 ): void {
-  if (arrayOfParameters.includes("isGateway")) return;
+  if (typeOfSensor === "gateway" || typeOfSensor === "boiler") return;
 
   const currentSensor = document.getElementById(sensorId);
   const alarmHigh = Number(currentSensor?.dataset.high);
   const alarmLow = Number(currentSensor?.dataset.low);
-  const currentTempreature = Number(currentSensor?.dataset.current);
+  const currentTempreature = Number(temperatureOut);
 
   if (currentSensor) {
     if (currentSensor.dataset.stopped === "true") return;

@@ -1,13 +1,13 @@
 // import { NodeArray } from "typescript";
 // import { sensorsResponses } from "./mqtt";
-import SensorsResponse from "./login.types";
+import { SensorsResponse } from "./login.types";
 import { temperatureUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
 import { batteryLevelShow, batteryLevel } from "./battery";
 
 // const intObj: { [key: string]: NodeJS.Timeout } = {};
-const monitor = document.querySelector<HTMLDivElement>(".monitor");
+const monitor = document.querySelector(".monitor") as HTMLDivElement;
 
 export function cardCreation(sensorsResponses: SensorsResponse) {
   const ownersIdArray = Object.keys(sensorsResponses);
@@ -32,31 +32,36 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       const ownersControlArea = document.getElementById(
         ownerId
       ) as HTMLDivElement;
+      const [
+        name,
+        chargingLevel,
+        temperatureOut,
+        temperatureIn,
+        signal,
+        typeOfSignal,
+        typeOfSensor,
+        timeStamp,
+      ] = sensorsResponses[ownerId][sensorId];
+
+      // const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
       const idCheckEl = document.getElementById(sensorId);
       const idNumber = sensorId.split("_")[1];
-      const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
-
-      // Під індексом 7 - тип облабнання: isBoiler тощо
-
-      const typeOfEquipment = arrayOfParameters[7];
-      const temperature = Number(arrayOfParameters[1]).toFixed(1);
-      const isSensor = typeOfEquipment === "isSensor";
-      const isBoiler = typeOfEquipment === "isBoiler";
-      const isGateway = typeOfEquipment === "isGateway";
-
-      // const isSensor = !isBoiler && !isGateway;
+      // const temperature = Number(arrayOfParameters[1]).toFixed(1);
+      const isSensor = typeOfSensor.includes("sensor");
+      const isBoiler = typeOfSensor.includes("boiler");
+      const isGateway = typeOfSensor.includes("gateway");
 
       if (!ownersControlArea.contains(idCheckEl) && isSensor) {
         const ownersControlAreaForSensors = document.querySelector(
           `[data-sensor=${ownerId}]`
         ) as HTMLDivElement;
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${idNumber} id='${sensorId}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperature}>
-            <p class="parameter"  data-temp='${sensorId}'>${temperature}</p>
+        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${name} id='${sensorId}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperatureOut}>
+            <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
             <p class="sensor-name" data-sensor-name>${idNumber}</p>
 
             <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
-          arrayOfParameters
+          chargingLevel
         )}>
              <div class="low-level" data-red=${sensorId}></div>
               <div class="medium-level drained" data-yellow=${sensorId}></div>
@@ -75,23 +80,23 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           `[data-boiler=${ownerId}]`
         ) as HTMLDivElement;
 
-        const outTemperature = Number(Number(arrayOfParameters[1]).toFixed(1));
-        const inTemperature = Number(Number(arrayOfParameters[2]).toFixed(1));
+        const temperatureAfter = parseFloat(temperatureOut);
+        const temperatureBefore = parseFloat(temperatureIn);
         // !outTemperature.toString().includes("-")
         let delta: string;
-        if (outTemperature > 0 && inTemperature > 0) {
-          delta = `${(outTemperature - inTemperature).toFixed(1)}`;
+        if (temperatureAfter > 0 && temperatureBefore > 0) {
+          delta = (temperatureAfter - temperatureBefore).toFixed(1);
         } else {
           delta = "";
         }
 
         const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-boiler=${sensorId} data-in=${
-          inTemperature > 0 ? inTemperature : "-"
+          temperatureBefore > 0 ? temperatureBefore : "-"
         } data-out=${
-          outTemperature > 0 ? outTemperature : "-"
+          temperatureAfter > 0 ? temperatureAfter : "-"
         } data-active=${boilerIsActive(
-          inTemperature,
-          outTemperature
+          temperatureBefore,
+          temperatureAfter
         )} data-alarmtime="180" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                         <p class="parameter" data-time='${sensorId}'>0</p>
@@ -101,7 +106,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
             </p>
 
             <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
-          arrayOfParameters
+          chargingLevel
         )}>
               <div class="low-level" data-red=${sensorId}></div>
               <div class="medium-level drained" data-yellow=${sensorId}></div>
@@ -147,8 +152,8 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const sensorParameters = sensorsResponses[ownerId][
           sensorId
         ] as string[];
-        const accuLevel = Number(Number(sensorParameters[0]).toFixed(1));
-        const isGrid = Number(Number(sensorParameters[1]) > 4);
+        const accuLevel = Number(chargingLevel);
+        const isGrid = Number(sensorParameters[2]) > 4 ? 1 : 0;
 
         const sensorGatewayElement = `<div class="padding"><div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid}>
                         <p class="parameter">${accuLevel}</p>
@@ -156,7 +161,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           
 
             <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
-          sensorParameters,
+          chargingLevel,
           4.2,
           3.6
         )}>
@@ -171,10 +176,10 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           sensorGatewayElement
         );
       }
-      temperatureUpdate(sensorId, temperature);
-      temperatureAlarm(sensorId, arrayOfParameters);
+      temperatureUpdate(sensorId, temperatureOut);
+      temperatureAlarm(sensorId, temperatureOut, typeOfSensor);
       batteryLevelShow(sensorId);
-      timeSinceLastUpd(sensorId, arrayOfParameters);
+      timeSinceLastUpd(sensorId, timeStamp);
     }
   }
 }

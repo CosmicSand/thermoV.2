@@ -1,5 +1,3 @@
-type StatesForSorting = {
+export type StatesForSorting = {
   [key: string]: Boolean;
 };
-
-export default StatesForSorting;

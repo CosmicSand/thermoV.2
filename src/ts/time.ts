@@ -40,11 +40,8 @@ const intObj: { [key: string]: NodeJS.Timeout } = {};
 //   }
 // }
 
-export function timeSinceLastUpd(
-  sensorId: string,
-  arrayOfParameters: string[]
-) {
-  const updateTime = Number(arrayOfParameters[8]);
+export function timeSinceLastUpd(sensorId: string, timeStamp: string) {
+  // const updateTime = Number(arrayOfParameters[8]);
   const currentSensor = document.getElementById(sensorId);
   const currentTauBtn = document.querySelector(`#${sensorId} .tau`);
   const alarm = currentSensor?.dataset.alarmtime;
@@ -54,7 +51,7 @@ export function timeSinceLastUpd(
   }
 
   const int = setInterval(() => {
-    const timeLeft = (Date.now() - updateTime) / (1000 * 60);
+    const timeLeft = (Date.now() - Number(timeStamp)) / (1000 * 60);
     if (alarm && timeLeft > Number(alarm)) {
       (currentTauBtn as HTMLElement).innerText = (timeLeft - 0.5).toFixed(0);
       (currentTauBtn as HTMLElement).dataset.tau = (timeLeft - 0.5).toFixed(1);
