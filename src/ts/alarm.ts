@@ -53,20 +53,28 @@ export function temperatureAlarm(
   const currentTempreature = Number(temperatureOut);
 
   if (currentSensor) {
-    if (currentSensor.dataset.stopped === "true") return;
     if (currentTempreature === -127) {
       currentSensor?.classList.add("damaged");
       return;
     } else {
       currentSensor?.classList.remove("damaged");
     }
-    if (alarmHigh < currentTempreature) {
+    if (
+      alarmHigh < currentTempreature &&
+      currentSensor.dataset.stopped !== "true"
+    ) {
       currentSensor.classList.add("over-heated-alarm");
       currentSensor.dataset.blink = "true";
-    } else if (alarmLow > currentTempreature) {
+    } else if (
+      alarmLow > currentTempreature &&
+      currentSensor.dataset.stopped !== "true"
+    ) {
       currentSensor?.classList.add("freezing-cold-alarm");
       currentSensor.dataset.blink = "true";
-    } else {
+    } else if (
+      alarmLow < currentTempreature &&
+      alarmHigh > currentTempreature
+    ) {
       currentSensor.dataset.stopped = "false";
       currentSensor.dataset.blink = "false";
       currentSensor?.classList.remove("freezing-cold-alarm");

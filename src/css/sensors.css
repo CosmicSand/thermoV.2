@@ -114,12 +114,15 @@
   padding-left: 0.8em;
   padding-right: 0.8em;
   border-radius: 1em;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
   color: var(--border-color);
-  outline: none;
+  /* outline: none; */
   background-color: hsla(0, 0%, 0%, 0.835);
-  transition: border 0.3s ease-in-out;
-  cursor: pointer;
+  /* transition: border 0.3s ease-in-out; */
+  /* cursor: pointer; */
 }
 
 /* ==== Battery ==== */
@@ -220,6 +223,20 @@
   /* background-color: transparent; */
   filter: none;
   background-color: hsl(0, 0%, 0%);
+}
+
+.poor-signal > .signal-dot {
+  background-color: var(--alarm-color);
+}
+.poor-signal > .signal-dot:nth-child(2n + 1) {
+  display: none;
+}
+
+.average-signal > .signal-dot {
+  background-color: hsl(57, 97%, 50%);
+}
+.average-signal > .signal-dot:first-child {
+  display: none;
 }
 
 /* Boiler */

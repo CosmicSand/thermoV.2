@@ -1,6 +1,6 @@
 //  Функція для індикації заряду батареї
 
-export function batteryLevelShow(sensorId: string) {
+export function signalAndBatteryLevelShow(sensorId: string) {
   // Зроблено для перегляду всіх користувачів. Працює і для одного. Якщо суто для одного робити - то масив ти цикл зайві
 
   const battery = document.querySelector(
@@ -18,7 +18,7 @@ export function batteryLevelShow(sensorId: string) {
   const greenLevel = document.querySelector(
     `[data-green='${sensorId}']`
   ) as HTMLDivElement;
-  document.querySelector(".medium-level") as HTMLDivElement;
+  // document.querySelector(".medium-level") as HTMLDivElement;
 
   if (batteryLevel !== 0) {
     battery?.classList.remove("empty");
@@ -46,6 +46,22 @@ export function batteryLevelShow(sensorId: string) {
     greenLevel?.classList.remove("drained");
   } else {
     console.log("dfdfdfdf");
+  }
+  const signal = document.querySelector(
+    `[data-signai-id=${sensorId}]`
+  ) as HTMLDivElement;
+  const signalLevel = Number(signal?.dataset.signalLevel);
+  if (!signalLevel) {
+    return;
+  } else if (signalLevel <= 20) {
+    signal.classList.add("poor-signal");
+    signal.classList.remove("average-signal");
+  } else if (signalLevel >= 20 && signalLevel <= 70) {
+    signal.classList.add("average-signal");
+    signal.classList.remove("poor-signal");
+  } else {
+    signal.classList.remove("average-signal");
+    signal.classList.remove("poor-signal");
   }
 }
 
