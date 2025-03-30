@@ -3,11 +3,12 @@
 // const loginForm = document.querySelector<HTMLFormElement>(".login-form");
 // loginForm?.addEventListener("submit", loginToMqtt);
 
-import fetch from "./ts/login";
+import { fetch } from "./ts/login";
 import { closeModal, openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
 import { simpleSorting } from "./ts/sorting";
+import { modalWindow } from "./ts/settings";
 
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
 
@@ -20,6 +21,17 @@ infoSection?.classList.add("hidden");
 
 document.addEventListener("click", settingsHandleClick);
 document.addEventListener("submit", handleSubmit);
+modalWindow.addEventListener("click", (e) => {
+  const dialogDimensions = modalWindow.getBoundingClientRect();
+  if (
+    e.clientX < dialogDimensions.left ||
+    e.clientX > dialogDimensions.right ||
+    e.clientY < dialogDimensions.top ||
+    e.clientY > dialogDimensions.bottom
+  ) {
+    modalWindow.close();
+  }
+});
 
 fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
 

@@ -160,7 +160,7 @@
 .battery:hover::before {
   content: attr(data-battery) "%";
   position: absolute;
-  font-size: 0.5em;
+  font-size: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,6 +175,51 @@
 .drained {
   background-color: transparent;
   border: 0.05em solid hsla(0, 0%, 100%, 0.596);
+}
+
+/* GSM signal */
+
+.signal {
+  display: flex;
+  position: absolute;
+  top: 72%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.25em;
+  padding: 0.1em;
+  width: fit-content;
+  height: 1.25rem;
+  /* filter: opacity(0.7); */
+  background-color: transparent;
+  /* border: 0.05em solid hsla(0, 0%, 100%, 0.596); */
+  z-index: 1;
+}
+
+.signal-dot {
+  width: 0.375em;
+  height: 0.375em;
+  border-radius: 50%;
+  background-color: hsl(134, 97%, 50%);
+}
+
+.signal:hover::before {
+  content: attr(data-signal-level) "%";
+  position: absolute;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* top: 20%; */
+  /* left: -4%; */
+  width: 100%;
+  height: 110%;
+  border-radius: 0.2em;
+  padding: 0.1em 0.2em;
+  color: var(--border-color);
+  /* background-color: transparent; */
+  filter: none;
+  background-color: hsl(0, 0%, 0%);
 }
 
 /* Boiler */

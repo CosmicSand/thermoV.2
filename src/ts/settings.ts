@@ -6,7 +6,9 @@ const nameSettingsInput = document.querySelector("[data-current-name]");
 const highSettingsInput = document.querySelector("[data-current-high]");
 const lowSettingsInput = document.querySelector("[data-current-low]");
 const timeSettingsInput = document.querySelector("[data-current-time]");
-const modalWindow = document.querySelector("[data-modal]") as HTMLDialogElement;
+export const modalWindow = document.querySelector(
+  "[data-modal]"
+) as HTMLDialogElement;
 
 export function openAndCloseIndividualSettings(event: Event): void {
   const sensorNumber = (event.target as HTMLElement)?.dataset.id;
@@ -37,9 +39,6 @@ export function openAndCloseIndividualSettings(event: Event): void {
 
 export function applySettings(event: Event): void {
   // Застосування введенних налаштувань
-  const modalWindow = document.querySelector(
-    "[data-modal]"
-  ) as HTMLDialogElement;
   const sensorNumber = (event.target as HTMLElement)?.dataset.target;
   const currentSensor = document.querySelector(
     `[data-id=${sensorNumber}]`

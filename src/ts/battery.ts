@@ -68,3 +68,17 @@ export function batteryLevel(
     return 0;
   }
 }
+
+// Розрахунок сигналу передавання даних
+
+export function signalLevel(
+  chargingLevel: string,
+  highSignal: number = -120,
+  poorSignal: number = -30
+) {
+  const currentBatteryLevel = (
+    100 -
+    ((highSignal - Number(chargingLevel)) * 100) / (highSignal - poorSignal)
+  ).toFixed(0);
+  return Number(currentBatteryLevel);
+}

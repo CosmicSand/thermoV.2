@@ -8,7 +8,7 @@ export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
 const userTopic = import.meta.env.VITE_USER;
 const statesForSorting = {} as StatesForSorting;
 
-function fetch(username: string, password: string) {
+export function fetch(username: string, password: string) {
   {
     const client = mqtt.connect("mqtt://sgh.com.ua", {
       hostname: "sgh.com.ua", // Адреса MQTT брокера
@@ -73,7 +73,7 @@ function addToAndRefreshObject(messageStr: string) {
 
   const sensorNumber: number = Number(sensorData[0]);
   const sensorId = ownerId + "_" + sensorNumber;
-  console.log(sensorData);
+  // console.log(sensorData);
 
   if (sensorNumber % 10 === 0 && sensorNumber % 100 !== 0) {
     sensorData.push("boiler");
@@ -99,12 +99,10 @@ function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  console.log(sensorsResponses);
+  // console.log(sensorsResponses);
 
   return sensorsResponses;
 }
-
-export default fetch;
 
 function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
   const ownersIdArray = Object.keys(sensorsResponses);

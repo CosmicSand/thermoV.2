@@ -4,7 +4,7 @@ import { SensorsResponse } from "./login.types";
 import { temperatureUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
-import { batteryLevelShow, batteryLevel } from "./battery";
+import { batteryLevelShow, batteryLevel, signalLevel } from "./battery";
 
 // const intObj: { [key: string]: NodeJS.Timeout } = {};
 const monitor = document.querySelector(".monitor") as HTMLDivElement;
@@ -60,6 +60,13 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
             <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
             <p class="sensor-name" data-sensor-name>${idNumber}</p>
 
+            <div class="signal" data-signai-id='${sensorId}' data-signal-level=${signalLevel(
+          signal
+        )}>
+             <div class="signal-dot"></div>
+              <div class="signal-dot"></div>
+              <div class="signal-dot"></div>
+            </div>
             <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
           chargingLevel
         )}>
