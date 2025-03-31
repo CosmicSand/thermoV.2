@@ -9,7 +9,7 @@ import {
   sensorsResponses,
 } from "./ts/login";
 import { LoginData } from "./ts/login.types";
-import { closeModal, openAndCloseIndividualSettings } from "./ts/settings";
+import { openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
 import { simpleSorting } from "./ts/sorting";
@@ -17,30 +17,26 @@ import { modalWindow } from "./ts/settings";
 
 const infoSection = document.querySelector(".greetings") as HTMLDivElement;
 const loginArea = document.querySelector(".login") as HTMLDivElement;
+const loginForm = document.querySelector("[data-login-form]");
 export const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
   password: import.meta.env.VITE_PASSWORD,
   topic: import.meta.env.VITE_USER,
 };
 
-loginArea?.classList.add("hidden");
+// loginArea?.classList.add("hidden");
 infoSection?.classList.add("hidden");
 
 // ==== Додавання події по кліку
-
+loginForm?.addEventListener("submit", handleLoginSubmit);
 document.addEventListener("click", settingsHandleClick);
-document.addEventListener("submit", handleSubmit);
-modalWindow.addEventListener("click", (event) => {
-  const dialogDimensions = modalWindow.getBoundingClientRect();
-  if (
-    event.clientX < dialogDimensions.left ||
-    event.clientX > dialogDimensions.right ||
-    event.clientY < dialogDimensions.top ||
-    event.clientY > dialogDimensions.bottom
-  ) {
-    modalWindow.close();
-  }
-});
+modalWindow.addEventListener("submit", handleSubmit);
+modalWindow.addEventListener("click", handleClickModal);
+
+function handleLoginSubmit(event: Event) {
+  event.preventDefault();
+  console.log(event);
+}
 
 fetch(loginData);
 saveSensorsResponsestoLocalStorage(loginData);
@@ -50,7 +46,6 @@ saveSensorsResponsestoLocalStorage(loginData);
 function settingsHandleClick(event: Event) {
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
-  closeModal(event);
 }
 
 function handleSubmit(event: Event) {
@@ -59,6 +54,20 @@ function handleSubmit(event: Event) {
   const sensorNumber = (event.target as HTMLElement)?.dataset.target;
   const ownerName = sensorNumber?.split("_")[0] || "";
   simpleSorting(ownerName);
+}
+
+function handleClickModal(event: MouseEvent) {
+  const dialogDimensions = modalWindow.getBoundingClientRect();
+  const closeButton = (event.target as HTMLElement)?.dataset.closeBtn;
+  if (
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom ||
+    closeButton
+  ) {
+    modalWindow.close();
+  }
 }
 
 // ==== Функція сортування

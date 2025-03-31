@@ -58,12 +58,6 @@ export function applySettings(event: Event): void {
   modalWindow?.close();
 }
 
-export function closeModal(event: Event): void {
-  const closeButton = (event.target as HTMLElement)?.dataset.closeBtn;
-  if (!closeButton) return;
-  modalWindow.close();
-}
-
 // function openAndCloseIndividualSettings(event: Event): void {
 //   const sensorNumber =
 //     (event.target as HTMLElement)?.dataset.name ||
