@@ -139,8 +139,7 @@ export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
       `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
       JSON.stringify(sensorsResponses)
     );
-    console.log("local");
-  }, 5000);
+  }, 300000);
 }
 function createSensorResponsesObj(topic?: string) {
   const storedData = localStorage.getItem(

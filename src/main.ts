@@ -15,8 +15,8 @@ import { applySettings } from "./ts/settings";
 import { simpleSorting } from "./ts/sorting";
 import { modalWindow } from "./ts/settings";
 
-const infoSection = document.querySelector<HTMLDivElement>(".greetings");
-const loginArea = document.querySelector<HTMLDivElement>(".login");
+const infoSection = document.querySelector(".greetings") as HTMLDivElement;
+const loginArea = document.querySelector(".login") as HTMLDivElement;
 export const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
   password: import.meta.env.VITE_PASSWORD,
