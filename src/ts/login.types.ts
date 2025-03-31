@@ -3,3 +3,7 @@ export type SensorsResponse = {
     [key: string]: string[];
   };
 };
+
+export type LoginData = {
+  [key: string]: string;
+};

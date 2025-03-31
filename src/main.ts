@@ -3,7 +3,12 @@
 // const loginForm = document.querySelector<HTMLFormElement>(".login-form");
 // loginForm?.addEventListener("submit", loginToMqtt);
 
-import { fetch } from "./ts/login";
+import {
+  fetch,
+  saveSensorsResponsestoLocalStorage,
+  sensorsResponses,
+} from "./ts/login";
+import { LoginData } from "./ts/login.types";
 import { closeModal, openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
@@ -11,8 +16,12 @@ import { simpleSorting } from "./ts/sorting";
 import { modalWindow } from "./ts/settings";
 
 const infoSection = document.querySelector<HTMLDivElement>(".greetings");
-
 const loginArea = document.querySelector<HTMLDivElement>(".login");
+export const loginData: LoginData = {
+  username: import.meta.env.VITE_USERNAME,
+  password: import.meta.env.VITE_PASSWORD,
+  topic: import.meta.env.VITE_USER,
+};
 
 loginArea?.classList.add("hidden");
 infoSection?.classList.add("hidden");
@@ -33,7 +42,8 @@ modalWindow.addEventListener("click", (event) => {
   }
 });
 
-fetch(import.meta.env.VITE_USERNAME, import.meta.env.VITE_PASSWORD);
+fetch(loginData);
+saveSensorsResponsestoLocalStorage(loginData);
 
 // Callback function of EventListeners for settings window
 

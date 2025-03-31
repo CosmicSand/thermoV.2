@@ -1,49 +1,52 @@
 import mqtt from "mqtt";
-import { SensorsResponse } from "./login.types";
+import { SensorsResponse, LoginData } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
 import { cardCreation } from "./cardcreation";
 import { sorting } from "./sorting";
 
-export const sensorsResponses: SensorsResponse = {} as SensorsResponse;
-const userTopic = import.meta.env.VITE_USER;
+const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
+
+export let sensorsResponses: SensorsResponse = {};
+
 const statesForSorting = {} as StatesForSorting;
 
-export function fetch(username: string, password: string) {
-  {
-    const client = mqtt.connect("mqtt://sgh.com.ua", {
-      hostname: "sgh.com.ua", // Адреса MQTT брокера
-      port: import.meta.env.VITE_PORT, // Порт MQTT брокера
-      protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
-      path: "/ws", // Шлях до MQTT брокера
-      username, // Ім'я користувача
-      password, // Пароль користувача
-      clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
-      keepalive: 60, // Час утримання з'єднання (60 секунд)
-      reconnectPeriod: 5000, // Період перепідключення (5 секунд)
-      clean: true,
-    });
+export function fetch(loginData: LoginData) {
+  const { username, password, topic } = loginData;
+  sensorsResponses = createSensorResponsesObj(topic);
 
-    //     client.on('error', (error) => {
-    //   console.error('Произошла ошибка:', error);
-    // });
+  const client = mqtt.connect("mqtt://sgh.com.ua", {
+    hostname: "sgh.com.ua", // Адреса MQTT брокера
+    port: import.meta.env.VITE_PORT, // Порт MQTT брокера
+    protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
+    path: "/ws", // Шлях до MQTT брокера
+    username, // Ім'я користувача
+    password, // Пароль користувача
+    clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
+    keepalive: 60, // Час утримання з'єднання (60 секунд)
+    reconnectPeriod: 5000, // Період перепідключення (5 секунд)
+    clean: true,
+  });
 
-    client.on("connect", () => {
-      console.log("Підключено");
-      client.subscribe(`rcit/#`);
-    });
+  //     client.on('error', (error) => {
+  //   console.error('Произошла ошибка:', error);
+  // });
 
-    client.on("message", (_, message) => {
-      const messageStr = message.toString().slice(0, -1);
-      // console.log(messageStr);
+  client.on("connect", () => {
+    console.log("Підключено");
+    client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+  });
 
-      if (messageStr) {
-        addToAndRefreshObject(messageStr);
-        isNeedsAutoSorting(sensorsResponses);
-        cardCreation(sensorsResponses);
-        sorting(sensorsResponses, statesForSorting);
-      }
-    });
-  }
+  client.on("message", (_, message) => {
+    const messageStr = message.toString().slice(0, -1);
+    // console.log(messageStr);
+
+    if (messageStr) {
+      addToAndRefreshObject(messageStr);
+      isNeedsAutoSorting(sensorsResponses);
+      cardCreation(sensorsResponses);
+      sorting(sensorsResponses, statesForSorting);
+    }
+  });
 }
 
 // Функція, яка додає до об'єкту користувачів та точки контролю для кожного окремо, а також оновлює дані кожної з точок при надходженні нових значень
@@ -125,6 +128,29 @@ function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
       statesForSorting[ownerId] = false;
     }
   }
+}
+
+export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
+  const { topic } = loginData;
+  console.log(topic);
+
+  setInterval(() => {
+    localStorage.setItem(
+      `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
+      JSON.stringify(sensorsResponses)
+    );
+    console.log("local");
+  }, 5000);
+}
+function createSensorResponsesObj(topic?: string) {
+  const storedData = localStorage.getItem(
+    `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`
+  );
+  return storedData
+    ? ({
+        ...JSON.parse(storedData),
+      } as SensorsResponse)
+    : ({} as SensorsResponse);
 }
 
 // ==== LogIn ===
