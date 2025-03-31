@@ -21,13 +21,13 @@ infoSection?.classList.add("hidden");
 
 document.addEventListener("click", settingsHandleClick);
 document.addEventListener("submit", handleSubmit);
-modalWindow.addEventListener("click", (e) => {
+modalWindow.addEventListener("click", (event) => {
   const dialogDimensions = modalWindow.getBoundingClientRect();
   if (
-    e.clientX < dialogDimensions.left ||
-    e.clientX > dialogDimensions.right ||
-    e.clientY < dialogDimensions.top ||
-    e.clientY > dialogDimensions.bottom
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom
   ) {
     modalWindow.close();
   }
