@@ -15,6 +15,7 @@ const monitor = document.querySelector(".monitor") as HTMLDivElement;
 
 export function cardCreation(sensorsResponses: SensorsResponse) {
   const ownersIdArray = Object.keys(sensorsResponses);
+  console.log("ddd");
 
   // Створюємо контейнери для сенсорів
 

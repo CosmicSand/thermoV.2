@@ -17,14 +17,14 @@ import { modalWindow } from "./ts/settings";
 
 const infoSection = document.querySelector(".greetings") as HTMLDivElement;
 const loginArea = document.querySelector(".login") as HTMLDivElement;
+const monitorArea = document.querySelector(".monitor") as HTMLDivElement;
 const loginForm = document.querySelector("[data-login-form]");
 export const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
   password: import.meta.env.VITE_PASSWORD,
   topic: import.meta.env.VITE_USER,
 };
-
-// loginArea?.classList.add("hidden");
+loginArea?.classList.add("hidden");
 infoSection?.classList.add("hidden");
 
 // ==== Додавання події по кліку
@@ -35,7 +35,28 @@ modalWindow.addEventListener("click", handleClickModal);
 
 function handleLoginSubmit(event: Event) {
   event.preventDefault();
-  console.log(event);
+  const loginForm = event.currentTarget as HTMLFormElement;
+  const usernameInput = loginForm.elements.namedItem(
+    "name"
+  ) as HTMLInputElement;
+  const passwordInput = loginForm.elements.namedItem(
+    "password"
+  ) as HTMLInputElement;
+  const [username, topic] = usernameInput.value.toLocaleLowerCase().split("_");
+
+  //   console.log(username, topic);
+
+  //   const loginData: LoginData = {
+  //     username: username,
+  //     password: passwordInput.value,
+  //     topic: topic?.toLocaleUpperCase(),
+  //   };
+
+  fetch(loginData);
+  saveSensorsResponsestoLocalStorage(loginData);
+
+  loginArea?.classList.add("hidden");
+  monitorArea?.classList.remove("hidden");
 }
 
 fetch(loginData);

@@ -27,9 +27,9 @@ export function fetch(loginData: LoginData) {
     clean: true,
   });
 
-  //     client.on('error', (error) => {
-  //   console.error('Произошла ошибка:', error);
-  // });
+  client.on("error", (error) => {
+    console.error("Произошла ошибка:", error);
+  });
 
   client.on("connect", () => {
     console.log("Підключено");
@@ -102,7 +102,7 @@ function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  // console.log(sensorsResponses);
+  console.log(sensorsResponses);
 
   return sensorsResponses;
 }
