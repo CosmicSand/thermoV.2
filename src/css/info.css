@@ -8,12 +8,20 @@
   align-items: center;
   row-gap: 1.5em;
   color: var(--border-color);
-  opacity: 0;
-  animation: appear 0.2s ease-in 0.2s 1 forwards running;
+  transition: display opacity;
+  transition-duration: 0.5s;
+  transition-delay: 0.5s;
+  transition-behavior: allow-discrete;
+  opacity: 1;
 }
 
 .greetings.hidden {
   display: none;
+  opacity: 0;
+
+  @starting-style {
+    opacity: 1;
+  }
 }
 
 @keyframes appear {

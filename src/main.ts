@@ -27,14 +27,9 @@ export const loginData: LoginData = {
 loginArea?.classList.add("hidden");
 infoSection?.classList.add("hidden");
 
-// ==== Додавання події по кліку
-loginForm?.addEventListener("submit", handleLoginSubmit);
-document.addEventListener("click", settingsHandleClick);
-modalWindow.addEventListener("submit", handleSubmit);
-modalWindow.addEventListener("click", handleClickModal);
+// ==== Додавання подій
 
-function handleLoginSubmit(event: Event) {
-  event.preventDefault();
+loginForm?.addEventListener("submit", (event: Event) => {
   const loginForm = event.currentTarget as HTMLFormElement;
   const usernameInput = loginForm.elements.namedItem(
     "name"
@@ -57,27 +52,19 @@ function handleLoginSubmit(event: Event) {
 
   loginArea?.classList.add("hidden");
   monitorArea?.classList.remove("hidden");
-}
-
-fetch(loginData);
-saveSensorsResponsestoLocalStorage(loginData);
-
-// Callback function of EventListeners for settings window
-
-function settingsHandleClick(event: Event) {
+});
+document.addEventListener("click", (event: Event) => {
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
-}
-
-function handleSubmit(event: Event) {
+});
+modalWindow.addEventListener("submit", (event: Event) => {
   event.preventDefault();
   applySettings(event);
   const sensorNumber = (event.target as HTMLElement)?.dataset.target;
   const ownerName = sensorNumber?.split("_")[0] || "";
   simpleSorting(ownerName);
-}
-
-function handleClickModal(event: MouseEvent) {
+});
+modalWindow.addEventListener("click", (event: MouseEvent) => {
   const dialogDimensions = modalWindow.getBoundingClientRect();
   const closeButton = (event.target as HTMLElement)?.dataset.closeBtn;
   if (
@@ -89,7 +76,10 @@ function handleClickModal(event: MouseEvent) {
   ) {
     modalWindow.close();
   }
-}
+});
+
+fetch(loginData);
+saveSensorsResponsestoLocalStorage(loginData);
 
 // ==== Функція сортування
 function sorting() {
