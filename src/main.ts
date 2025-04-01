@@ -24,12 +24,13 @@ export const loginData: LoginData = {
   password: import.meta.env.VITE_PASSWORD,
   topic: import.meta.env.VITE_USER,
 };
-loginArea?.classList.add("hidden");
-infoSection?.classList.add("hidden");
+// loginArea?.classList.add("hidden");
+// infoSection?.classList.add("hidden");
 
 // ==== Додавання подій
 
 loginForm?.addEventListener("submit", (event: Event) => {
+  event.preventDefault();
   const loginForm = event.currentTarget as HTMLFormElement;
   const usernameInput = loginForm.elements.namedItem(
     "name"
@@ -51,7 +52,8 @@ loginForm?.addEventListener("submit", (event: Event) => {
   saveSensorsResponsestoLocalStorage(loginData);
 
   loginArea?.classList.add("hidden");
-  monitorArea?.classList.remove("hidden");
+  infoSection?.classList.remove("hidden");
+  //   monitorArea?.classList.remove("hidden");
 });
 document.addEventListener("click", (event: Event) => {
   openAndCloseIndividualSettings(event);
