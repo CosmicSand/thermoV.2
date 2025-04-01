@@ -1,6 +1,5 @@
 /* Information page */
 .greetings-info-container {
-  display: flex;
 }
 .test {
   /* margin: 0 auto; */
@@ -70,9 +69,67 @@
     opacity: 1;
   }
 }
+
+.example {
+  margin: 0 auto;
+}
 /* .greetings-info-container .example {
   background-color: hsl(0, 0%, 0%);
 } */
+.example > .parameter::before {
+  content: "Temperature in celsius degrees";
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  top: 10%;
+  left: -85%;
+  width: 10em;
+  /* height: 100%; */
+  /* background-color: hsl(0, 0%, 0%); */
+}
+
+.example > .sensor-name::after {
+  content: "Name of the sensor";
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: right;
+  border-bottom: 1px solid var(--border-color);
+  top: 55%;
+  left: 80%;
+  width: 12.5em;
+}
+
+.example > .signal::after {
+  content: "GSM/WiFi signal in percentage";
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  top: -1.7em;
+  left: -14em;
+  width: 13.5em;
+}
+
+.example > .battery::after {
+  content: "Battery life in percentage";
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: right;
+  border-bottom: 1px solid var(--border-color);
+  top: -1.65em;
+  left: 2em;
+  width: 10.5em;
+}
+
+.greetings-text {
+  margin-bottom: 1.5rem;
+}
+
 .sensor-info {
   position: relative;
   display: flex;
@@ -80,58 +137,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.info-block {
-  margin-top: 0.5em;
-  width: 30%;
-}
-.arrow-temp {
-  position: absolute;
-  top: 100%;
-  left: 23%;
-  width: 30px;
-  height: 80px;
-  border-top: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
-  border-radius: 0 40px 0 0;
-  transform: rotate(180deg);
-  z-index: 3;
-}
-.arrow-name {
-  position: absolute;
-  top: 100%;
-  left: 70%;
-  width: 40px;
-  height: 130px;
-  border-top: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
-  border-radius: 0 40px 0 0;
-  transform: scaleY(-1);
-  z-index: 3;
-}
-/* .arrow-battery {
-  position: absolute;
-  top: 91%;
-  left: 50%;
-  width: 1px;
-  height: 20px;
-  border-right: 1px solid var(--border-color);
-  transform: rotate(180deg);
-  z-index: 1;
-} */
-.battery-life {
-  position: relative;
-}
-.battery-life::before {
-  content: "";
-  position: absolute;
-  top: -110%;
-  left: 50%;
-  width: 1px;
-  height: 20px;
-  border-right: 1px solid var(--border-color);
-  transform: rotate(180deg);
-  z-index: 1;
-}
+
 .next-btn {
   font-size: 1.5em;
   font-weight: 200;
