@@ -5,7 +5,7 @@
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 1rem;
-  padding-top: 2rem;
+  padding-top: 0;
   text-align: center;
 }
 /* ==== Wrappers ==== */
@@ -58,6 +58,6 @@
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 3rem;
-    padding-top: 3rem;
+    padding-top: 0rem;
   }
 }
