@@ -1,5 +1,6 @@
 .container {
   width: 90vw;
+  min-height: 100vh;
   margin: 0 auto;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -9,9 +10,9 @@
 }
 /* ==== Wrappers ==== */
 
-.monitor {
+/* .monitor {
   min-height: 100vh;
-}
+} */
 .control-area {
   display: flex;
   flex-direction: column;

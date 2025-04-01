@@ -9,6 +9,7 @@ import {
   sensorsResponses,
 } from "./ts/login";
 import { LoginData } from "./ts/login.types";
+import { swipingByNextButton } from "./ts/info";
 import { openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
@@ -51,11 +52,19 @@ loginForm?.addEventListener("submit", (event: Event) => {
   fetch(loginData);
   saveSensorsResponsestoLocalStorage(loginData);
 
-  loginArea?.classList.add("hidden");
-  infoSection?.classList.remove("hidden");
+  loginArea?.classList.add("anime");
+  loginArea.addEventListener("animationend", (event: Event) => {
+    console.log(event.target);
+
+    loginArea?.classList.add("hidden");
+    loginArea?.classList.remove("anime");
+    infoSection?.classList.remove("hidden");
+  });
+  //   infoSection?.classList.remove("hidden");
   //   monitorArea?.classList.remove("hidden");
 });
 document.addEventListener("click", (event: Event) => {
+  swipingByNextButton(event);
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
 });

@@ -6,18 +6,34 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  transition: display opacity;
-  transition-duration: 0.5s;
-  transition-behavior: allow-discrete;
+  /* transition: display opacity;
+  transition-duration: 1s;
+  transition-behavior: allow-discrete; */
   color: var(--text-color);
-  opacity: 1;
+  /* opacity: 1; */
+}
+.login.anime {
+  animation: disappear 1s forwards;
 }
 .login.hidden {
   display: none;
-  opacity: 0;
-
-  @starting-style {
+  /* opacity: 0; */
+  /* animation: disappear 2s forwards; */
+  /* @starting-style {
     opacity: 1;
+  } */
+}
+
+@keyframes disappear {
+  0% {
+    display: flex;
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    translate: -25vh 0;
   }
 }
 
