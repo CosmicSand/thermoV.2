@@ -102,7 +102,7 @@ function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  console.log(sensorsResponses);
+  // console.log(sensorsResponses);
 
   return sensorsResponses;
 }
