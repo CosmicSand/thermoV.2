@@ -1,8 +1,3 @@
-// import loginToMqtt from "./ts/login";
-
-// const loginForm = document.querySelector<HTMLFormElement>(".login-form");
-// loginForm?.addEventListener("submit", loginToMqtt);
-
 import {
   fetch,
   sensorsResponses,
@@ -19,10 +14,6 @@ import { simpleSorting, sorting } from "./ts/sorting";
 import { cardCreation } from "./ts/cardcreation";
 import { modalWindow } from "./ts/settings";
 
-const infoSection = document.querySelector(".greetings") as HTMLDivElement;
-const loginArea = document.querySelector(".login") as HTMLDivElement;
-const monitorArea = document.querySelector(".monitor") as HTMLDivElement;
-const loginForm = document.querySelector("[data-login-form]");
 const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
   password: import.meta.env.VITE_PASSWORD,
@@ -32,7 +23,7 @@ const loginData: LoginData = {
 // infoSection?.classList.add("hidden");
 
 // ==== Додавання подій
-
+const loginForm = document.querySelector("[data-login-form]");
 loginForm?.addEventListener("submit", (event: Event) => {
   event.preventDefault();
   const loginForm = event.currentTarget as HTMLFormElement;
