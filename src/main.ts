@@ -23,7 +23,7 @@ const infoSection = document.querySelector(".greetings") as HTMLDivElement;
 const loginArea = document.querySelector(".login") as HTMLDivElement;
 const monitorArea = document.querySelector(".monitor") as HTMLDivElement;
 const loginForm = document.querySelector("[data-login-form]");
-export const loginData: LoginData = {
+const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
   password: import.meta.env.VITE_PASSWORD,
   topic: import.meta.env.VITE_USER,
@@ -47,8 +47,8 @@ loginForm?.addEventListener("submit", (event: Event) => {
 
   const username = usernameInput.value.toLowerCase();
   const password = passwordInput.value.toLowerCase();
-  const topic = passwordInput.value.toUpperCase();
-  const port = passwordInput.value;
+  const topic = topicInput.value.toUpperCase();
+  const port = portInput.value;
 
   fetch(loginData)
     .then((client) => {
@@ -74,11 +74,8 @@ loginForm?.addEventListener("submit", (event: Event) => {
       swipingPressingLoginBtn(event);
     })
     .catch(() => {
-      console.log("fuck");
+      console.log("Fuck");
     });
-
-  infoSection?.classList.remove("hidden");
-  monitorArea?.classList.remove("hidden");
 });
 document.addEventListener("click", (event: Event) => {
   //   swipingSectionsPressingBtns(event);

@@ -48,6 +48,7 @@ export function swipingPressingBtns(event: Event) {
           infoArea?.classList.add("hidden");
           infoArea?.classList.remove("anime");
           monitorArea?.classList.add("anime");
+
           monitorArea?.classList.remove("hidden");
         },
         { once: true }
