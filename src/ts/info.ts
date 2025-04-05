@@ -23,7 +23,7 @@ export function swipingPressingBtns(event: Event) {
   const monitorArea = document.querySelector(
     "[data-monitor-section]"
   ) as HTMLDivElement;
-
+  const infoArea = document.querySelector(".greetings") as HTMLDivElement;
   const nextBtn = document.querySelector("[data-next-button]");
   const letsRollBtn = document.querySelector("[data-roll-button]");
 
@@ -41,13 +41,21 @@ export function swipingPressingBtns(event: Event) {
       );
       break;
     case letsRollBtn:
-      greetingsSecondPart?.classList.add("anime");
-      greetingsSecondPart?.addEventListener(
+      infoArea?.classList.add("anime");
+      infoArea?.addEventListener(
         "animationend",
         () => {
-          greetingsSecondPart?.classList.add("hidden");
-          greetingsSecondPart?.classList.remove("anime");
+          infoArea?.classList.add("hidden");
+          infoArea?.classList.remove("anime");
+          monitorArea?.classList.add("anime");
           monitorArea?.classList.remove("hidden");
+        },
+        { once: true }
+      );
+      monitorArea?.addEventListener(
+        "animationend",
+        () => {
+          monitorArea?.classList.remove("anime");
         },
         { once: true }
       );

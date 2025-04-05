@@ -1,16 +1,5 @@
 /* Information page */
 
-.test {
-  /* margin: 0 auto; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-  flex-wrap: nowrap;
-  overflow: hidden;
-}
-
 /* .greetings {
   position: relative;
   display: flex;
@@ -32,7 +21,6 @@
   width: 0;
 }
 .greetings {
-  /* position: relative; */
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -41,12 +29,9 @@
   row-gap: 1.5em;
   color: var(--border-color);
   opacity: 1;
-  /* background: none;
-  animation: appear 1s forwards; */
-  /* animation-delay: 5s; */
+  min-height: 100vh;
   transition: display opacity;
   transition-duration: 1s;
-  /* transition-delay: 10s; */
   transition-behavior: allow-discrete;
   transform: 0 0;
 
@@ -54,6 +39,9 @@
     opacity: 0;
     translate: 25vh 0;
   }
+}
+.greetings.anime {
+  animation: disappear 1s forwards;
 }
 
 @keyframes appear {
@@ -178,6 +166,7 @@
   color: var(--border-color);
   opacity: 1;
   width: 100%;
+  height: 100%;
 }
 
 .greetings-second-part {
@@ -189,6 +178,7 @@
   color: var(--border-color);
   opacity: 1;
   width: 100%;
+  height: 100%;
 }
 
 .greetings-examples-list {
@@ -281,8 +271,8 @@
   color: var(--border-color);
   opacity: 1;
   width: 100%;
-  opacity: 1;
-  transition: display opacity;
+  min-height: 100%;
+  /* transition: display opacity;
   transition-duration: 1s;
   transition-behavior: allow-discrete;
   transform: 0 0;
@@ -290,7 +280,11 @@
   @starting-style {
     opacity: 0;
     translate: 25vh 0;
-  }
+  } */
+}
+
+.monitor.anime {
+  animation: appear 1s forwards;
 }
 
 @keyframes disappear-info {
@@ -306,17 +300,6 @@
 }
 
 @media screen and (min-width: 378px) {
-  .arrow {
-    width: 40px;
-  }
 }
 @media screen and (min-width: 768px) {
-  .arrow-temp {
-    width: 60px;
-  }
-  .arrow-name {
-    left: 65%;
-    width: 60px;
-    height: 130px;
-  }
 }
