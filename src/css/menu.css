@@ -33,11 +33,14 @@
   border: none;
   border-radius: 50%;
   background-color: transparent;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .sorting-btn:hover {
-  scale: 1.2;
+  scale: 1.3;
+}
+.sorting-btn:active {
+  scale: 0.8;
 }
 /* ==== Stop alarm button ==== */
 
@@ -49,8 +52,10 @@
   border-radius: 50%;
   background-color: transparent;
   transition: all 0.3s ease;
-  /* z-index: 999999; */
 }
 .stop-alarm-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.3);
+}
+.stop-alarm-btn:active {
+  scale: 0.8;
 }

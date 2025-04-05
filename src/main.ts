@@ -61,7 +61,7 @@ loginForm?.addEventListener("submit", (event: Event) => {
 
       client.on("message", (_, message) => {
         const messageStr = message.toString().slice(0, -1);
-        console.log(messageStr);
+        // console.log(messageStr);
         if (messageStr) {
           addToAndRefreshObject(messageStr);
           isNeedsAutoSorting(sensorsResponses);
@@ -77,8 +77,8 @@ loginForm?.addEventListener("submit", (event: Event) => {
       console.log("fuck");
     });
 
-  //   infoSection?.classList.remove("hidden");
-  //   monitorArea?.classList.remove("hidden");
+  infoSection?.classList.remove("hidden");
+  monitorArea?.classList.remove("hidden");
 });
 document.addEventListener("click", (event: Event) => {
   //   swipingSectionsPressingBtns(event);
@@ -106,9 +106,6 @@ modalWindow.addEventListener("click", (event: MouseEvent) => {
     modalWindow.close();
   }
 });
-
-// fetch(loginData);
-// saveSensorsResponsestoLocalStorage(loginData);
 
 // ==== Функція сортування
 // function sorting() {
