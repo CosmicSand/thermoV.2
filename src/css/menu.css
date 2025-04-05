@@ -3,12 +3,13 @@
 .menu {
   position: fixed;
   display: flex;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
   top: 5px;
-  right: 5px;
+  left: 50%;
+  transform: translate(-50%, 0);
   color: hsl(64, 77%, 76%);
   padding: 0.25rem;
   font-size: 4rem;
