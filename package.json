@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/paho-mqtt": "^1.0.10",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "async-mqtt": "^2.6.3",
     "dotenv": "^16.4.7",
     "modern-normalize": "^3.0.1",
     "mqtt": "^5.10.4"

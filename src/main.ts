@@ -7,13 +7,17 @@ import {
   fetch,
   saveSensorsResponsestoLocalStorage,
   sensorsResponses,
+  addToAndRefreshObject,
+  isNeedsAutoSorting,
+  statesForSorting,
 } from "./ts/login";
 import { LoginData } from "./ts/login.types";
-import { swipingByNextButton } from "./ts/info";
+import { swipingPressingBtns, swipingPressingLoginBtn } from "./ts/info";
 import { openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
 import { applySettings } from "./ts/settings";
-import { simpleSorting } from "./ts/sorting";
+import { simpleSorting, sorting } from "./ts/sorting";
+import { cardCreation } from "./ts/cardcreation";
 import { modalWindow } from "./ts/settings";
 
 const infoSection = document.querySelector(".greetings") as HTMLDivElement;
@@ -41,30 +45,39 @@ loginForm?.addEventListener("submit", (event: Event) => {
   ) as HTMLInputElement;
   const [username, topic] = usernameInput.value.toLocaleLowerCase().split("_");
 
-  //   console.log(username, topic);
+  fetch(loginData)
+    .then((client) => {
+      const { username, topic } = loginData;
 
-  //   const loginData: LoginData = {
-  //     username: username,
-  //     password: passwordInput.value,
-  //     topic: topic?.toLocaleUpperCase(),
-  //   };
+      client.on("connect", () => {
+        console.log("Підключено");
+        client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+      });
 
-  fetch(loginData);
-  saveSensorsResponsestoLocalStorage(loginData);
+      client.on("message", (_, message) => {
+        const messageStr = message.toString().slice(0, -1);
+        console.log(messageStr);
+        if (messageStr) {
+          addToAndRefreshObject(messageStr);
+          isNeedsAutoSorting(sensorsResponses);
+          cardCreation(sensorsResponses);
+          sorting(sensorsResponses, statesForSorting);
+        }
+      });
 
-  loginArea?.classList.add("anime");
-  loginArea.addEventListener("animationend", (event: Event) => {
-    console.log(event.target);
+      saveSensorsResponsestoLocalStorage(loginData);
+      swipingPressingLoginBtn(event);
+    })
+    .catch(() => {
+      console.log("fuck");
+    });
 
-    loginArea?.classList.add("hidden");
-    loginArea?.classList.remove("anime");
-    infoSection?.classList.remove("hidden");
-  });
   //   infoSection?.classList.remove("hidden");
   //   monitorArea?.classList.remove("hidden");
 });
 document.addEventListener("click", (event: Event) => {
-  swipingByNextButton(event);
+  //   swipingSectionsPressingBtns(event);
+  swipingPressingBtns(event);
   openAndCloseIndividualSettings(event);
   stopAlarm(event);
 });
@@ -89,27 +102,27 @@ modalWindow.addEventListener("click", (event: MouseEvent) => {
   }
 });
 
-fetch(loginData);
+// fetch(loginData);
 saveSensorsResponsestoLocalStorage(loginData);
 
 // ==== Функція сортування
-function sorting() {
-  const allSensors: NodeListOf<Element> = document.querySelectorAll(
-    "[data-sensor='true']"
-  );
-  const arrayOfAllSensors = [...allSensors].toSorted((a, b) =>
-    a.id.localeCompare(b.id)
-  );
-  const ownersControlAreaForSensors = document.querySelector(
-    `[data-sensor=${import.meta.env.VITE_USER}]`
-  ) as HTMLDivElement;
+// function sorting() {
+//   const allSensors: NodeListOf<Element> = document.querySelectorAll(
+//     "[data-sensor='true']"
+//   );
+//   const arrayOfAllSensors = [...allSensors].toSorted((a, b) =>
+//     a.id.localeCompare(b.id)
+//   );
+//   const ownersControlAreaForSensors = document.querySelector(
+//     `[data-sensor=${import.meta.env.VITE_USER}]`
+//   ) as HTMLDivElement;
 
-  // Clear the container before appending new elements
-  ownersControlAreaForSensors.innerHTML = "";
+//   // Clear the container before appending new elements
+//   ownersControlAreaForSensors.innerHTML = "";
 
-  // Append each sensor element to the container
-  arrayOfAllSensors.forEach((el) => {
-    const element = el as HTMLDivElement;
-    ownersControlAreaForSensors.appendChild(element);
-  });
-}
+//   // Append each sensor element to the container
+//   arrayOfAllSensors.forEach((el) => {
+//     const element = el as HTMLDivElement;
+//     ownersControlAreaForSensors.appendChild(element);
+//   });
+// }

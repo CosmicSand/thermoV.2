@@ -1,4 +1,6 @@
 import mqtt from "mqtt";
+// import mqtt from "async-mqtt";
+
 import { SensorsResponse, LoginData } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
 import { cardCreation } from "./cardcreation";
@@ -8,13 +10,13 @@ const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
 
 export let sensorsResponses: SensorsResponse = {};
 
-const statesForSorting = {} as StatesForSorting;
+export const statesForSorting = {} as StatesForSorting;
 
 export function fetch(loginData: LoginData) {
   const { username, password, topic } = loginData;
   sensorsResponses = createSensorResponsesObj(topic);
 
-  const client = mqtt.connect("mqtt://sgh.com.ua", {
+  const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
     hostname: "sgh.com.ua", // Адреса MQTT брокера
     port: import.meta.env.VITE_PORT, // Порт MQTT брокера
     protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
@@ -24,34 +26,43 @@ export function fetch(loginData: LoginData) {
     clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
     keepalive: 60, // Час утримання з'єднання (60 секунд)
     reconnectPeriod: 5000, // Період перепідключення (5 секунд)
+    connectTimeout: 5000,
+    manualConnect: false,
     clean: true,
   });
+  // console.log(client);
+  return client;
 
-  client.on("error", (error) => {
-    console.error("Произошла ошибка:", error);
-  });
+  // console.log(client);
 
-  client.on("connect", () => {
-    console.log("Підключено");
-    client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
-  });
+  // client.on("error", (error) => {
+  //   // console.error("Произошла ошибка:", error);
 
-  client.on("message", (_, message) => {
-    const messageStr = message.toString().slice(0, -1);
-    // console.log(messageStr);
+  // });
 
-    if (messageStr) {
-      addToAndRefreshObject(messageStr);
-      isNeedsAutoSorting(sensorsResponses);
-      cardCreation(sensorsResponses);
-      sorting(sensorsResponses, statesForSorting);
-    }
-  });
+  // client.on("connect", () => {
+  //   console.log("Підключено");
+  //   client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+
+  // });
+
+  // client.on("message", (_, message) => {
+  //   const messageStr = message.toString().slice(0, -1);
+  //   console.log(messageStr);
+  // });
+
+  //   if (messageStr) {
+  //     addToAndRefreshObject(messageStr);
+  //     isNeedsAutoSorting(sensorsResponses);
+  //     cardCreation(sensorsResponses);
+  //     sorting(sensorsResponses, statesForSorting);
+  //   }
+  // });
 }
 
 // Функція, яка додає до об'єкту користувачів та точки контролю для кожного окремо, а також оновлює дані кожної з точок при надходженні нових значень
 
-function addToAndRefreshObject(messageStr: string) {
+export function addToAndRefreshObject(messageStr: string) {
   if (messageStr.includes(":")) return;
 
   // Трансформація повідомлення в зручну форму. Відокремлення власника та сенсора
@@ -107,7 +118,7 @@ function addToAndRefreshObject(messageStr: string) {
   return sensorsResponses;
 }
 
-function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
+export function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
   const ownersIdArray = Object.keys(sensorsResponses);
   for (let ownerId of ownersIdArray) {
     const sensorsIdArray = Object.keys(sensorsResponses[ownerId]);
@@ -132,8 +143,6 @@ function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
 
 export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
   const { topic } = loginData;
-  console.log(topic);
-
   setInterval(() => {
     localStorage.setItem(
       `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
@@ -141,7 +150,7 @@ export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
     );
   }, 300000);
 }
-function createSensorResponsesObj(topic?: string) {
+export function createSensorResponsesObj(topic?: string) {
   const storedData = localStorage.getItem(
     `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`
   );

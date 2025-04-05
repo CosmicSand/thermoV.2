@@ -15,9 +15,10 @@
   </head>
   <body>
     <div class="container">
+  
       <!-- Log in -->
-<div class="test">
-      <div class="login hidden">
+
+      <div class="login " data-login-section>
         <div class="baloon"><h1 class="title">Hi</h1></div>
         <p class="greet-text">Let's roll</p>
         <form name="login" class="login-form" method="post" data-login-form>
@@ -45,11 +46,13 @@
             autocomplete="off"
             required
           />
-          <button class="login-btn" type="submit">Log in</button>
+          <button class="login-btn" type="submit" data-login-btn>Log in</button>
         </form>
       </div>
-      <!-- Greetings -->
-      <div class="greetings hidden">
+      
+ <!-- Greetings -->
+
+      <div class="greetings hidden" data-greetings-section>
         <div class="greetings-first-part" data-first-part>
         <h2 class="greetings-title">You're almost there</h2>
         <p class="greetings-text">
@@ -157,7 +160,7 @@
                 <div class="full-level drained"></div>
               </div>
               <button class="tau" >
-               &#120533;
+               1
             </button>
             </div>
             <p>Data wasn't received <br> over a time limit.<br>The temperature<br> sensor is damaged.<br> The battery has almost<br> died and the signal<br> is too weak </p>
@@ -183,82 +186,16 @@
 </div>
           <!-- Temperature monitor -->
 
-          <div class="monitor">
+          <section class="monitor hidden" data-monitor-section>
             <div class="menu">
               <button class="stop-alarm-btn" data-stop-alarm="stopAlarm">
                 &#9728;
               </button>
               <button class="sorting-btn" data-sort-btn="sort">&#8525;</button>
             </div>
-          </div>
+          </section>
         </div>
-
-        <div class="control-area">
-          <!-- <div class="sensor">
-            <p class="parameter">45.3</p>
-            <p class="sensor-name">Bathroom</p>
-
-            <div class="battery">
-              <div class="low-level"></div>
-              <div class="medium-level drained"></div>
-              <div class="full-level drained"></div>
-            </div>
-            <button class="tau">
-              <span> &#x1D70F;</span>
-            </button>
-
-                    <div class="settings hidden">
-              <button type="button" class="close-settings-btn">&#10005;</button>
-              <form class="settings-form" method="post">
-                <label for="sensorsname">Sensor's name</label>
-                <input id="sensorsname" type="text" class="sensorsname" />
-                <h3 class="limits-title">Limits</h3>
-                <div class="limits-inputs">
-                  <label for="high-temp" class="high-temp-lbl"
-                    >Up
-                    <input id="high-temp" class="high-temp-limit" type="number"
-                  /></label>
-
-                  <label for="low-temp" class="low-temp-lbl"
-                    >Down<input
-                      id="low-temp"
-                      class="low-temp-limit"
-                      type="number"
-                  /></label>
-
-                  <label for="time" class="time-lbl"
-                    >Time<input id="time" class="time-limit" type="number"
-                  /></label>
-                </div>
-                <div class="settings-btn-container">
-                  <button type="submit" class="apply-btn">Apply</button>
-                  <button type="button" class="reset-btn">Reset</button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="sensor" data-in="" data-out="">
-            <p class="parameter">85.3</p>
-            <p class="sensor-name">Room</p>
-
-            <div class="battery">
-              <div class="low-level medium-level"></div>
-              <div class="medium-level"></div>
-              <div class="full-level drained"></div>
-            </div>
-          </div>
-          <div class="sensor over-heated">
-            <p class="parameter">85.3</p>
-            <p class="sensor-name">Kitchen</p>
-
-            <div class="battery">
-              <div class="low-level is-full"></div>
-              <div class="medium-level is-full"></div>
-              <div class="full-level is-full"></div>
-            </div>
-          </div> -->
-        </div>
-      </div>
+             </div>
 
       <!-- ==== Modal -->
       <dialog class="modal" data-modal>
