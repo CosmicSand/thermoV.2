@@ -14,7 +14,7 @@ export const statesForSorting = {} as StatesForSorting;
 
 export function fetch(loginData: LoginData) {
   const { username, password, topic } = loginData;
-  sensorsResponses = createSensorResponsesObj(topic);
+  sensorsResponses = {} as SensorsResponse;
 
   const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
     hostname: "sgh.com.ua", // Адреса MQTT брокера
@@ -26,38 +26,12 @@ export function fetch(loginData: LoginData) {
     clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
     keepalive: 60, // Час утримання з'єднання (60 секунд)
     reconnectPeriod: 5000, // Період перепідключення (5 секунд)
-    connectTimeout: 5000,
+    // connectTimeout: 5000,
     manualConnect: false,
     clean: false,
   });
-  // console.log(client);
+
   return client;
-
-  // console.log(client);
-
-  // client.on("error", (error) => {
-  //   // console.error("Произошла ошибка:", error);
-
-  // });
-
-  // client.on("connect", () => {
-  //   console.log("Підключено");
-  //   client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
-
-  // });
-
-  // client.on("message", (_, message) => {
-  //   const messageStr = message.toString().slice(0, -1);
-  //   console.log(messageStr);
-  // });
-
-  //   if (messageStr) {
-  //     addToAndRefreshObject(messageStr);
-  //     isNeedsAutoSorting(sensorsResponses);
-  //     cardCreation(sensorsResponses);
-  //     sorting(sensorsResponses, statesForSorting);
-  //   }
-  // });
 }
 
 // Функція, яка додає до об'єкту користувачів та точки контролю для кожного окремо, а також оновлює дані кожної з точок при надходженні нових значень
