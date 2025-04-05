@@ -6,7 +6,7 @@ import { StatesForSorting } from "./sorting.types";
 import { cardCreation } from "./cardcreation";
 import { sorting } from "./sorting";
 
-const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
+// const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
 
 export let sensorsResponses: SensorsResponse = {};
 
@@ -115,25 +115,25 @@ export function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
   }
 }
 
-export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
-  const { topic } = loginData;
-  setInterval(() => {
-    localStorage.setItem(
-      `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
-      JSON.stringify(sensorsResponses)
-    );
-  }, 300000);
-}
-export function createSensorResponsesObj(topic?: string) {
-  const storedData = localStorage.getItem(
-    `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`
-  );
-  return storedData
-    ? ({
-        ...JSON.parse(storedData),
-      } as SensorsResponse)
-    : ({} as SensorsResponse);
-}
+// export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
+//   const { topic } = loginData;
+//   setInterval(() => {
+//     localStorage.setItem(
+//       `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
+//       JSON.stringify(sensorsResponses)
+//     );
+//   }, 300000);
+// }
+// export function createSensorResponsesObj(topic?: string) {
+//   const storedData = localStorage.getItem(
+//     `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`
+//   );
+//   return storedData
+//     ? ({
+//         ...JSON.parse(storedData),
+//       } as SensorsResponse)
+//     : ({} as SensorsResponse);
+// }
 
 // ==== LogIn ===
 

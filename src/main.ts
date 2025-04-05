@@ -5,7 +5,6 @@
 
 import {
   fetch,
-  saveSensorsResponsestoLocalStorage,
   sensorsResponses,
   addToAndRefreshObject,
   isNeedsAutoSorting,
@@ -43,7 +42,13 @@ loginForm?.addEventListener("submit", (event: Event) => {
   const passwordInput = loginForm.elements.namedItem(
     "password"
   ) as HTMLInputElement;
-  const [username, topic] = usernameInput.value.toLocaleLowerCase().split("_");
+  const topicInput = loginForm.elements.namedItem("topic") as HTMLInputElement;
+  const portInput = loginForm.elements.namedItem("port") as HTMLInputElement;
+
+  const username = usernameInput.value.toLowerCase();
+  const password = passwordInput.value.toLowerCase();
+  const topic = passwordInput.value.toUpperCase();
+  const port = passwordInput.value;
 
   fetch(loginData)
     .then((client) => {
@@ -65,7 +70,7 @@ loginForm?.addEventListener("submit", (event: Event) => {
         }
       });
 
-      saveSensorsResponsestoLocalStorage(loginData);
+      //   saveSensorsResponsestoLocalStorage(loginData);
       swipingPressingLoginBtn(event);
     })
     .catch(() => {
@@ -103,7 +108,7 @@ modalWindow.addEventListener("click", (event: MouseEvent) => {
 });
 
 // fetch(loginData);
-saveSensorsResponsestoLocalStorage(loginData);
+// saveSensorsResponsestoLocalStorage(loginData);
 
 // ==== Функція сортування
 // function sorting() {

@@ -22,6 +22,7 @@
         <div class="baloon"><h1 class="title">Hi</h1></div>
         <p class="greet-text">Let's roll</p>
         <form name="login" class="login-form" method="post" data-login-form>
+          
           <label class="name-label" for="username">Username </label>
           <input
             name="name"
@@ -34,13 +35,37 @@
             autocomplete="off"
             required
           />
-
+<label class="password-label" for="password">Password </label>
           <input
             name="password"
             id="password"
             class="password"
             type="password"
             placeholder="Password"
+            minlength="3"
+            maxlength="10"
+            autocomplete="off"
+            required
+          />
+           <label class="topic-label" for="topic">Topic </label>
+          <input
+            name="topic"
+            id="topic"
+            class="topic"
+            type="text"
+            placeholder="Topic"
+            minlength="3"
+            maxlength="22"
+            autocomplete="off"
+            required
+          />
+<label class="port-label" for="port">Port </label>
+          <input
+            name="port"
+            id="port"
+            class="port"
+            type="number"
+            placeholder="Port"
             minlength="3"
             maxlength="10"
             autocomplete="off"

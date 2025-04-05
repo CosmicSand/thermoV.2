@@ -97,18 +97,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* opacity: 0; */
+  justify-content: center;
 }
-.name-label,
-.password-label {
+.login-form > label {
   position: relative;
   font-size: 1em;
   font-weight: 400;
   padding-bottom: 0.5em;
   padding-top: 0.5em;
 }
-.username,
-.password {
+.login-form > input {
   width: 100%;
   max-width: 220px;
   font-size: 1em;
@@ -118,17 +116,14 @@
   padding-left: 1em;
   padding-right: 1em;
   border-radius: 1em;
-  border: 1px solid var(--logo-btn-bg-color);
   color: var(--border-color);
-  outline: none;
+  outline: 1px solid var(--logo-btn-bg-color);
   background-color: hsla(0, 0%, 0%, 0.835);
   transition: border 0.3s ease-in-out;
 }
-.username:hover,
-.username:focus,
-.password:hover,
-.password:focus {
-  border: 1px solid var(--border-color-hov);
+.login-form > input:focus,
+.login-form > input:hover {
+  outline: 1px solid var(--border-color-hov);
 }
 
 .login-btn {
