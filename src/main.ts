@@ -36,10 +36,10 @@ loginForm?.addEventListener("submit", (event: Event) => {
   const topicInput = loginForm.elements.namedItem("topic") as HTMLInputElement;
   const portInput = loginForm.elements.namedItem("port") as HTMLInputElement;
 
-  const username = usernameInput.value.toLowerCase();
-  const password = passwordInput.value.toLowerCase();
-  const topic = topicInput.value.toUpperCase();
-  const port = portInput.value;
+  const username = usernameInput.value.toLowerCase().trim();
+  const password = passwordInput.value.toLowerCase().trim();
+  const topic = topicInput.value.toUpperCase().trim();
+  const port = portInput.value.trim();
 
   fetch(loginData)
     .then((client) => {

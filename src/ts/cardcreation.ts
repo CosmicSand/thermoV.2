@@ -1,5 +1,3 @@
-// import { NodeArray } from "typescript";
-// import { sensorsResponses } from "./mqtt";
 import { SensorsResponse } from "./login.types";
 import { temperatureUpdate } from "./temperature";
 import { temperatureAlarm } from "./alarm";
