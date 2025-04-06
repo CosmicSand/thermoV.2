@@ -31,8 +31,8 @@ export function temperatureUpdate(
   temperatureOut: string,
   typeOfSensor: string
 ) {
-  const temperatureBefore = Number(parseFloat(temperatureIn).toFixed(1));
-  const temperatureAfter = Number(parseFloat(temperatureOut).toFixed(1));
+  const temperatureBefore = parseFloat(temperatureIn);
+  const temperatureAfter = parseFloat(temperatureOut);
 
   switch (typeOfSensor) {
     case "sensor":
@@ -43,9 +43,9 @@ export function temperatureUpdate(
       if (
         currentTemperatureParagraph !== null &&
         currentTemperatureParagraph.innerText &&
-        Number(currentTemperatureParagraph.innerText) !== temperatureAfter
+        Number(currentTemperatureParagraph.dataset.current) !== temperatureAfter
       ) {
-        currentTemperatureParagraph.innerText = temperatureOut;
+        currentTemperatureParagraph.innerText = temperatureAfter.toFixed(1);
       }
       break;
     case "boiler":
@@ -58,7 +58,7 @@ export function temperatureUpdate(
         currentTemperatureBefore !== temperatureBefore &&
         temperatureBefore !== -127
       ) {
-        currentBoiler.dataset.before = temperatureBefore.toString();
+        currentBoiler.dataset.before = temperatureBefore.toFixed(1);
       } else if (temperatureBefore == -127) {
         currentBoiler.dataset.before = "-";
       }
@@ -68,7 +68,7 @@ export function temperatureUpdate(
         currentTemperatureAfter !== temperatureAfter &&
         temperatureAfter !== -127
       ) {
-        currentBoiler.dataset.after = temperatureAfter.toString();
+        currentBoiler.dataset.after = temperatureAfter.toFixed(1);
       } else if (temperatureAfter == -127) {
         currentBoiler.dataset.after = "-";
       }

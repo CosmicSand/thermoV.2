@@ -61,7 +61,7 @@ export function timeSinceLastUpd(sensorId: string, timeStamp: string) {
       currentTauBtn?.classList.add("hidden");
       currentSensor?.classList.remove("sensor-time-alarm");
     }
-  }, 1000);
+  }, 60000);
 
   intObj[sensorId] = int;
 }
