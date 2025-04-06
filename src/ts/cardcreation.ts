@@ -101,9 +101,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-boiler=${sensorId} data-in=${
+        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-boiler=${sensorId} data-before=${
           temperatureBefore > 0 ? temperatureBefore : "-"
-        } data-out=${
+        } data-after=${
           temperatureAfter > 0 ? temperatureAfter : "-"
         } data-active=${boilerIsActive(
           temperatureBefore,
@@ -187,7 +187,8 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           sensorGatewayElement
         );
       }
-      temperatureUpdate(sensorId, temperatureOut);
+
+      temperatureUpdate(sensorId, temperatureIn, temperatureOut, typeOfSensor);
       temperatureAlarm(sensorId, temperatureOut, typeOfSensor);
       signalAndBatteryLevelShow(sensorId);
       timeSinceLastUpd(sensorId, timeStamp);

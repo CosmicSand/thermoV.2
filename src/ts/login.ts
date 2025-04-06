@@ -13,7 +13,7 @@ export let sensorsResponses: SensorsResponse = {};
 export const statesForSorting = {} as StatesForSorting;
 
 export function fetch(loginData: LoginData) {
-  const { username, password, topic } = loginData;
+  const { username, password } = loginData;
   sensorsResponses = {} as SensorsResponse;
 
   const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
@@ -21,7 +21,7 @@ export function fetch(loginData: LoginData) {
     port: import.meta.env.VITE_PORT, // Порт MQTT брокера
     protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
     path: "/ws", // Шлях до MQTT брокера
-    username: "", // Ім'я користувача
+    username, // Ім'я користувача
     password, // Пароль користувача
     clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
     keepalive: 60, // Час утримання з'єднання (60 секунд)

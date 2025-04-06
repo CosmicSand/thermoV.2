@@ -14,7 +14,12 @@ export function sorting(
       ...document.querySelectorAll(
         `[data-sensor=${ownerName}] > [data-sensor='true']`
       ),
-    ].toSorted((a, b) => a.id.localeCompare(b.id));
+    ].toSorted(
+      (a, b) =>
+        (a as HTMLElement).dataset?.name?.localeCompare(
+          (b as HTMLElement).dataset?.name || ""
+        ) || 0
+    );
 
     const ownersControlAreaForSensors = document.querySelector(
       `[data-sensor=${ownerName}]`

@@ -227,7 +227,7 @@
 }
 
 .boiler::before {
-  content: attr(data-in);
+  content: attr(data-before);
   font-size: 3rem;
   font-weight: 600;
   color: hsl(64, 77%, 76%);
@@ -242,7 +242,7 @@
 }
 
 .boiler::after {
-  content: attr(data-out);
+  content: attr(data-after);
   font-size: 3rem;
   font-weight: 600;
   color: hsl(64, 77%, 76%);
@@ -275,7 +275,7 @@
     flex-direction: row;
   }
   .boiler::before {
-    content: attr(data-in);
+    content: attr(data-before);
     font-size: 3rem;
     font-weight: 600;
     color: hsl(64, 77%, 76%);
@@ -290,7 +290,7 @@
   }
 
   .boiler::after {
-    content: attr(data-out);
+    content: attr(data-after);
     font-size: 3rem;
     font-weight: 600;
     color: hsl(64, 77%, 76%);
