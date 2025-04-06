@@ -47,7 +47,6 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 
       // const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
       const idCheckEl = document.getElementById(sensorId);
-      const idNumber = sensorId.split("_")[1];
       // const temperature = Number(arrayOfParameters[1]).toFixed(1);
       const isSensor = typeOfSensor.includes("sensor");
       const isBoiler = typeOfSensor.includes("boiler");
@@ -60,7 +59,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 
         const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${name} id='${sensorId}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperatureOut}>
             <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
-            <p class="sensor-name" data-sensor-name>${idNumber}</p>
+            <p class="sensor-name" data-sensor-name>${name}</p>
             
             <div class="signal" data-signai-id='${sensorId}' data-signal-level=${signalLevel(
           signal
