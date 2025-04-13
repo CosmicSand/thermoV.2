@@ -1,8 +1,73 @@
+import {
+  fetch,
+  sensorsResponses,
+  addToAndRefreshObject,
+  isNeedsAutoSorting,
+  statesForSorting,
+} from "./login";
+import { LoginData } from "./login.types";
 import { swipingPressingBtns, swipingPressingLoginBtn } from "./info";
 import { openAndCloseIndividualSettings } from "./settings";
 import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, sorting } from "./sorting";
+import { cardCreation } from "./cardcreation";
+
+const loginData: LoginData = {
+  username: import.meta.env.VITE_USERNAME,
+  password: import.meta.env.VITE_PASSWORD,
+  topic: import.meta.env.VITE_USER,
+};
+
+export function submitForLoginEventListener() {
+  const loginForm = document.querySelector("[data-login-form]");
+  loginForm?.addEventListener("submit", (event: Event) => {
+    event.preventDefault();
+    const loginForm = event.currentTarget as HTMLFormElement;
+    const usernameInput = loginForm.elements.namedItem(
+      "name"
+    ) as HTMLInputElement;
+    const passwordInput = loginForm.elements.namedItem(
+      "password"
+    ) as HTMLInputElement;
+    const topicInput = loginForm.elements.namedItem(
+      "topic"
+    ) as HTMLInputElement;
+    const portInput = loginForm.elements.namedItem("port") as HTMLInputElement;
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+    const topic = topicInput.value.toUpperCase().trim();
+    const port = portInput.value.trim();
+
+    fetch(loginData)
+      .then((client) => {
+        const { username, topic } = loginData;
+
+        client.on("connect", () => {
+          console.log("Підключено");
+          client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+        });
+
+        client.on("message", (_, message) => {
+          const messageStr = message.toString().slice(0, -1);
+          // console.log(messageStr);
+          if (messageStr) {
+            addToAndRefreshObject(messageStr);
+            isNeedsAutoSorting(sensorsResponses);
+            cardCreation(sensorsResponses);
+            sorting(sensorsResponses, statesForSorting);
+          }
+        });
+
+        //   saveSensorsResponsestoLocalStorage(loginData);
+        swipingPressingLoginBtn(event);
+      })
+      .catch(() => {
+        console.log("Fuck");
+      });
+  });
+}
 
 // General click Event listener for openning modal, swiping infopage
 
