@@ -105,7 +105,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         } data-active=${boilerIsActive(
           temperatureBefore,
           temperatureAfter
-        )} data-alarmtime="1" data-high="80" data-low="15">
+        )} data-alarmtime="0" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                       
             <p class="sensor-name">
@@ -138,7 +138,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const accuLevel = Number(chargingLevel);
         const isGrid = Number(sensorParameters[2]) > 4 ? 1 : 0;
 
-        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="1">
+        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="0">
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
