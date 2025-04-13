@@ -211,6 +211,12 @@
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+
+  @starting-style {
+    opacity: 0;
+  }
 }
 .signal.no-signal:hover::before {
   content: "";
