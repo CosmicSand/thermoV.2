@@ -13,24 +13,33 @@ export function updateSignalLevel(sensorId: string, signal: string) {
 //  Функція для індикації сигналу батареї
 
 export function signalLevelShow(sensorId: string) {
-  const signal = document.querySelector(
+  const signalDiv = document.querySelector(
     `[data-signal-id=${sensorId}]`
   ) as HTMLDivElement;
-  const signalLevel = Number(signal?.dataset.signalLevel);
-  if (!signalLevel) return;
+  const signalLevel = Number(signalDiv?.dataset.signalLevel);
+
+  if (signalLevel == null) return;
+  if (signalLevel === 0) {
+    signalDiv?.classList.remove("poor-signal");
+    signalDiv?.classList.add("no-signal");
+    return;
+  }
   if (signalLevel < 20) {
-    signal.classList.add("poor-signal");
-    signal.classList.remove("average-signal");
+    signalDiv?.classList.remove("no-signal");
+    signalDiv.classList.add("poor-signal");
+    signalDiv.classList.remove("average-signal");
     return;
   }
-  if (signalLevel >= 20 && signalLevel <= 70) {
-    signal.classList.add("average-signal");
-    signal.classList.remove("poor-signal");
+  if (signalLevel >= 20 && signalLevel < 70) {
+    signalDiv?.classList.remove("no-signal");
+    signalDiv.classList.add("average-signal");
+    signalDiv.classList.remove("poor-signal");
     return;
   }
-  if (signalLevel > 70) {
-    signal.classList.remove("average-signal");
-    signal.classList.remove("poor-signal");
+  if (signalLevel >= 70) {
+    signalDiv?.classList.remove("no-signal");
+    signalDiv.classList.remove("average-signal");
+    signalDiv.classList.remove("poor-signal");
     return;
   }
 }

@@ -197,6 +197,24 @@
 .poor-signal > .signal-dot:nth-child(2n + 1) {
   display: none;
 }
+.no-signal > .signal-dot:nth-child(2n + 1) {
+  display: none;
+}
+.no-signal > .signal-dot {
+  background-color: transparent;
+}
+.no-signal > .signal-dot::before {
+  content: "No signal";
+  position: absolute;
+  width: 5em;
+  font-size: 0.75rem;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.signal.no-signal:hover::before {
+  content: "";
+}
 
 .average-signal > .signal-dot {
   background-color: hsl(57, 97%, 50%);
