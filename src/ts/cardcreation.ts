@@ -107,7 +107,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           temperatureAfter
         )} data-alarmtime="180" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
-                        <p class="parameter" data-time='${sensorId}'>0</p>
+                      
             <p class="sensor-name">
               
               Boiler
