@@ -9,10 +9,13 @@ import { LoginData } from "./ts/login.types";
 import { swipingPressingBtns, swipingPressingLoginBtn } from "./ts/info";
 import { openAndCloseIndividualSettings } from "./ts/settings";
 import { stopAlarm } from "./ts/alarm";
-import { applySettings } from "./ts/settings";
 import { simpleSorting, sorting } from "./ts/sorting";
 import { cardCreation } from "./ts/cardcreation";
-import { modalWindow } from "./ts/settings";
+import {
+  submitModalEventListener,
+  closeByClickModalEventListener,
+  clickEventListenerGeneral,
+} from "./ts/listeners";
 
 const loginData: LoginData = {
   username: import.meta.env.VITE_USERNAME,
@@ -68,32 +71,10 @@ loginForm?.addEventListener("submit", (event: Event) => {
       console.log("Fuck");
     });
 });
-document.addEventListener("click", (event: Event) => {
-  //   swipingSectionsPressingBtns(event);
-  swipingPressingBtns(event);
-  openAndCloseIndividualSettings(event);
-  stopAlarm(event);
-});
-modalWindow.addEventListener("submit", (event: Event) => {
-  event.preventDefault();
-  applySettings(event);
-  const sensorNumber = (event.target as HTMLElement)?.dataset.target;
-  const ownerName = sensorNumber?.split("_")[0] || "";
-  simpleSorting(ownerName);
-});
-modalWindow.addEventListener("click", (event: MouseEvent) => {
-  const dialogDimensions = modalWindow.getBoundingClientRect();
-  const closeButton = (event.target as HTMLElement)?.dataset.closeBtn;
-  if (
-    event.clientX < dialogDimensions.left ||
-    event.clientX > dialogDimensions.right ||
-    event.clientY < dialogDimensions.top ||
-    event.clientY > dialogDimensions.bottom ||
-    closeButton
-  ) {
-    modalWindow.close();
-  }
-});
+
+clickEventListenerGeneral();
+submitModalEventListener();
+closeByClickModalEventListener();
 
 // ==== Функція сортування
 // function sorting() {
