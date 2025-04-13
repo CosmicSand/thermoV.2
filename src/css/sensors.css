@@ -26,6 +26,13 @@
   border: 1px solid var(--border-color);
 }
 
+.gateway-element > .tau {
+  background-color: transparent;
+  top: -25%;
+  left: -25%;
+  border-radius: 100%;
+}
+
 /* ==== Sensor ==== */
 
 .sensor {

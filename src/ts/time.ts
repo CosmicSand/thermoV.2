@@ -50,7 +50,7 @@ export function timeSinceLastUpd(sensorId: string, timeStamp: string) {
     clearInterval(intObj[sensorId]);
   }
 
-  const int = setInterval(() => {
+  const interval = setInterval(() => {
     const timeLeft = (Date.now() - Number(timeStamp)) / (1000 * 60);
     if (alarm && timeLeft > Number(alarm)) {
       (currentTauBtn as HTMLElement).innerText = (timeLeft - 0.5).toFixed(0);
@@ -63,5 +63,5 @@ export function timeSinceLastUpd(sensorId: string, timeStamp: string) {
     }
   }, 10000);
 
-  intObj[sensorId] = int;
+  intObj[sensorId] = interval;
 }

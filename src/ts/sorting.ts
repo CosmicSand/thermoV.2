@@ -36,6 +36,7 @@ export function sorting(
     });
   }
 }
+
 export function simpleSorting(ownerName: string): void {
   const allSensorsArray: Element[] = [
     ...document.querySelectorAll(
@@ -47,7 +48,6 @@ export function simpleSorting(ownerName: string): void {
         (b as HTMLElement).dataset?.name || ""
       ) || 0
   );
-  console.log(allSensorsArray);
 
   const ownersControlAreaForSensors = document.querySelector(
     `[data-sensor=${ownerName}]`
@@ -59,7 +59,7 @@ export function simpleSorting(ownerName: string): void {
 
   // Append each sensor element to the container
   allSensorsArray.forEach((el) => {
-    const element = el as HTMLDivElement;
-    ownersControlAreaForSensors.appendChild(element);
+    // const element = el as HTMLDivElement;
+    ownersControlAreaForSensors.appendChild(el);
   });
 }

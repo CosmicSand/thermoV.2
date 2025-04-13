@@ -75,9 +75,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <div class="medium-level drained" data-yellow=${sensorId}></div>
               <div class="full-level drained" data-green=${sensorId}></div>
             </div>
-              <button class="tau hidden" data-tau="">
+              <div class="tau hidden" data-tau="">
                &#120533;
-            </button>
+            </div>
           </div>`;
         ownersControlAreaForSensors.insertAdjacentHTML(
           "beforeend",
@@ -105,7 +105,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         } data-active=${boilerIsActive(
           temperatureBefore,
           temperatureAfter
-        )} data-alarmtime="180" data-high="80" data-low="15">
+        )} data-alarmtime="0" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                       
             <p class="sensor-name">
@@ -120,35 +120,10 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <div class="medium-level drained" data-yellow=${sensorId}></div>
               <div class="full-level drained" data-green=${sensorId}></div>
             </div>
-          </div>
-          <div class="settings hidden">
-              <form class="settings-form" method="post">
-                <label for="sensorsname">Sensor's name</label>
-                <input id="sensorsname" type="text" class="sensorsname" />
-                <h3 class="limits-title">Limits</h3>
-                <div class="limits-inputs">
-                  <label for="high-temp" class="high-temp-lbl"
-                    >Up
-                    <input id="high-temp" class="high-temp-limit" type="number"
-                  /></label>
-
-                  <label for="low-temp" class="low-temp-lbl"
-                    >Down<input
-                      id="low-temp"
-                      class="low-temp-limit"
-                      type="number"
-                  /></label>
-
-                  <label for="time" class="time-lbl"
-                    >Time<input id="time" class="time-limit" type="number"
-                  /></label>
-                </div>
-
-                <button type="submit" class="apply-btn">Apply</button>
-                <button type="button" class="reset-btn">Reset</button>
-              </form>
+            <div class="tau hidden" data-tau="">
+               &#120533;
             </div>
-          `;
+          </div>`;
         ownersControlAreaForBoilers.insertAdjacentHTML(
           "beforeend",
           sensorBoilerElement
@@ -163,7 +138,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const accuLevel = Number(chargingLevel);
         const isGrid = Number(sensorParameters[2]) > 4 ? 1 : 0;
 
-        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid}>
+        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="1">
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
@@ -177,8 +152,11 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               <div class="medium-level drained" data-yellow=${sensorId}></div>
               <div class="full-level drained" data-green=${sensorId}></div>
             </div>
-          </div>
-          </div>`;
+             <div class="tau hidden" data-tau="">
+               &#120533;
+            </div>
+             </div>         
+          `;
         ownersControlAreaForGateway.insertAdjacentHTML(
           "beforeend",
           sensorGatewayElement
