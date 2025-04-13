@@ -1,12 +1,12 @@
 import { SensorsResponse } from "./login.types";
-import { temperatureUpdate } from "./temperature";
+import {
+  sensorsTemperatureUpdate,
+  boilerTemperatureUpdate,
+} from "./temperature";
 import { temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
-import {
-  signalAndBatteryLevelShow,
-  batteryLevel,
-  signalLevel,
-} from "./battery";
+import { updateBatteryLevel, batteryLevelShow, batteryLevel } from "./battery";
+import { signalLevelShow, signalLevel, updateSignalLevel } from "./signal";
 
 // const intObj: { [key: string]: NodeJS.Timeout } = {};
 const monitor = document.querySelector(".monitor") as HTMLDivElement;
@@ -61,14 +61,14 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
             <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
             <p class="sensor-name" data-sensor-name>${name}</p>
             
-            <div class="signal" data-signai-id='${sensorId}' data-signal-level=${signalLevel(
+            <div class="signal" data-signal-id='${sensorId}' data-signal-level=${signalLevel(
           signal
         )}>
              <div class="signal-dot"></div>
               <div class="signal-dot"></div>
               <div class="signal-dot"></div>
             </div>
-            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
+            <div class="battery" data-battery-id='${sensorId}' data-battery=${batteryLevel(
           chargingLevel
         )}>
              <div class="low-level" data-red=${sensorId}></div>
@@ -113,7 +113,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               Boiler
             </p>
 
-            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
+            <div class="battery" data-battery-id='${sensorId}' data-battery=${batteryLevel(
           chargingLevel
         )}>
               <div class="low-level" data-red=${sensorId}></div>
@@ -168,7 +168,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
                         <p class="parameter">${isGrid}</p>
           
 
-            <div class="battery" data-id='${sensorId}' data-battery=${batteryLevel(
+            <div class="battery" data-battery-id='${sensorId}' data-battery=${batteryLevel(
           chargingLevel,
           4.2,
           3.6
@@ -185,9 +185,18 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         );
       }
 
-      temperatureUpdate(sensorId, temperatureIn, temperatureOut, typeOfSensor);
+      sensorsTemperatureUpdate(sensorId, temperatureOut, typeOfSensor);
+      boilerTemperatureUpdate(
+        sensorId,
+        temperatureIn,
+        temperatureOut,
+        typeOfSensor
+      );
       temperatureAlarm(sensorId, temperatureOut, typeOfSensor);
-      signalAndBatteryLevelShow(sensorId);
+      updateBatteryLevel(sensorId, chargingLevel);
+      batteryLevelShow(sensorId);
+      updateSignalLevel(sensorId, signal);
+      signalLevelShow(sensorId);
       timeSinceLastUpd(sensorId, timeStamp);
     }
   }

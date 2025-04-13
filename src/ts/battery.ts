@@ -1,12 +1,26 @@
+// Функція оновлення значення заряду батареї
+
+export function updateBatteryLevel(sensorId: string, chargingLevel: string) {
+  const battery = document.querySelector(
+    `.battery[data-battery-id=${sensorId}]`
+  ) as HTMLDivElement;
+  if (battery?.dataset.battery == null) return;
+  const currentBatteryLevel = parseFloat(battery.dataset.battery);
+  if (currentBatteryLevel === batteryLevel(chargingLevel)) return;
+  battery.dataset.battery = batteryLevel(chargingLevel).toString();
+}
 //  Функція для індикації заряду батареї
 
-export function signalAndBatteryLevelShow(sensorId: string) {
+export function batteryLevelShow(sensorId: string) {
   // Зроблено для перегляду всіх користувачів. Працює і для одного. Якщо суто для одного робити - то масив ти цикл зайві
 
   const battery = document.querySelector(
-    `.battery[data-id=${sensorId}]`
+    `.battery[data-battery-id=${sensorId}]`
   ) as HTMLDivElement;
-  const batteryLevel = Number(battery?.dataset.battery);
+
+  if (battery?.dataset.battery == null) return;
+
+  const batteryLevel = parseFloat(battery.dataset.battery);
 
   const redLevel = document.querySelector(
     `[data-red='${sensorId}']`
@@ -29,39 +43,28 @@ export function signalAndBatteryLevelShow(sensorId: string) {
     yellowLevel?.classList.add("drained");
     greenLevel?.classList.add("drained");
     battery?.classList.add("empty");
-  } else if (batteryLevel <= 20) {
+    return;
+  }
+  if (batteryLevel < 20) {
     redLevel?.classList.remove("drained");
     yellowLevel?.classList.add("drained");
     greenLevel?.classList.add("drained");
-  } else if (batteryLevel >= 20 && batteryLevel <= 70) {
+    return;
+  }
+  if (batteryLevel >= 20 && batteryLevel < 70) {
     redLevel?.classList.remove("drained");
     redLevel?.classList.add("medium-level");
     yellowLevel?.classList.remove("drained");
     greenLevel?.classList.add("drained");
-  } else if (batteryLevel > 70) {
+    return;
+  }
+  if (batteryLevel >= 70) {
     redLevel?.classList.remove("drained");
     redLevel?.classList.add("is-full");
     yellowLevel?.classList.remove("drained");
     yellowLevel?.classList.add("is-full");
     greenLevel?.classList.remove("drained");
-  } else {
-    console.log("dfdfdfdf");
-  }
-  const signal = document.querySelector(
-    `[data-signai-id=${sensorId}]`
-  ) as HTMLDivElement;
-  const signalLevel = Number(signal?.dataset.signalLevel);
-  if (!signalLevel) {
     return;
-  } else if (signalLevel <= 20) {
-    signal.classList.add("poor-signal");
-    signal.classList.remove("average-signal");
-  } else if (signalLevel >= 20 && signalLevel <= 70) {
-    signal.classList.add("average-signal");
-    signal.classList.remove("poor-signal");
-  } else {
-    signal.classList.remove("average-signal");
-    signal.classList.remove("poor-signal");
   }
 }
 
@@ -74,25 +77,14 @@ export function batteryLevel(
 ) {
   const currentBatteryLevel = (
     100 -
-    ((fullBattery - Number(chargingLevel)) * 100) / (fullBattery - emptyBattery)
+    ((fullBattery - parseFloat(chargingLevel)) * 100) /
+      (fullBattery - emptyBattery)
   ).toFixed(0);
   if (!currentBatteryLevel.includes("-")) {
-    return Number(currentBatteryLevel) > 100 ? 100 : currentBatteryLevel;
+    return parseInt(currentBatteryLevel) > 100
+      ? 100
+      : parseInt(currentBatteryLevel);
   } else {
     return 0;
   }
-}
-
-// Розрахунок сигналу передавання даних
-
-export function signalLevel(
-  chargingLevel: string,
-  highSignal: number = -120,
-  poorSignal: number = -30
-) {
-  const currentBatteryLevel = (
-    100 -
-    ((highSignal - Number(chargingLevel)) * 100) / (highSignal - poorSignal)
-  ).toFixed(0);
-  return currentBatteryLevel;
 }

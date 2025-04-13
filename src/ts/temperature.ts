@@ -1,77 +1,61 @@
 // Функція, яка оновлює значення температури датчиків
 
-// export function currentTemperaturesUpdate(sensorsResponses: SensorsResponse) {
-//   const ownersIdArray = Object.keys(sensorsResponses);
+export function sensorsTemperatureUpdate(
+  sensorId: string,
+  temperature: string,
+  typeOfSensor: string
+) {
+  if (typeOfSensor !== "sensor") return;
+  const temperatureAfter = parseFloat(temperature);
+  const currentTemperatureParagraph = document.querySelector(
+    `[data-temp='${sensorId}']`
+  ) as HTMLParagraphElement;
+  if (temperatureAfter === -127)
+    currentTemperatureParagraph.dataset.after = "-";
+  if (currentTemperatureParagraph.dataset.after != null) {
+    let currentTemperature = parseFloat(
+      currentTemperatureParagraph.dataset.after
+    );
+    if (currentTemperature !== temperatureAfter && temperatureAfter !== -127) {
+      currentTemperatureParagraph.dataset.after = temperatureAfter.toFixed(1);
+    }
+  }
+}
 
-//   for (let ownerId of ownersIdArray) {
-//     const ownersSensors = sensorsResponses[ownerId];
-//     const sensorsIdArray = Object.keys(sensorsResponses[ownerId]);
+// Функція, яка оновлює значення температур котла
 
-//     for (let sensorId of sensorsIdArray) {
-//       const parameters = ownersSensors[sensorId] as string[];
-//       const temperature = parameters[1];
-//       const currentTemperatureParagraph = document.querySelector(
-//         `[data-temp='${sensorId}']`
-//       ) as HTMLParagraphElement;
-
-//       if (
-//         currentTemperatureParagraph !== null &&
-//         currentTemperatureParagraph.innerText &&
-//         currentTemperatureParagraph.innerText !== Number(temperature).toFixed(1)
-//       ) {
-//         currentTemperatureParagraph.innerText = Number(temperature).toFixed(1);
-//       }
-//     }
-//   }
-// }
-
-export function temperatureUpdate(
+export function boilerTemperatureUpdate(
   sensorId: string,
   temperatureIn: string,
   temperatureOut: string,
   typeOfSensor: string
 ) {
+  if (typeOfSensor !== "boiler") return;
   const temperatureBefore = parseFloat(temperatureIn);
   const temperatureAfter = parseFloat(temperatureOut);
+  const currentBoiler = document.querySelector(
+    `[data-boiler = ${sensorId}]`
+  ) as HTMLDivElement;
 
-  switch (typeOfSensor) {
-    case "sensor":
-      const currentTemperatureParagraph = document.querySelector(
-        `[data-temp='${sensorId}']`
-      ) as HTMLParagraphElement;
+  if (temperatureBefore === -127) currentBoiler.dataset.before = "-";
+  if (currentBoiler.dataset.before != null) {
+    let currentTemperatureBefore = parseFloat(currentBoiler.dataset.before);
+    if (
+      currentTemperatureBefore !== parseFloat(temperatureBefore.toFixed(1)) &&
+      temperatureBefore !== -127
+    ) {
+      currentBoiler.dataset.before = temperatureBefore.toFixed(1);
+    }
+  }
 
-      if (
-        currentTemperatureParagraph !== null &&
-        currentTemperatureParagraph.innerText &&
-        Number(currentTemperatureParagraph.dataset.current) !== temperatureAfter
-      ) {
-        currentTemperatureParagraph.innerText = temperatureAfter.toFixed(1);
-      }
-      break;
-    case "boiler":
-      const currentBoiler = document.querySelector(
-        `[data-boiler = ${sensorId}]`
-      ) as HTMLDivElement;
-
-      let currentTemperatureBefore = Number(currentBoiler.dataset.before);
-      if (
-        currentTemperatureBefore !== temperatureBefore &&
-        temperatureBefore !== -127
-      ) {
-        currentBoiler.dataset.before = temperatureBefore.toFixed(1);
-      } else if (temperatureBefore == -127) {
-        currentBoiler.dataset.before = "-";
-      }
-
-      let currentTemperatureAfter = Number(currentBoiler.dataset.after);
-      if (
-        currentTemperatureAfter !== temperatureAfter &&
-        temperatureAfter !== -127
-      ) {
-        currentBoiler.dataset.after = temperatureAfter.toFixed(1);
-      } else if (temperatureAfter == -127) {
-        currentBoiler.dataset.after = "-";
-      }
-      break;
+  if (temperatureAfter === -127) currentBoiler.dataset.after = "-";
+  if (currentBoiler.dataset.after != null) {
+    let currentTemperatureAfter = parseFloat(currentBoiler.dataset.after);
+    if (
+      currentTemperatureAfter !== temperatureAfter &&
+      temperatureAfter !== -127
+    ) {
+      currentBoiler.dataset.after = temperatureAfter.toFixed(1);
+    }
   }
 }
