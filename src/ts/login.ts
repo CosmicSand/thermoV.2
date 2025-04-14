@@ -7,6 +7,11 @@ import { cardCreation } from "./cardcreation";
 import { sorting } from "./sorting";
 
 // const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
+const TYPE_0F_EQUIPMENT = {
+  SENSOR: "sensor",
+  BOILER: "boiler",
+  GATEWAY: "gateway",
+};
 
 export let sensorsResponses: SensorsResponse = {};
 
@@ -64,11 +69,11 @@ export function addToAndRefreshObject(messageStr: string) {
   // console.log(sensorData);
 
   if (sensorNumber % 10 === 0 && sensorNumber % 100 !== 0) {
-    sensorData.push("boiler");
+    sensorData.push(TYPE_0F_EQUIPMENT.BOILER);
   } else if (sensorNumber % 100 === 0) {
-    sensorData.push("gateway");
+    sensorData.push(TYPE_0F_EQUIPMENT.GATEWAY);
   } else {
-    sensorData.push("sensor");
+    sensorData.push(TYPE_0F_EQUIPMENT.SENSOR);
   }
   sensorData.push(Date.now().toString());
 
