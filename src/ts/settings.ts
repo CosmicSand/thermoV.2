@@ -43,27 +43,53 @@ export function applySettings(event: Event): void {
   // Застосування введенних налаштувань
 
   const sensorId = (event.target as HTMLElement)?.dataset.target;
+
+  if (sensorId == undefined) return;
+
   const currentSensor = document.querySelector(
     `[data-id=${sensorId}]`
   ) as HTMLElement;
-  const ownerId = (currentSensor.closest(".control-area") as HTMLDivElement).id;
+  // const ownerId = (currentSensor.closest(".control-area") as HTMLDivElement).id;
   const paragraphWithName =
     (currentSensor.querySelector(
       "[data-sensor-name]"
     ) as HTMLParagraphElement) ??
     (currentSensor.querySelector("[data-boiler-name]") as HTMLParagraphElement);
-  const newName = (nameSettingsInput as HTMLInputElement).value;
-  const newHighLimit = (highSettingsInput as HTMLInputElement).value;
-  const newLowLimit = (lowSettingsInput as HTMLInputElement).value;
-  const newAlarmTime = (timeSettingsInput as HTMLInputElement).value;
+  const newSettings = {
+    newName: (nameSettingsInput as HTMLInputElement).value,
+    newHighLimit: (highSettingsInput as HTMLInputElement).value,
+    newLowLimit: (lowSettingsInput as HTMLInputElement).value,
+    newAlarmTime: (timeSettingsInput as HTMLInputElement).value,
+    ownerId: (currentSensor.closest(".control-area") as HTMLDivElement).id,
+    sensorId,
+  };
 
-  currentSensor.dataset.name = newName;
-  paragraphWithName.innerText = newName;
-  currentSensor.dataset.high = newHighLimit;
-  currentSensor.dataset.low = newLowLimit;
-  currentSensor.dataset.alarmtime = newAlarmTime;
+  currentSensor.dataset.name = newSettings.newName;
+  paragraphWithName.innerText = newSettings.newName;
+  currentSensor.dataset.high = newSettings.newHighLimit;
+  currentSensor.dataset.low = newSettings.newLowLimit;
+  currentSensor.dataset.alarmtime = newSettings.newAlarmTime;
 
-  if (sensorId == null || sensorId == undefined) return;
+  saveSettings(newSettings);
+
+  modalWindow?.close();
+}
+
+function saveSettings({
+  ownerId,
+  sensorId,
+  newName,
+  newHighLimit,
+  newLowLimit,
+  newAlarmTime,
+}: {
+  ownerId: string;
+  sensorId: string;
+  newName: string;
+  newHighLimit: string;
+  newLowLimit: string;
+  newAlarmTime: string;
+}) {
   if (SAVED_NEW_SETTINGS[ownerId]?.[sensorId] == undefined) {
     SAVED_NEW_SETTINGS[ownerId] = {
       ...SAVED_NEW_SETTINGS[ownerId],
@@ -83,14 +109,10 @@ export function applySettings(event: Event): void {
       newAlarmTime,
     };
   }
-
   localStorage.setItem(
     "SAVED_NEW_SETTINGS",
     JSON.stringify(SAVED_NEW_SETTINGS)
   );
-  console.log(SAVED_NEW_SETTINGS);
-
-  modalWindow?.close();
 }
 
 // function openAndCloseIndividualSettings(event: Event): void {
