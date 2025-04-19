@@ -1,12 +1,9 @@
 import mqtt from "mqtt";
-// import mqtt from "async-mqtt";
-
 import { SensorsResponse, LoginData } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
-import { cardCreation } from "./cardcreation";
-import { sorting } from "./sorting";
+// import { cardCreation } from "./cardcreation";
+// import { sorting } from "./sorting";
 
-// const THERMO_SENSOR_RESPONSE: string = "THERMO_SENSOR_RESPONSE";
 const TYPES_0F_EQUIPMENT = {
   SENSOR: "sensor",
   BOILER: "boiler",
