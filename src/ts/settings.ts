@@ -43,9 +43,11 @@ export function applySettings(event: Event): void {
   const currentSensor = document.querySelector(
     `[data-id=${sensorNumber}]`
   ) as HTMLElement;
-  const paragraphWithName = currentSensor.querySelector(
-    "[data-sensor-name]"
-  ) as HTMLParagraphElement;
+  const paragraphWithName =
+    (currentSensor.querySelector(
+      "[data-sensor-name]"
+    ) as HTMLParagraphElement) ??
+    (currentSensor.querySelector("[data-boiler-name]") as HTMLParagraphElement);
 
   currentSensor.dataset.name = (nameSettingsInput as HTMLInputElement).value;
   paragraphWithName.innerText = (nameSettingsInput as HTMLInputElement).value;

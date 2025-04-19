@@ -98,19 +98,19 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-boiler=${sensorId} data-before=${
+        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-id=${sensorId}  data-name=${name} data-boiler=${sensorId} data-before=${
           temperatureBefore > 0 ? temperatureBefore : "-"
         } data-after=${
           temperatureAfter > 0 ? temperatureAfter : "-"
         } data-active=${boilerIsActive(
           temperatureBefore,
           temperatureAfter
-        )} data-alarmtime="0" data-high="80" data-low="15">
+        )} data-alarmtime="1" data-high="80" data-low="15">
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                       
-            <p class="sensor-name">
+            <p class="sensor-name" data-boiler-name>
               
-              Boiler
+            ${name}
             </p>
 
             <div class="battery" data-battery-id='${sensorId}' data-battery=${batteryLevel(
@@ -138,7 +138,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const accuLevel = Number(chargingLevel);
         const isGrid = Number(sensorParameters[2]) > 4 ? 1 : 0;
 
-        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="0">
+        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="1">
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
