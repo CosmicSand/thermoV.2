@@ -48,8 +48,8 @@ export function signalLevelShow(sensorId: string) {
 
 export function signalLevel(
   signal: string,
-  lowSignal: number = -30,
-  highSignal: number = -120
+  lowSignal: number = -120,
+  highSignal: number = -30
 ) {
   const currentBatteryLevel = (
     100 -

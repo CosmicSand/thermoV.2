@@ -112,7 +112,13 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
               
             ${name}
             </p>
-
+<div class="signal" data-signal-id='${sensorId}' data-signal-level=${signalLevel(
+          signal
+        )}>
+             <div class="signal-dot"></div>
+              <div class="signal-dot"></div>
+              <div class="signal-dot"></div>
+            </div>
             <div class="battery" data-battery-id='${sensorId}' data-battery=${batteryLevel(
           chargingLevel
         )}>
@@ -178,6 +184,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       timeSinceLastUpd(sensorId, timeStamp);
     }
   }
+  console.log(sensorsResponses);
 }
 
 // Застосування класу isActive для котла, який знаходиться в роботі
