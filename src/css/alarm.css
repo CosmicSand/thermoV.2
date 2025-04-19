@@ -136,6 +136,8 @@
 }
 
 .sensor-time-alarm.gateway-element > p {
+  color: hsla(47, 89%, 78%, 0.566);
+  border-color: hsla(47, 89%, 78%, 0.566);
   box-shadow: none;
   animation: none;
   filter: grayscale(0.8);
