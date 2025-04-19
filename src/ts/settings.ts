@@ -1,7 +1,9 @@
 // Функція відкриття та закриття індивідуального вікна налаштувань
 
 import { simpleSorting } from "./sorting";
+import { SavedSettings } from "./settings.types";
 
+let SAVED_NEW_SETTINGS: SavedSettings = {};
 const nameSettingsInput = document.querySelector("[data-current-name]");
 const highSettingsInput = document.querySelector("[data-current-high]");
 const lowSettingsInput = document.querySelector("[data-current-low]");
@@ -11,16 +13,16 @@ export const modalWindow = document.querySelector(
 ) as HTMLDialogElement;
 
 export function openAndCloseIndividualSettings(event: Event): void {
-  const sensorNumber = (event.target as HTMLElement)?.dataset.id;
+  const sensorId = (event.target as HTMLElement)?.dataset.id;
   const currentName = (event.target as HTMLElement)?.dataset.name;
-  if (!sensorNumber) return;
+  if (!sensorId) return;
 
   // if (!modalWindow) return;
   const settingsForm = document.querySelector(
     "[data-settings-form]"
   ) as HTMLElement;
 
-  settingsForm.dataset.target = sensorNumber;
+  settingsForm.dataset.target = sensorId;
   settingsForm.dataset.currentName = currentName;
 
   (nameSettingsInput as HTMLInputElement).value =
@@ -39,23 +41,54 @@ export function openAndCloseIndividualSettings(event: Event): void {
 
 export function applySettings(event: Event): void {
   // Застосування введенних налаштувань
-  const sensorNumber = (event.target as HTMLElement)?.dataset.target;
+
+  const sensorId = (event.target as HTMLElement)?.dataset.target;
   const currentSensor = document.querySelector(
-    `[data-id=${sensorNumber}]`
+    `[data-id=${sensorId}]`
   ) as HTMLElement;
+  const ownerId = (currentSensor.closest(".control-area") as HTMLDivElement).id;
   const paragraphWithName =
     (currentSensor.querySelector(
       "[data-sensor-name]"
     ) as HTMLParagraphElement) ??
     (currentSensor.querySelector("[data-boiler-name]") as HTMLParagraphElement);
+  const newName = (nameSettingsInput as HTMLInputElement).value;
+  const newHighLimit = (highSettingsInput as HTMLInputElement).value;
+  const newLowLimit = (lowSettingsInput as HTMLInputElement).value;
+  const newAlarmTime = (timeSettingsInput as HTMLInputElement).value;
 
-  currentSensor.dataset.name = (nameSettingsInput as HTMLInputElement).value;
-  paragraphWithName.innerText = (nameSettingsInput as HTMLInputElement).value;
-  currentSensor.dataset.high = (highSettingsInput as HTMLInputElement).value;
-  currentSensor.dataset.low = (lowSettingsInput as HTMLInputElement).value;
-  currentSensor.dataset.alarmtime = (
-    timeSettingsInput as HTMLInputElement
-  ).value;
+  currentSensor.dataset.name = newName;
+  paragraphWithName.innerText = newName;
+  currentSensor.dataset.high = newHighLimit;
+  currentSensor.dataset.low = newLowLimit;
+  currentSensor.dataset.alarmtime = newAlarmTime;
+
+  if (sensorId == null || sensorId == undefined) return;
+  if (SAVED_NEW_SETTINGS[ownerId]?.[sensorId] == undefined) {
+    SAVED_NEW_SETTINGS[ownerId] = {
+      ...SAVED_NEW_SETTINGS[ownerId],
+      [sensorId]: {
+        newName,
+        newHighLimit,
+        newLowLimit,
+        newAlarmTime,
+      },
+    };
+  }
+  if (SAVED_NEW_SETTINGS[ownerId] != undefined) {
+    SAVED_NEW_SETTINGS[ownerId][sensorId] = {
+      newName,
+      newHighLimit,
+      newLowLimit,
+      newAlarmTime,
+    };
+  }
+
+  localStorage.setItem(
+    "SAVED_NEW_SETTINGS",
+    JSON.stringify(SAVED_NEW_SETTINGS)
+  );
+  console.log(SAVED_NEW_SETTINGS);
 
   modalWindow?.close();
 }

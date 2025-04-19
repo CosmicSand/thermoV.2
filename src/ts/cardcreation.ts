@@ -22,7 +22,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
     if (!divIdExistence) {
       monitor?.insertAdjacentHTML(
         "afterbegin",
-        `<div class='control-area' id=${ownerId}><h2>${ownerId}</h2><div class="gateway" data-gateway=${ownerId}></div><div class="for-boilers" data-boiler=${ownerId}></div><div class="for-sensors" data-sensor=${ownerId}></div></div></div>`
+        `<div class='control-area' id=${ownerId}><h2>${ownerId}</h2><div class="gateway" data-gateway=${ownerId}></div><div class="for-boilers" data-boiler=${ownerId}></div><div class="for-sensors" data-sensor=${ownerId}></div></div>`
       );
     }
 
