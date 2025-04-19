@@ -1,6 +1,6 @@
 // Функція відкриття та закриття індивідуального вікна налаштувань
 
-import { simpleSorting } from "./sorting";
+// import { simpleSorting } from "./sorting";
 import { SavedSettings } from "./settings.types";
 
 let SAVED_NEW_SETTINGS: SavedSettings = {};
