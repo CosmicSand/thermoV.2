@@ -196,3 +196,7 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
     return false;
   }
 }
+
+// function checkForSavedSettings(params:type) {
+
+// }
