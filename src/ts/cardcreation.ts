@@ -62,13 +62,13 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
 
         const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${
           applySavedSettings(ownerId, sensorId)?.newName || name
-        } id='${sensorId}'  data-alarmtime="${
+        } id='${sensorId}'  data-alarmtime=${
           applySavedSettings(ownerId, sensorId)?.newAlarmTime || "3"
-        }"  data-high="${
+        }  data-high=${
           applySavedSettings(ownerId, sensorId)?.newHighLimit || "85"
-        }" data-low="${
+        } data-low=${
           applySavedSettings(ownerId, sensorId)?.newLowLimit || "15"
-        }" data-current=${temperatureOut}>
+        } data-current=${temperatureOut}>
             <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
             <p class="sensor-name" data-sensor-name>${
               applySavedSettings(ownerId, sensorId)?.newName || name
@@ -111,19 +111,27 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-id=${sensorId}  data-name=${name} data-boiler=${sensorId} data-before=${
+        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-id=${sensorId}  data-name=${
+          applySavedSettings(ownerId, sensorId)?.newName || name
+        } data-boiler=${sensorId} data-before=${
           temperatureBefore > 0 ? temperatureBefore : "-"
         } data-after=${
           temperatureAfter > 0 ? temperatureAfter : "-"
         } data-active=${boilerIsActive(
           temperatureBefore,
           temperatureAfter
-        )} data-alarmtime="1" data-high="80" data-low="15">
+        )} data-alarmtime=${
+          applySavedSettings(ownerId, sensorId)?.newAlarmTime || "3"
+        }  data-high=${
+          applySavedSettings(ownerId, sensorId)?.newHighLimit || "85"
+        } data-low=${
+          applySavedSettings(ownerId, sensorId)?.newLowLimit || "15"
+        }>
                         <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
                       
             <p class="sensor-name" data-boiler-name>
               
-            ${name}
+            ${applySavedSettings(ownerId, sensorId)?.newName || name}
             </p>
 <div class="signal" data-signal-id='${sensorId}' data-signal-level=${signalLevel(
           signal
