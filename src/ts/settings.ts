@@ -3,7 +3,8 @@
 // import { simpleSorting } from "./sorting";
 import { SavedSettings } from "./settings.types";
 
-let SAVED_NEW_SETTINGS: SavedSettings = {};
+let SAVED_NEW_SETTINGS: SavedSettings =
+  JSON.parse(localStorage.getItem("SAVED_NEW_SETTINGS") as string) ?? {};
 const nameSettingsInput = document.querySelector("[data-current-name]");
 const highSettingsInput = document.querySelector("[data-current-high]");
 const lowSettingsInput = document.querySelector("[data-current-low]");
