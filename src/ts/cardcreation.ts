@@ -34,7 +34,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       const ownersControlArea = document.getElementById(
         ownerId
       ) as HTMLDivElement;
-      const [
+      let [
         name,
         chargingLevel,
         temperatureOut,
@@ -45,7 +45,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         timeStamp,
       ] = sensorsResponses[ownerId][sensorId];
 
-      checkForSavedSettings();
+      // name = checkForSavedSettings(ownerId, sensorId) || name;
+      // console.log(name, sensorId);
+
       // const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
       const idCheckEl = document.getElementById(sensorId);
       // const temperature = Number(arrayOfParameters[1]).toFixed(1);
@@ -58,9 +60,19 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           `[data-sensor=${ownerId}]`
         ) as HTMLDivElement;
 
-        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${name} id='${sensorId}'  data-alarmtime="1"  data-high="60" data-low="15" data-current=${temperatureOut}>
+        const sensorElement = `<div class="sensor" data-sensor="true" data-id='${sensorId}' data-name=${
+          applySavedSettings(ownerId, sensorId)?.newName || name
+        } id='${sensorId}'  data-alarmtime="${
+          applySavedSettings(ownerId, sensorId)?.newAlarmTime || "3"
+        }"  data-high="${
+          applySavedSettings(ownerId, sensorId)?.newHighLimit || "85"
+        }" data-low="${
+          applySavedSettings(ownerId, sensorId)?.newLowLimit || "15"
+        }" data-current=${temperatureOut}>
             <p class="parameter"  data-temp='${sensorId}'>${temperatureOut}</p>
-            <p class="sensor-name" data-sensor-name>${name}</p>
+            <p class="sensor-name" data-sensor-name>${
+              applySavedSettings(ownerId, sensorId)?.newName || name
+            }</p>
             
             <div class="signal" data-signal-id='${sensorId}' data-signal-level=${signalLevel(
           signal
@@ -198,10 +210,13 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
   }
 }
 
-function checkForSavedSettings() {
-  if (localStorage.getItem("SAVED_NEW_SETTINGS") != undefined) {
-    const savedSettings = JSON.parse(
-      localStorage.getItem("SAVED_NEW_SETTINGS") as string
-    );
-  }
+// застосування збережених даних
+
+function applySavedSettings(ownerId: string, sensorId: string) {
+  if (localStorage.getItem("SAVED_NEW_SETTINGS") == undefined) return;
+  const savedSettings = JSON.parse(
+    localStorage.getItem("SAVED_NEW_SETTINGS") as string
+  );
+  if (ownerId in savedSettings && sensorId in savedSettings[ownerId])
+    return savedSettings[ownerId][sensorId];
 }
