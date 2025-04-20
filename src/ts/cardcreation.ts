@@ -45,6 +45,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         timeStamp,
       ] = sensorsResponses[ownerId][sensorId];
 
+      checkForSavedSettings();
       // const arrayOfParameters = sensorsResponses[ownerId][sensorId] as string[];
       const idCheckEl = document.getElementById(sensorId);
       // const temperature = Number(arrayOfParameters[1]).toFixed(1);
@@ -184,7 +185,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       timeSinceLastUpd(sensorId, timeStamp);
     }
   }
-  console.log(sensorsResponses);
+  // console.log(sensorsResponses);
 }
 
 // Застосування класу isActive для котла, який знаходиться в роботі
@@ -197,6 +198,10 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
   }
 }
 
-// function checkForSavedSettings(params:type) {
-
-// }
+function checkForSavedSettings() {
+  if (localStorage.getItem("SAVED_NEW_SETTINGS") != undefined) {
+    const savedSettings = JSON.parse(
+      localStorage.getItem("SAVED_NEW_SETTINGS") as string
+    );
+  }
+}
