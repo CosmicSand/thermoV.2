@@ -218,7 +218,7 @@ function boilerIsActive(inTemperature: number, outTemperature: number) {
   }
 }
 
-// застосування збережених даних
+// Застосування збережених даних
 
 function applySavedSettings(ownerId: string, sensorId: string) {
   if (localStorage.getItem("SAVED_NEW_SETTINGS") == undefined) return;
