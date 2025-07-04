@@ -43,7 +43,6 @@ export function submitForLoginEventListener() {
     fetch(loginData)
       .then((client) => {
         const { username, topic } = loginData;
-
         client.on("connect", () => {
           console.log("Підключено");
           client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);

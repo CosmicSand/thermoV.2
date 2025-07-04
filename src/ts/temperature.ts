@@ -6,19 +6,22 @@ export function sensorsTemperatureUpdate(
   typeOfSensor: string
 ) {
   if (typeOfSensor !== "sensor") return;
-  const temperatureAfter = parseFloat(temperature);
+  const sensorTemperature = parseFloat(temperature);
   const currentSensor = document.querySelector(
     `[data-id='${sensorId}']`
   ) as HTMLDivElement;
   const currentTemperatureParagraph = document.querySelector(
     `[data-temp='${sensorId}']`
   ) as HTMLParagraphElement;
-  if (temperatureAfter === -127) currentTemperatureParagraph.innerText = "-";
+  if (sensorTemperature === -127) currentTemperatureParagraph.innerText = "-";
   if (currentTemperatureParagraph.innerText != null) {
     let currentTemperature = parseFloat(currentTemperatureParagraph.innerText);
-    if (currentTemperature !== temperatureAfter && temperatureAfter !== -127) {
-      currentTemperatureParagraph.innerText = temperatureAfter.toFixed(1);
-      currentSensor.dataset.current = temperatureAfter.toFixed(1);
+    if (
+      currentTemperature !== sensorTemperature &&
+      sensorTemperature !== -127
+    ) {
+      currentTemperatureParagraph.innerText = sensorTemperature.toFixed(1);
+      currentSensor.dataset.current = sensorTemperature.toFixed(1);
     }
   }
 }
