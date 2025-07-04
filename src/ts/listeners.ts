@@ -47,6 +47,7 @@ export function submitForLoginEventListener() {
         client.on("connect", () => {
           console.log("Підключено");
           client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+          // client.subscribe(`${username}/#`);
         });
 
         client.on("message", (_, message) => {

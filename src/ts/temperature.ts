@@ -10,14 +10,11 @@ export function sensorsTemperatureUpdate(
   const currentTemperatureParagraph = document.querySelector(
     `[data-temp='${sensorId}']`
   ) as HTMLParagraphElement;
-  if (temperatureAfter === -127)
-    currentTemperatureParagraph.dataset.after = "-";
-  if (currentTemperatureParagraph.dataset.after != null) {
-    let currentTemperature = parseFloat(
-      currentTemperatureParagraph.dataset.after
-    );
+  if (temperatureAfter === -127) currentTemperatureParagraph.innerText = "-";
+  if (currentTemperatureParagraph.innerText != null) {
+    let currentTemperature = parseFloat(currentTemperatureParagraph.innerText);
     if (currentTemperature !== temperatureAfter && temperatureAfter !== -127) {
-      currentTemperatureParagraph.dataset.after = temperatureAfter.toFixed(1);
+      currentTemperatureParagraph.innerText = temperatureAfter.toFixed(1);
     }
   }
 }

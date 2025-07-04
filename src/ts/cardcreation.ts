@@ -205,7 +205,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
       timeSinceLastUpd(sensorId, timeStamp);
     }
   }
-  // console.log(sensorsResponses);
+  console.log(sensorsResponses);
 }
 
 // Застосування класу isActive для котла, який знаходиться в роботі
