@@ -7,6 +7,9 @@ export function sensorsTemperatureUpdate(
 ) {
   if (typeOfSensor !== "sensor") return;
   const temperatureAfter = parseFloat(temperature);
+  const currentSensor = document.querySelector(
+    `[data-id='${sensorId}']`
+  ) as HTMLDivElement;
   const currentTemperatureParagraph = document.querySelector(
     `[data-temp='${sensorId}']`
   ) as HTMLParagraphElement;
@@ -15,6 +18,7 @@ export function sensorsTemperatureUpdate(
     let currentTemperature = parseFloat(currentTemperatureParagraph.innerText);
     if (currentTemperature !== temperatureAfter && temperatureAfter !== -127) {
       currentTemperatureParagraph.innerText = temperatureAfter.toFixed(1);
+      currentSensor.dataset.current = temperatureAfter.toFixed(1);
     }
   }
 }
