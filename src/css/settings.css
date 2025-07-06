@@ -108,6 +108,7 @@
   transition: border 0.2s ease-in-out, color 0.2s ease-in-out,
     box-shadow 0.2s ease-in-out;
 }
+
 /* .apply-btn {
   top: 100%;
   left: 15%;
@@ -132,6 +133,11 @@
   color: var(--border-color-hov);
   box-shadow: 0 0 1em 0.2em hsl(0, 97%, 42%),
     inset 0 0 0.5em 0.1em hsl(0, 97%, 42%);
+}
+.apply-btn:disabled {
+  filter: grayscale(1);
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 .modal {

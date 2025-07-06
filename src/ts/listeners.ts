@@ -69,6 +69,35 @@ export function submitForLoginEventListener() {
   });
 }
 
+// Modal input eventListener
+export function modalInputsEventListener(
+  name: string,
+  high: string,
+  low: string,
+  alarmtime: string
+) {
+  modalWindow.addEventListener("input", (event: Event) => {
+    const applyBtn = modalWindow.querySelector(
+      "[data-apply-btn]"
+    ) as HTMLButtonElement;
+    const activeInput = event.target as HTMLInputElement;
+
+    if (
+      activeInput.value !== name &&
+      activeInput.value !== high &&
+      activeInput.value !== low &&
+      activeInput.value !== alarmtime
+    ) {
+      applyBtn.disabled = false;
+    } else {
+      console.log("ddd");
+
+      applyBtn.disabled = true;
+    }
+    console.log(typeof low);
+  });
+}
+
 // General click Event listener for openning modal, swiping infopage
 
 export function clickEventListenerGeneral() {

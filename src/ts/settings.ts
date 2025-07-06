@@ -1,6 +1,7 @@
 // Функція відкриття та закриття індивідуального вікна налаштувань
 
 // import { simpleSorting } from "./sorting";
+import { modalInputsEventListener } from "./listeners";
 import { SavedSettings } from "./settings.types";
 
 const SAVED_NEW_SETTINGS: SavedSettings =
@@ -25,17 +26,22 @@ export function openAndCloseIndividualSettings(event: Event): void {
 
   settingsForm.dataset.target = sensorId;
   settingsForm.dataset.currentName = currentName;
+  const name = (event.target as HTMLElement)?.dataset.name || "";
+  const high = (event.target as HTMLElement)?.dataset.high || "";
+  const low = (event.target as HTMLElement)?.dataset.low || "";
+  const alarmtime = (event.target as HTMLElement)?.dataset.alarmtime || "";
 
-  (nameSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.name || "";
-  (highSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.high || "";
-  (lowSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.low || "";
-  (timeSettingsInput as HTMLInputElement).value =
-    (event.target as HTMLElement)?.dataset.alarmtime || "";
+  (nameSettingsInput as HTMLInputElement).value = name;
+  (highSettingsInput as HTMLInputElement).value = high;
+  (lowSettingsInput as HTMLInputElement).value = low;
+  (timeSettingsInput as HTMLInputElement).value = alarmtime;
 
   (modalWindow as HTMLDialogElement)?.showModal();
+  const applyBtn = modalWindow.querySelector(
+    "[data-apply-btn]"
+  ) as HTMLButtonElement;
+  applyBtn.disabled = true;
+  modalInputsEventListener(name, high, low, alarmtime);
 }
 
 // Застосування налаштувань
@@ -64,6 +70,14 @@ export function applySettings(event: Event): void {
     ownerId: (currentSensor.closest(".control-area") as HTMLDivElement).id,
     sensorId,
   };
+  if (
+    currentSensor.dataset.name === newSettings.newName &&
+    currentSensor.dataset.high === newSettings.newHighLimit &&
+    currentSensor.dataset.low === newSettings.newLowLimit &&
+    currentSensor.dataset.alarmtime === newSettings.newAlarmTime
+  ) {
+    return;
+  }
 
   currentSensor.dataset.name = newSettings.newName;
   paragraphWithName.innerText = newSettings.newName;
