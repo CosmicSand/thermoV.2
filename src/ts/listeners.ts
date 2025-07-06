@@ -69,7 +69,7 @@ export function submitForLoginEventListener() {
   });
 }
 
-// Modal input eventListener
+// Modal input eventListener. It enable or disable "Apply" button
 export function modalInputsEventListener(
   name: string,
   high: string,
@@ -80,14 +80,26 @@ export function modalInputsEventListener(
     const applyBtn = modalWindow.querySelector(
       "[data-apply-btn]"
     ) as HTMLButtonElement;
+    const nameInput = modalWindow.querySelector(
+      "[data-current-name]"
+    ) as HTMLInputElement;
+    const highInput = modalWindow.querySelector(
+      "[data-current-high]"
+    ) as HTMLInputElement;
+    const lowInput = modalWindow.querySelector(
+      "[data-current-low]"
+    ) as HTMLInputElement;
+    const alarmtimeInput = modalWindow.querySelector(
+      "[data-current-time]"
+    ) as HTMLInputElement;
     const activeInput = event.target as HTMLInputElement;
-
     if (
-      activeInput.value.trim().length !== 0 &&
-      activeInput.value.trim() !== name &&
-      activeInput.value !== high &&
-      activeInput.value !== low &&
-      activeInput.value !== alarmtime
+      ((activeInput.value.trim().length !== 0 &&
+        nameInput.value.trim() !== name) ||
+        highInput.value !== high ||
+        lowInput.value !== low ||
+        alarmtimeInput.value !== alarmtime) &&
+      parseInt(highInput.value) > parseInt(lowInput.value)
     ) {
       applyBtn.disabled = false;
     } else {

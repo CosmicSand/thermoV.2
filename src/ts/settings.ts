@@ -25,7 +25,7 @@ export function openAndCloseIndividualSettings(event: Event): void {
   ) as HTMLElement;
 
   settingsForm.dataset.target = sensorId;
-  settingsForm.dataset.currentName = currentName;
+  settingsForm.dataset.currentSensorName = currentName;
   const name = (event.target as HTMLElement)?.dataset.name || "";
   const high = (event.target as HTMLElement)?.dataset.high || "";
   const low = (event.target as HTMLElement)?.dataset.low || "";
