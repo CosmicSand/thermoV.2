@@ -83,7 +83,8 @@ export function modalInputsEventListener(
     const activeInput = event.target as HTMLInputElement;
 
     if (
-      activeInput.value !== name &&
+      activeInput.value.trim().length !== 0 &&
+      activeInput.value.trim() !== name &&
       activeInput.value !== high &&
       activeInput.value !== low &&
       activeInput.value !== alarmtime
