@@ -90,6 +90,7 @@
   /* filter: sepia(1); */
 }
 .apply-btn,
+.reset-btn,
 .close-btn {
   /* position: absolute; */
   height: 2em;
@@ -117,6 +118,13 @@
   color: var(--border-color-hov);
   box-shadow: 0 0 1em 0.2em hsla(129, 93%, 41%, 0.808),
     inset 0 0 0.5em 0.1em hsla(129, 93%, 41%, 0.71);
+}
+.reset-btn:hover,
+.apply-btn:focus {
+  border: 1px solid var(--border-color-hov);
+  color: var(--border-color-hov);
+  box-shadow: 0 0 1em 0.2em hsla(44, 54%, 93%, 0.808),
+    inset 0 0 0.5em 0.1em hsla(44, 54%, 93%, 0.71);
 }
 .close-btn:hover,
 .close-btn:focus {

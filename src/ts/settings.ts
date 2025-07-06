@@ -79,6 +79,7 @@ export function applySettings(event: Event): void {
 function saveSettings({
   ownerId,
   sensorId,
+
   newName,
   newHighLimit,
   newLowLimit,
@@ -86,6 +87,7 @@ function saveSettings({
 }: {
   ownerId: string;
   sensorId: string;
+
   newName: string;
   newHighLimit: string;
   newLowLimit: string;

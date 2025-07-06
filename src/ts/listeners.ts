@@ -45,13 +45,13 @@ export function submitForLoginEventListener() {
         const { username, topic } = loginData;
         client.on("connect", () => {
           console.log("Підключено");
-          client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
-          // client.subscribe(`${username}/#`);
+          // client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+          client.subscribe(`${username}/#`);
         });
 
         client.on("message", (_, message) => {
           const messageStr = message.toString().slice(0, -1);
-          // console.log(messageStr);
+          console.log(messageStr);
           if (messageStr) {
             addToAndRefreshObject(messageStr);
             isNeedsAutoSorting(sensorsResponses);
