@@ -91,11 +91,8 @@ export function modalInputsEventListener(
     ) {
       applyBtn.disabled = false;
     } else {
-      console.log("ddd");
-
       applyBtn.disabled = true;
     }
-    console.log(typeof low);
   });
 }
 
