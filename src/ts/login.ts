@@ -30,7 +30,7 @@ export function fetch(loginData: LoginData) {
     reconnectPeriod: 5000, // Період перепідключення (5 секунд)
     // connectTimeout: 5000,
     manualConnect: false,
-    clean: false,
+    clean: true,
   });
 
   return client;

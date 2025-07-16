@@ -109,22 +109,39 @@ export function stopAlarm(event: Event): void {
     (el as HTMLElement).dataset.stopped = "true";
     (el as HTMLElement).dataset.blink = "false";
   });
+  stopAlarmSound();
 }
 
 // ==== Включення звукової сигналізації
 export function soundAlarm() {
   const monitorDiv = document.querySelector(".monitor") as HTMLDivElement;
   const isAlarmActive = monitorDiv.dataset.isAlarmActive;
-  const isAlarmSoundPlaying = monitorDiv.dataset.isSoundPlaying;
-  const alarmSound = new Audio("../../sound/alarm.wav");
-  if (isAlarmActive === "true" && isAlarmSoundPlaying === "false") {
-    monitorDiv.dataset.isSoundPlaying = "true";
+  const isSoundPlaying = monitorDiv.dataset.isSoundPlaying;
+  if (
+    (isAlarmActive === "false" && isSoundPlaying === "false") ||
+    (isAlarmActive === "true" && isSoundPlaying === "true")
+  )
+    return;
+
+  const alarmSound = document.querySelector(
+    "[data-alarm-sound]"
+  ) as HTMLAudioElement;
+  if (isAlarmActive === "true") {
+    alarmSound.volume = 0.5;
+    alarmSound.playbackRate = 1.2;
     alarmSound.loop = true;
-    alarmSound.volume = 0.2;
     alarmSound.play();
-  } else {
-    alarmSound.pause();
-    alarmSound.currentTime = 0;
-    console.log(alarmSound.paused);
+    monitorDiv.dataset.isSoundPlaying = "true";
   }
+}
+
+function stopAlarmSound() {
+  const monitorDiv = document.querySelector(".monitor") as HTMLDivElement;
+  const alarmSound = document.querySelector(
+    "[data-alarm-sound]"
+  ) as HTMLAudioElement;
+  alarmSound.pause();
+  alarmSound.currentTime = 0;
+  alarmSound.loop = false;
+  monitorDiv.dataset.isSoundPlaying = "false";
 }
