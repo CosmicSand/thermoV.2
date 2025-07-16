@@ -47,6 +47,7 @@ export function batteryLevelShow(sensorId: string) {
   }
   if (batteryLevel < 20) {
     redLevel?.classList.remove("drained");
+    redLevel?.classList.remove("medium-level");
     yellowLevel?.classList.add("drained");
     greenLevel?.classList.add("drained");
     return;
