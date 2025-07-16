@@ -113,7 +113,7 @@ export function stopAlarm(event: Event): void {
 }
 
 // ==== Включення звукової сигналізації
-export function soundAlarm() {
+export function startAlarmSound() {
   const monitorDiv = document.querySelector(".monitor") as HTMLDivElement;
   const isAlarmActive = monitorDiv.dataset.isAlarmActive;
   const isSoundPlaying = monitorDiv.dataset.isSoundPlaying;

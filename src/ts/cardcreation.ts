@@ -3,7 +3,7 @@ import {
   sensorsTemperatureUpdate,
   boilerTemperatureUpdate,
 } from "./temperature";
-import { soundAlarm, temperatureAlarm } from "./alarm";
+import { startAlarmSound, temperatureAlarm } from "./alarm";
 import { timeSinceLastUpd } from "./time";
 import { updateBatteryLevel, batteryLevelShow, batteryLevel } from "./battery";
 import { signalLevelShow, signalLevel, updateSignalLevel } from "./signal";
@@ -198,7 +198,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         typeOfSensor
       );
       temperatureAlarm(sensorId, temperatureOut, typeOfSensor);
-      soundAlarm();
+      startAlarmSound();
       updateBatteryLevel(sensorId, chargingLevel);
       batteryLevelShow(sensorId);
       updateSignalLevel(sensorId, signal);
