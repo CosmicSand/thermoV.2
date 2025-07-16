@@ -94,3 +94,6 @@ export function stopAlarm(event: Event): void {
     (el as HTMLElement).dataset.blink = "false";
   });
 }
+
+// ==== Звукова сигналізація
+function soundAlarm() {}
