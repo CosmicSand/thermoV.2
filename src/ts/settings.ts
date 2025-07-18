@@ -1,6 +1,3 @@
-// Функція відкриття та закриття індивідуального вікна налаштувань
-
-// import { simpleSorting } from "./sorting";
 import { modalInputsEventListener } from "./listeners";
 import { SavedSettings } from "./settings.types";
 
@@ -14,12 +11,13 @@ export const modalWindow = document.querySelector(
   "[data-modal]"
 ) as HTMLDialogElement;
 
+// Функція відкриття та закриття індивідуального вікна налаштувань
+
 export function openAndCloseIndividualSettings(event: Event): void {
   const sensorId = (event.target as HTMLElement)?.dataset.id;
   const currentName = (event.target as HTMLElement)?.dataset.name;
   if (!sensorId) return;
 
-  // if (!modalWindow) return;
   const settingsForm = document.querySelector(
     "[data-settings-form]"
   ) as HTMLElement;
@@ -115,6 +113,7 @@ function saveSettings({
         newHighLimit,
         newLowLimit,
         newAlarmTime,
+        oldName: sensorId.slice(-1, sensorId.indexOf("-")),
       },
     };
   }
