@@ -42,8 +42,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  width: 7rem;
-  height: 7rem;
+  width: 5rem;
+  height: 5rem;
   padding-left: 0.5em;
   padding-right: 0.5em;
   /* filter: contrast(1.2); */
@@ -67,7 +67,6 @@
 
 .sensor:hover {
   outline: 1px solid hsl(0, 0%, 100%);
-  /* transform: scale(1.05); */
 }
 
 .parameter {
@@ -303,7 +302,7 @@
     width: 10em;
     height: 10em;
   }
-  .sensor.boiler {
+  .boiler {
     width: 12em;
     height: 12em;
   }

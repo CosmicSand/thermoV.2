@@ -34,8 +34,6 @@
   flex-wrap: wrap;
   padding-top: 1em;
   padding-bottom: 1em;
-  margin-top: 2em;
-  margin-bottom: 1em;
 }
 .for-sensors {
   display: flex;
@@ -49,8 +47,6 @@
   flex-wrap: wrap;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 768px) {
