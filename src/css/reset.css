@@ -42,3 +42,6 @@ button {
   cursor: pointer;
   font-family: inherit;
 }
+button:active {
+  transform: scale(0.95);
+}
