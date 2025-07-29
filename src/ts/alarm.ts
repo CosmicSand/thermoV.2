@@ -42,7 +42,6 @@ export function temperatureAlarm(
       currentSensor.dataset.blink = "false";
       currentSensor?.classList.remove("freezing-cold-alarm");
       currentSensor?.classList.remove("over-heated-alarm");
-      console.log(monitorDiv.querySelectorAll(".freezing-cold-alarm").length);
       if (
         !monitorDiv.querySelector(".freezing-cold-alarm") &&
         !monitorDiv.querySelector(".over-heated-alarm")

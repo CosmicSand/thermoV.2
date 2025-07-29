@@ -3,7 +3,6 @@ import {
   submitModalEventListener,
   closeByClickModalEventListener,
   clickEventListenerGeneral,
-  modalInputsEventListener,
 } from "./ts/listeners";
 
 submitForLoginEventListener();

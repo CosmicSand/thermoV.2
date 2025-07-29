@@ -43,9 +43,6 @@ export function addToAndRefreshObject(messageStr: string) {
 
   const currentResponse = messageStr.split(";");
   const ownerId = currentResponse[0];
-  // const sensorNumber: number = Number(currentResponse[1]);
-  // const sensorId = ownerId + "_" + sensorNumber;
-  // const sensorData = currentResponse.slice(2);
   const sensorData = currentResponse
     .slice(1)
     .map((sensor, i) => {
@@ -61,7 +58,6 @@ export function addToAndRefreshObject(messageStr: string) {
 
   const sensorNumber: number = Number(sensorData[0]);
   const sensorId = ownerId + "_" + sensorNumber;
-  // console.log(sensorData);
 
   if (sensorNumber % 10 === 0 && sensorNumber % 100 !== 0) {
     sensorData.push(TYPES_0F_EQUIPMENT.BOILER);
@@ -87,8 +83,6 @@ export function addToAndRefreshObject(messageStr: string) {
       }
     });
   }
-  // console.log(sensorsResponses);
-
   return sensorsResponses;
 }
 
@@ -114,40 +108,3 @@ export function isNeedsAutoSorting(sensorsResponses: SensorsResponse) {
     }
   }
 }
-
-// export function saveSensorsResponsestoLocalStorage(loginData: LoginData) {
-//   const { topic } = loginData;
-//   setInterval(() => {
-//     localStorage.setItem(
-//       `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`,
-//       JSON.stringify(sensorsResponses)
-//     );
-//   }, 300000);
-// }
-// export function createSensorResponsesObj(topic?: string) {
-//   const storedData = localStorage.getItem(
-//     `${THERMO_SENSOR_RESPONSE}${topic ? "_" + topic : ""}`
-//   );
-//   return storedData
-//     ? ({
-//         ...JSON.parse(storedData),
-//       } as SensorsResponse)
-//     : ({} as SensorsResponse);
-// }
-
-// ==== LogIn ===
-
-// console.log(import.meta.env.VITE_PROTOCOL);
-
-// function loginToMqtt(e: Event) {
-//   e.preventDefault();
-//   const loginInput = document.querySelector<HTMLInputElement>("#username");
-//   const passwordInput = document.querySelector<HTMLInputElement>("#password");
-//   console.log({
-//     username: loginInput?.value,
-//     password: passwordInput?.value,
-//
-//   });
-// }
-
-// export default loginToMqtt;

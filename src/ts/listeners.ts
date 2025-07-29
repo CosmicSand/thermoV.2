@@ -10,7 +10,7 @@ import { swipingPressingBtns, swipingPressingLoginBtn } from "./info";
 import { openAndCloseIndividualSettings } from "./settings";
 import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
-import { simpleSorting, sorting } from "./sorting";
+import { simpleSorting, simpleSortingBoilers, sorting } from "./sorting";
 import { cardCreation } from "./cardcreation";
 
 export function submitForLoginEventListener() {
@@ -55,7 +55,6 @@ export function submitForLoginEventListener() {
           }
         });
 
-        //   saveSensorsResponsestoLocalStorage(loginData);
         swipingPressingLoginBtn(event);
       })
       .catch(() => {
@@ -123,6 +122,7 @@ export function submitModalEventListener() {
     const sensorNumber = (event.target as HTMLElement)?.dataset.target;
     const ownerName = sensorNumber?.split("_")[0] || "";
     simpleSorting(ownerName);
+    simpleSortingBoilers(ownerName);
   });
 }
 

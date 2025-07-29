@@ -129,9 +129,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         } data-low=${
           applySavedSettings(ownerId, sensorId)?.newLowLimit || "15"
         }>
-                        <p class="parameter" data-before=${
+                        <div data-before=${
                           temperatureBefore > 0 ? temperatureBefore : "!"
-                        }>${temperatureAfter}</p>
+                        }> <p class="parameter" >${temperatureAfter}</p> </div>
                       
             <p class="sensor-name" data-boiler-name>
               

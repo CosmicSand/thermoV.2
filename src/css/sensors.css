@@ -254,23 +254,27 @@
   cursor: pointer;
 }
 
-.boiler > .parameter:hover::before {
+.boiler .parameter:hover {
+  filter: opacity(0);
+}
+
+.boiler > div:hover::before {
   content: attr(data-before);
   position: absolute;
-  font-size: inherit;
+  font-size: 3rem;
+  font-weight: 600;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
   left: 50%;
   top: 40.5%;
-  /* height: 100%; */
   transform: translate(-50%, -50%);
   border-radius: 0.2em;
   padding: 0.1em 0.2em;
   color: var(--border-color);
   filter: none;
-  background-color: hsl(0, 0%, 0%);
+  background-color: transparent;
 }
 
 /* .boiler::before {
