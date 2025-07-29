@@ -142,11 +142,3 @@ function saveSettings({
     JSON.stringify(SAVED_NEW_SETTINGS)
   );
 }
-
-// Скидання налаштувань до заводських
-
-function resetSettings(
-  defaultHighLimit = 85,
-  defaultLowLimit = 15,
-  defaultTimeSinceLastUpd = 3
-) {}

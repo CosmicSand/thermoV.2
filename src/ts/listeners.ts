@@ -8,16 +8,10 @@ import {
 import { LoginData } from "./login.types";
 import { swipingPressingBtns, swipingPressingLoginBtn } from "./info";
 import { openAndCloseIndividualSettings } from "./settings";
-import { stopAlarm, temperatureAlarm } from "./alarm";
+import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, sorting } from "./sorting";
 import { cardCreation } from "./cardcreation";
-
-const loginData: LoginData = {
-  username: import.meta.env.VITE_USERNAME,
-  password: import.meta.env.VITE_PASSWORD,
-  topic: import.meta.env.VITE_USER,
-};
 
 export function submitForLoginEventListener() {
   const loginForm = document.querySelector("[data-login-form]");
@@ -35,23 +29,24 @@ export function submitForLoginEventListener() {
     ) as HTMLInputElement;
     const portInput = loginForm.elements.namedItem("port") as HTMLInputElement;
 
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
-    const topic = topicInput.value.toUpperCase().trim();
-    const port = portInput.value.trim();
+    const loginData: LoginData = {
+      username: usernameInput.value.trim(),
+      password: passwordInput.value.trim(),
+      topic: topicInput.value.toUpperCase().trim(),
+      port: Number(portInput.value.trim()),
+    };
 
     fetch(loginData)
       .then((client) => {
         const { username, topic } = loginData;
         client.on("connect", () => {
           console.log("Підключено");
-          // client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
-          client.subscribe(`${username}/#`);
+          client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
+          // client.subscribe(`${username}/#`);
         });
 
         client.on("message", (_, message) => {
           const messageStr = message.toString().slice(0, -1);
-          console.log(messageStr);
           if (messageStr) {
             addToAndRefreshObject(messageStr);
             isNeedsAutoSorting(sensorsResponses);

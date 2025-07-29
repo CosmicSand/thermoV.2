@@ -1,8 +1,6 @@
 import mqtt from "mqtt";
 import { SensorsResponse, LoginData } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
-// import { cardCreation } from "./cardcreation";
-// import { sorting } from "./sorting";
 
 const TYPES_0F_EQUIPMENT = {
   SENSOR: "sensor",
@@ -15,13 +13,13 @@ export let sensorsResponses: SensorsResponse = {};
 export const statesForSorting = {} as StatesForSorting;
 
 export function fetch(loginData: LoginData) {
-  const { username, password } = loginData;
+  const { username, password, port } = loginData;
   sensorsResponses = {} as SensorsResponse;
 
   const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
     hostname: "sgh.com.ua", // Адреса MQTT брокера
-    port: import.meta.env.VITE_PORT, // Порт MQTT брокера
-    protocol: import.meta.env.VITE_PROTOCOL, // Протокол підключення ws (WebSocket)
+    port, // Порт MQTT брокера
+    protocol: "ws", // Протокол підключення ws (WebSocket)
     path: "/ws", // Шлях до MQTT брокера
     username, // Ім'я користувача
     password, // Пароль користувача

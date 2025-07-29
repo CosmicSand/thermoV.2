@@ -5,5 +5,8 @@ export type SensorsResponse = {
 };
 
 export type LoginData = {
-  [key: string]: string;
+  username: string;
+  password: string;
+  topic: string;
+  port: number;
 };
