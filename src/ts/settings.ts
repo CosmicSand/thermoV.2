@@ -1,3 +1,4 @@
+import { startAlarmSound, stopAlarmSound, temperatureAlarm } from "./alarm";
 import { modalInputsEventListener } from "./listeners";
 import { SavedSettings } from "./settings.types";
 
@@ -85,13 +86,25 @@ export function applySettings(event: Event): void {
 
   saveSettings(newSettings);
 
+  if (currentSensor.dataset.sensor && currentSensor.dataset.current) {
+    const temperature = currentSensor.dataset.current;
+    temperatureAlarm(sensorId, temperature, "sensor");
+    startAlarmSound();
+  }
+  if (currentSensor.dataset.boiler && currentSensor.dataset.after) {
+    const temperature = currentSensor.dataset.after;
+    temperatureAlarm(sensorId, temperature, "boiler");
+    startAlarmSound();
+  }
+  if (document.querySelectorAll("[data-blink=true]").length === 0) {
+    stopAlarmSound();
+  }
   modalWindow?.close();
 }
 
 function saveSettings({
   ownerId,
   sensorId,
-
   newName,
   newHighLimit,
   newLowLimit,
@@ -99,7 +112,6 @@ function saveSettings({
 }: {
   ownerId: string;
   sensorId: string;
-
   newName: string;
   newHighLimit: string;
   newLowLimit: string;
@@ -131,15 +143,10 @@ function saveSettings({
   );
 }
 
-// function openAndCloseIndividualSettings(event: Event): void {
-//   const sensorNumber =
-//     (event.target as HTMLElement)?.dataset.name ||
-//     (event.target as HTMLElement)?.dataset.close;
+// Скидання налаштувань до заводських
 
-//   if (!sensorNumber) return;
-
-//   const settingsWindow = document.querySelector(
-//     `[data-settings-window="${sensorNumber}"]`
-//   );
-//   settingsWindow?.classList.toggle("hidden");
-// }
+function resetSettings(
+  defaultHighLimit = 85,
+  defaultLowLimit = 15,
+  defaultTimeSinceLastUpd = 3
+) {}

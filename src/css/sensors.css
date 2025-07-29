@@ -251,6 +251,7 @@
     transparent 0% 50%,
     hsla(129, 93%, 41%, 0.71) 70% 100%
   );
+  cursor: pointer;
 }
 
 .boiler > .parameter:hover::before {

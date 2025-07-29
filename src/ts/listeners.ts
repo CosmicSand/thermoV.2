@@ -8,7 +8,7 @@ import {
 import { LoginData } from "./login.types";
 import { swipingPressingBtns, swipingPressingLoginBtn } from "./info";
 import { openAndCloseIndividualSettings } from "./settings";
-import { stopAlarm } from "./alarm";
+import { stopAlarm, temperatureAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, sorting } from "./sorting";
 import { cardCreation } from "./cardcreation";

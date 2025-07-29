@@ -40,7 +40,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         temperatureOut,
         temperatureIn,
         signal,
-        typeOfSignal,
+        ,
         typeOfSensor,
         timeStamp,
       ] = sensorsResponses[ownerId][sensorId];
@@ -104,12 +104,14 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const temperatureAfter = parseFloat(temperatureOut);
         const temperatureBefore = parseFloat(temperatureIn);
         // !outTemperature.toString().includes("-")
-        let delta: string;
-        if (temperatureAfter > 0 && temperatureBefore > 0) {
-          delta = (temperatureAfter - temperatureBefore).toFixed(1);
-        } else {
-          delta = "";
-        }
+
+        // Розрахунок підігріву
+        // let delta: string;
+        // if (temperatureAfter > 0 && temperatureBefore > 0) {
+        //   delta = (temperatureAfter - temperatureBefore).toFixed(1);
+        // } else {
+        //   delta = "";
+        // }
 
         const sensorBoilerElement = `<div class="boiler" id=${sensorId} data-id=${sensorId}  data-name=${
           applySavedSettings(ownerId, sensorId)?.newName || name

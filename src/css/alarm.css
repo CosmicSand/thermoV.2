@@ -1,19 +1,12 @@
 /* ==== Alarm - Overheated ==== */
 
-/* .sensor.over-heated {
+.sensor.over-heated-alarm {
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-color) 70% 100%
   );
-} */
-
-.sensor.over-heated-alarm {
-  /* box-shadow: 0 0 1em 1em var(--alarm-color),
-    inset 0 -0.2em 0.6em 0.6em var(--alarm-color);
-  background-image: radial-gradient(
-    transparent 0% 50%,
-    var(--alarm-color) 70% 100%
-  ); */
+}
+.boiler.over-heated-alarm {
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-color) 70% 100%
@@ -37,12 +30,12 @@
 }
 
 .sensor.freezing-cold-alarm {
-  /* box-shadow: 0 0 1em 1em var(--alarm-freezing-color),
-    inset 0 -0.2em 0.6em 0.6em var(--alarm-freezing-color); */
-  /* background-image: radial-gradient(
+  background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-freezing-color) 70% 100%
-  ); */
+  );
+}
+.boiler.freezing-cold-alarm {
   background-image: radial-gradient(
     transparent 0% 50%,
     var(--alarm-freezing-color) 70% 100%
