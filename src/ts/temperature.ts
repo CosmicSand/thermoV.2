@@ -13,7 +13,7 @@ export function sensorsTemperatureUpdate(
   const currentTemperatureParagraph = document.querySelector(
     `[data-temp='${sensorId}']`
   ) as HTMLParagraphElement;
-  if (sensorTemperature === -127) currentTemperatureParagraph.innerText = "-";
+  if (sensorTemperature === -127) currentTemperatureParagraph.innerText = "!";
   if (currentTemperatureParagraph.innerText != null) {
     let currentTemperature = parseFloat(currentTemperatureParagraph.innerText);
     if (
@@ -41,7 +41,7 @@ export function boilerTemperatureUpdate(
     `[data-boiler = ${sensorId}]`
   ) as HTMLDivElement;
 
-  if (temperatureBefore === -127) currentBoiler.dataset.before = "-";
+  if (temperatureBefore === -127) currentBoiler.dataset.before = "!";
   if (currentBoiler.dataset.before != null) {
     let currentTemperatureBefore = parseFloat(currentBoiler.dataset.before);
     if (
@@ -52,7 +52,7 @@ export function boilerTemperatureUpdate(
     }
   }
 
-  if (temperatureAfter === -127) currentBoiler.dataset.after = "-";
+  if (temperatureAfter === -127) currentBoiler.dataset.after = "!";
   if (currentBoiler.dataset.after != null) {
     let currentTemperatureAfter = parseFloat(currentBoiler.dataset.after);
     if (

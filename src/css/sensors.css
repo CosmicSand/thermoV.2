@@ -190,7 +190,6 @@
   border-radius: 0.2em;
   padding: 0.1em 0.2em;
   color: var(--border-color);
-  /* background-color: transparent; */
   filter: none;
   background-color: hsl(0, 0%, 0%);
 }
@@ -243,8 +242,9 @@
   justify-content: center;
   flex-wrap: nowrap;
   padding: 0.5rem;
-  width: 8rem;
-  height: 8rem;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
   border-left: 0.15rem solid hsla(186, 100%, 51%, 0.792);
   border-right: 0.15rem solid hsla(0, 97%, 42%, 0.745);
   background-image: radial-gradient(
@@ -253,7 +253,26 @@
   );
 }
 
-.boiler::before {
+.boiler > .parameter:hover::before {
+  content: attr(data-before);
+  position: absolute;
+  font-size: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  left: 50%;
+  top: 40.5%;
+  /* height: 100%; */
+  transform: translate(-50%, -50%);
+  border-radius: 0.2em;
+  padding: 0.1em 0.2em;
+  color: var(--border-color);
+  filter: none;
+  background-color: hsl(0, 0%, 0%);
+}
+
+/* .boiler::before {
   content: attr(data-before);
   font-size: 3rem;
   font-weight: 600;
@@ -266,9 +285,9 @@
   transform: translate(-50%, -50%);
   top: 35%;
   left: -4rem;
-}
+} */
 
-.boiler::after {
+/* .boiler::after {
   content: attr(data-after);
   font-size: 3rem;
   font-weight: 600;
@@ -282,7 +301,7 @@
   top: 4.5rem;
   left: 15.8rem;
   z-index: -1;
-}
+} */
 
 [data-active="true"] {
   box-shadow: 0.1em 0.1em 1.5em 0.1em hsl(0, 0%, 100%);
@@ -301,7 +320,7 @@
     display: flex;
     flex-direction: row;
   }
-  .boiler::before {
+  /* .boiler::before {
     content: attr(data-before);
     font-size: 3rem;
     font-weight: 600;
@@ -314,9 +333,9 @@
     transform: translate(-50%, -50%);
     top: 35%;
     left: -4rem;
-  }
+  } */
 
-  .sensor.boiler::after {
+  /* .sensor.boiler::after {
     content: attr(data-after);
     font-size: 3rem;
     font-weight: 600;
@@ -330,7 +349,7 @@
     top: 4.5rem;
     left: 15.8rem;
     z-index: -1;
-  }
+  } */
   .padding {
     padding-left: 4.6em;
     padding-right: 4.6em;

@@ -111,12 +111,12 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
           delta = "";
         }
 
-        const sensorBoilerElement = `<div class="sensor boiler" id=${sensorId} data-id=${sensorId}  data-name=${
+        const sensorBoilerElement = `<div class="boiler" id=${sensorId} data-id=${sensorId}  data-name=${
           applySavedSettings(ownerId, sensorId)?.newName || name
         } data-boiler=${sensorId} data-before=${
-          temperatureBefore > 0 ? temperatureBefore : "-"
+          temperatureBefore > 0 ? temperatureBefore : "!"
         } data-after=${
-          temperatureAfter > 0 ? temperatureAfter : "-"
+          temperatureAfter > 0 ? temperatureAfter : "!"
         } data-active=${boilerIsActive(
           temperatureBefore,
           temperatureAfter
@@ -127,7 +127,9 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         } data-low=${
           applySavedSettings(ownerId, sensorId)?.newLowLimit || "15"
         }>
-                        <p class="parameter"><span class='delta'>&#916;</span>${delta}</p>
+                        <p class="parameter" data-before=${
+                          temperatureBefore > 0 ? temperatureBefore : "!"
+                        }>${temperatureAfter}</p>
                       
             <p class="sensor-name" data-boiler-name>
               
