@@ -59,6 +59,10 @@ export function submitForLoginEventListener() {
       })
       .catch(() => {
         console.log("Fuck");
+        loginForm.classList.add("unsuccess");
+        setTimeout(() => {
+          loginForm.classList.remove("unsuccess");
+        }, 1000);
       });
   });
 }
