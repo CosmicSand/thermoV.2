@@ -169,7 +169,7 @@ export function cardCreation(sensorsResponses: SensorsResponse) {
         const accuLevel = Number(chargingLevel);
         const isGrid = Number(sensorParameters[2]) > 4 ? 1 : 0;
 
-        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="1">
+        const sensorGatewayElement = `<div class="gateway-element" id='${sensorId}' data-accu=${accuLevel} data-grid=${isGrid} data-alarmtime="3">
                         <p class="parameter">${accuLevel}</p>
                         <p class="parameter">${isGrid}</p>
           
