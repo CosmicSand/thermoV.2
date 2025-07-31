@@ -15,7 +15,7 @@ import { cardCreation } from "./cardcreation";
 
 export function submitForLoginEventListener() {
   const loginForm = document.querySelector("[data-login-form]");
-  loginForm?.addEventListener("submit", (event: Event) => {
+  loginForm?.addEventListener("click", (event: Event) => {
     event.preventDefault();
     const loginForm = event.currentTarget as HTMLFormElement;
     const usernameInput = loginForm.elements.namedItem(
