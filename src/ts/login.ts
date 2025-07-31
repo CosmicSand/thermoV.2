@@ -20,7 +20,7 @@ export function fetch(loginData: LoginData) {
     hostname: "sgh.com.ua", // Адреса MQTT брокера
     port, // Порт MQTT брокера
     protocol: "wss", // Протокол підключення ws (WebSocket)
-    path: "/ws", // Шлях до MQTT брокера
+    path: "/wss", // Шлях до MQTT брокера
     username, // Ім'я користувача
     password, // Пароль користувача
     clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
