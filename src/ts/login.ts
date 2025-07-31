@@ -19,7 +19,7 @@ export function fetch(loginData: LoginData) {
   const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
     hostname: "sgh.com.ua", // Адреса MQTT брокера
     port, // Порт MQTT брокера
-    protocol: "ws", // Протокол підключення ws (WebSocket)
+    protocol: "wss", // Протокол підключення ws (WebSocket)
     path: "/ws", // Шлях до MQTT брокера
     username, // Ім'я користувача
     password, // Пароль користувача
