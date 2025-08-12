@@ -16,19 +16,20 @@ export function fetch(loginData: LoginData) {
   const { username, password, port } = loginData;
   sensorsResponses = {} as SensorsResponse;
 
-  const client = mqtt.connectAsync("mqtt://sgh.com.ua", {
-    hostname: "sgh.com.ua", // Адреса MQTT брокера
+  const client = mqtt.connectAsync("mqtt://mqtt.stsgh.uno", {
+    hostname: "mqtt.stsgh.uno", // Адреса MQTT брокера
     port, // Порт MQTT брокера
     protocol: "wss", // Протокол підключення ws (WebSocket)
-    path: "/ws", // Шлях до MQTT брокера
+    path: "/mqtt", // Шлях до MQTT брокера
     username, // Ім'я користувача
     password, // Пароль користувача
-    clientId: "websocket_monitor", // Ідентифікатор клієнта (може бути випадковим ім'ям)
+    clientId: "web_client_4c4kkqntz", // Ідентифікатор клієнта (може бути випадковим ім'ям)
     keepalive: 60, // Час утримання з'єднання (60 секунд)
     reconnectPeriod: 5000, // Період перепідключення (5 секунд)
     // connectTimeout: 5000,
     manualConnect: false,
     clean: true,
+    rejectUnauthorized: false,
   });
 
   return client;
