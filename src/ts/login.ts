@@ -16,7 +16,7 @@ export function fetch(loginData: LoginData) {
   const { username, password, port } = loginData;
   sensorsResponses = {} as SensorsResponse;
 
-  const client = mqtt.connectAsync("mqtt://mqtt.stsgh.uno", {
+  const client = mqtt.connectAsync("wss://mqtt.stsgh.uno", {
     hostname: "mqtt.stsgh.uno", // Адреса MQTT брокера
     port, // Порт MQTT брокера
     protocol: "wss", // Протокол підключення ws (WebSocket)
