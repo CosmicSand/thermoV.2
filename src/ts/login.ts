@@ -26,7 +26,7 @@ export function fetch(loginData: LoginData) {
     clientId: "web_client_4c4kkqntz", // Ідентифікатор клієнта (може бути випадковим ім'ям)
     keepalive: 60, // Час утримання з'єднання (60 секунд)
     reconnectPeriod: 5000, // Період перепідключення (5 секунд)
-    connectTimeout: 5000,
+    // connectTimeout: 5000,
     manualConnect: false,
     clean: true,
     rejectUnauthorized: true,
