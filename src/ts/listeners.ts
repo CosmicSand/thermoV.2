@@ -1,5 +1,4 @@
 import {
-  fetch,
   sensorsResponses,
   addToAndRefreshObject,
   isNeedsAutoSorting,
@@ -12,6 +11,7 @@ import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, simpleSortingBoilers, sorting } from "./sorting";
 import { cardCreation } from "./cardcreation";
+import { mqttService } from "./mqttService";
 
 export function submitForLoginEventListener() {
   const loginForm = document.querySelector("[data-login-form]");
@@ -36,31 +36,13 @@ export function submitForLoginEventListener() {
       port: Number(portInput.value.trim()),
     };
 
-    fetch(loginData)
-      .then((client) => {
-        const { username, topic } = loginData;
-        client.on("connect", () => {
-          console.log("Підключено");
-          client.subscribe(`${username}/${topic ? topic + "/" : "#"}`);
-          // client.subscribe(`${username}/#`);
-        });
-
-        client.on("message", (_, message) => {
-          const messageStr = message.toString().slice(0, -1);
-          console.log(messageStr);
-
-          if (messageStr) {
-            addToAndRefreshObject(messageStr);
-            isNeedsAutoSorting(sensorsResponses);
-            cardCreation(sensorsResponses);
-            sorting(sensorsResponses, statesForSorting);
-          }
-        });
-
+    mqttService
+      .connect(loginData)
+      .then(() => {
         swipingPressingLoginBtn(event);
       })
-      .catch(() => {
-        console.log("Fuck");
+      .catch((err) => {
+        console.error("Ошибка подключения:", err);
         loginForm.classList.add("unsuccess");
         setTimeout(() => {
           loginForm.classList.remove("unsuccess");

@@ -1,4 +1,3 @@
-import mqtt from "mqtt";
 import { SensorsResponse, LoginData } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
 
@@ -11,29 +10,6 @@ const TYPES_0F_EQUIPMENT = {
 export let sensorsResponses: SensorsResponse = {};
 
 export const statesForSorting = {} as StatesForSorting;
-
-export function fetch(loginData: LoginData) {
-  const { username, password, port } = loginData;
-  sensorsResponses = {} as SensorsResponse;
-
-  const client = mqtt.connectAsync("mqtt://mqtt.stsgh.uno", {
-    hostname: "mqtt.stsgh.uno", // Адреса MQTT брокера
-    port, // Порт MQTT брокера
-    protocol: "wss", // Протокол підключення ws (WebSocket)
-    path: "/mqtt", // Шлях до MQTT брокера
-    username, // Ім'я користувача
-    password, // Пароль користувача
-    clientId: "web_client_4c4kkqntz", // Ідентифікатор клієнта (може бути випадковим ім'ям)
-    keepalive: 60, // Час утримання з'єднання (60 секунд)
-    reconnectPeriod: 5000, // Період перепідключення (5 секунд)
-    // connectTimeout: 5000,
-    manualConnect: false,
-    clean: true,
-    rejectUnauthorized: true,
-  });
-
-  return client;
-}
 
 // Функція, яка додає до об'єкту користувачів та точки контролю для кожного окремо, а також оновлює дані кожної з точок при надходженні нових значень
 
