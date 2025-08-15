@@ -1,4 +1,4 @@
-import { SensorsResponse, LoginData } from "./login.types";
+import { SensorsResponse } from "./login.types";
 import { StatesForSorting } from "./sorting.types";
 
 const TYPES_0F_EQUIPMENT = {
