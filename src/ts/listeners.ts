@@ -1,16 +1,10 @@
-// import {
-//   sensorsResponses,
-//   addToAndRefreshObject,
-//   isNeedsAutoSorting,
-//   statesForSorting,
-// } from "./login";
 import { LoginData } from "./login.types";
 import { swipingPressingBtns, swipingPressingLoginBtn } from "./info";
 import { openAndCloseIndividualSettings } from "./settings";
 import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, simpleSortingBoilers } from "./sorting";
-// import { cardCreation } from "./cardcreation";
+
 import { mqttService } from "./mqttService";
 
 export function submitForLoginEventListener() {
