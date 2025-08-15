@@ -4,7 +4,6 @@ import { openAndCloseIndividualSettings } from "./settings";
 import { stopAlarm } from "./alarm";
 import { applySettings, modalWindow } from "./settings";
 import { simpleSorting, simpleSortingBoilers } from "./sorting";
-
 import { mqttService } from "./mqttService";
 
 export function submitForLoginEventListener() {

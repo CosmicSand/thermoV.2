@@ -9,7 +9,7 @@ import {
 import { cardCreation } from "./cardcreation";
 import { sorting } from "./sorting";
 
-// 1. Состояние сервиса
+// 1. Стан сервису
 interface MqttServiceState {
   client: MqttClient | null;
   connectionState:
@@ -55,7 +55,7 @@ function connect(loginData: LoginData): Promise<void> {
   state.client = client;
 
   return new Promise((resolve, reject) => {
-    // 3. Все обработчики событий теперь здесь
+    // 3. Всі обробники подій тепер тут
     client.on("connect", () => {
       state.connectionState = "connected";
       console.log("MQTT Service: Успешно подключено.");
